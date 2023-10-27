@@ -1,0 +1,19 @@
+{
+    "cod": "200",
+    "message": 0,
+    "cnt": 40,
+    "list": [],
+    "city": {
+        "id": 2643743,
+        "name": "London",
+        "coord": {
+            "lat": 51.51,
+            "lon": -0.1337
+        },
+        "country": "GB",
+        "population": 1000000,
+        "timezone": 3600,
+        "sunrise": 1694064129,
+        "sunset": 1694111740
+    }
+}

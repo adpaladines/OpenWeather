@@ -1,0 +1,509 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "10 days" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 días"
+          }
+        }
+      }
+    },
+    "Air Quality info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calidad de aire"
+          }
+        }
+      }
+    },
+    "Celcius" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Centígrados"
+          }
+        }
+      }
+    },
+    "Dark" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oscuro"
+          }
+        }
+      }
+    },
+    "English" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inglés"
+          }
+        }
+      }
+    },
+    "Fahrenheit" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fahrenheit"
+          }
+        }
+      }
+    },
+    "Fair" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Justo"
+          }
+        }
+      }
+    },
+    "Feels like" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feels like"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sensación"
+          }
+        }
+      }
+    },
+    "Good" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bien"
+          }
+        }
+      }
+    },
+    "home" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Hogar"
+          }
+        }
+      }
+    },
+    "Hourly forecast (5 days)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pronóstico por horas (5 días)"
+          }
+        }
+      }
+    },
+    "Invalid request." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Petición inválida"
+          }
+        }
+      }
+    },
+    "Invalid status (code) code from response." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Código de status inválido."
+          }
+        }
+      }
+    },
+    "Kelvin" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kelvin"
+          }
+        }
+      }
+    },
+    "Language" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lenguage"
+          }
+        }
+      }
+    },
+    "Light" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claro"
+          }
+        }
+      }
+    },
+    "Malformed URL." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL mal formada"
+          }
+        }
+      }
+    },
+    "Moderate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moderado"
+          }
+        }
+      }
+    },
+    "Mono Dark" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mono Dark"
+          }
+        }
+      }
+    },
+    "Mono Light" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mono Light"
+          }
+        }
+      }
+    },
+    "Network error: (netError)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error de red"
+          }
+        }
+      }
+    },
+    "No data loaded." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se encontró datos."
+          }
+        }
+      }
+    },
+    "No errors detected" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se encontraron errores"
+          }
+        }
+      }
+    },
+    "No service response (timeout)." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timeout. Sin respuesta del servidor"
+          }
+        }
+      }
+    },
+    "Poor" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pobre"
+          }
+        }
+      }
+    },
+    "Preferences" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferencias"
+          }
+        }
+      }
+    },
+    "Pressure" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Presión"
+          }
+        }
+      }
+    },
+    "Rain volume 1h" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volumen lluvia 1h"
+          }
+        }
+      }
+    },
+    "Rain volume 3h" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volumen lluvia 3h"
+          }
+        }
+      }
+    },
+    "Resource not found." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recurso no encontrado"
+          }
+        }
+      }
+    },
+    "Response cannot be pased." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Respuesta no pudo ser enviada."
+          }
+        }
+      }
+    },
+    "Select your language:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona tu idioma:"
+          }
+        }
+      }
+    },
+    "Select your measure:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select your measure:"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleccione medida:"
+          }
+        }
+      }
+    },
+    "Select your theme:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona tu tema"
+          }
+        }
+      }
+    },
+    "settings" : {
+      "comment" : "Title settings",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuraciones"
+          }
+        }
+      }
+    },
+    "Snow volume 1h" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volumen nieve 1h"
+          }
+        }
+      }
+    },
+    "Snow volume 3h" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volumen nieve 3h"
+          }
+        }
+      }
+    },
+    "Spanish" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Español"
+          }
+        }
+      }
+    },
+    "Sunrise" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amanecer"
+          }
+        }
+      }
+    },
+    "Sunset" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atardecer"
+          }
+        }
+      }
+    },
+    "Today" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoy"
+          }
+        }
+      }
+    },
+    "Today's info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Información de hoy"
+          }
+        }
+      }
+    },
+    "Tomorrow" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mañana"
+          }
+        }
+      }
+    },
+    "Very Poor" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muy Pobre"
+          }
+        }
+      }
+    },
+    "Wind speed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viento"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
