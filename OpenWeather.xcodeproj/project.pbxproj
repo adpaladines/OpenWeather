@@ -284,9 +284,9 @@
 		DDC7983F2AEA914200BF9800 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DDC798402AEA916400BF9800 /* Jsons */,
 				DDA27C612AEAE4A5005E0292 /* Localizable.xcstrings */,
 				DDC798112AE9FC7100BF9800 /* Assets.xcassets */,
-				DDC798402AEA916400BF9800 /* Jsons */,
 			);
 			path = Resources;
 			sourceTree = "<group>";

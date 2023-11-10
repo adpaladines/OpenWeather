@@ -15,8 +15,21 @@ This app is made in SwiftUI, manages Color themes, Internationalization and meas
 [SwiftUI-image]: https://img.shields.io/badge/SwiftUI-4.0-orange?style=for-the-badge&logo=swift&logoColor=white
 [SwiftUI-url]: https://developer.apple.com/xcode/swiftui/
 
-
-
+### Todo:
+In the structure files contains: 
+- [ ] Change language:
+    - [ ] (fix): Bottom tab bar change languaje immediately.
+- [ ] Api Key hot swap:
+    - [ ] Functionality to change Api Key.
+    - [ ] View (modal or new config element) to change Api Key.
+    - [ ] Usage of modifiable Api Key in app.
+- [ ] Migration:
+    - [ ] Closures to Combine in Services.
+    - [ ] Closures to Combine in ViewModel and Repository.
+- [ ] Api Key change in app tutorial:
+    - [ ] View explaining how create own Api Key.
+    - [ ] View explaining how to change Api Key.
+  
 App manages light and dark themes.
 
 | Capture Description | Screenshot 1 | Screenshot 2 |
