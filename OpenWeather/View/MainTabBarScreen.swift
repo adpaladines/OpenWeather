@@ -14,18 +14,24 @@ struct MainTabBarScreen: View {
     
     var body: some View {
         TabView() {
+            NavigationView {
 //            MainLocationScreen(
 //                viewModel: MainLocationViewModel(
 //                    repository: WeatherFakeRepository(
 //                        isStubbingData: true
 //                    )
-//                ), isForTesting: true
+//                ),
+//                selectedCityName: "Deerfield Beach",
+//                isForTesting: true
 //            )
-            MainLocationScreen(
-                viewModel: MainLocationViewModel(
-                    repository: WeatherRepository()
+                MainLocationScreen(
+                    viewModel: MainLocationViewModel(
+                        repository: WeatherRepository()
+                    ), 
+                    selectedCityName: "Deerfield Beach"
                 )
-            )
+            }
+            
             .tabItem {
                 TabViewItem(type: .home)
             }
@@ -34,6 +40,7 @@ struct MainTabBarScreen: View {
                     TabViewItem(type: .settings)
                 }
         }
+        .navigationViewStyle(.stack)
         .accentColor(themeColor.button)
         .preferredColorScheme(themeColor.colorScheme)
         .onAppear {

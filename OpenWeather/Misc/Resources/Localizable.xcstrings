@@ -14,6 +14,12 @@
         }
       }
     },
+    "Address" : {
+
+    },
+    "Address search" : {
+
+    },
     "Air Quality info" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -183,6 +189,9 @@
         }
       }
     },
+    "Loading..." : {
+
+    },
     "Malformed URL." : {
       "localizations" : {
         "es" : {
@@ -339,6 +348,17 @@
         }
       }
     },
+    "Select your app icon:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona tu ícono:"
+          }
+        }
+      }
+    },
     "Select your language:" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -450,6 +470,9 @@
           }
         }
       }
+    },
+    "Theme" : {
+
     },
     "Today" : {
       "localizations" : {

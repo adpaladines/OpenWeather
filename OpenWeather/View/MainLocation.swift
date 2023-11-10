@@ -8,6 +8,11 @@
 import SwiftUI
 import CoreLocation
 
+enum LocationType {
+    case cityName(city: String)
+    case currentLocation
+}
+
 struct MainLocationScreen: View {
     
     @EnvironmentObject var themeColor: ThemeColor
@@ -19,14 +24,19 @@ struct MainLocationScreen: View {
     @State private var isClosedAirQuality = false
     @State private var isClosedForecast = false
     @State private var isLoading = true
+    @State var locationTypeSelected: LocationType = .currentLocation
+    
+    @State var selectedCityName: String
     
     var isForTesting: Bool?
     
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
-                
-                MainCitySearchBarView(cityName: viewModel.currentWeathrData?.name)
+                MainCitySearchBarView(
+                    selectedCityName: $selectedCityName,
+                    cityName: viewModel.currentWeathrData?.name
+                )
                     .padding()
                 MainTemperatureBarView(
                     temperature: viewModel.currentWeathrData?.main.temp,
@@ -130,8 +140,11 @@ struct MainLocationScreen_Previews: PreviewProvider {
                 repository: WeatherFakeRepository(
                     isStubbingData: true
                 )
-            ), isForTesting: true
+            ), 
+            selectedCityName: "Deerfield Beach", 
+            isForTesting: true
         )
+        
         return contentView
             .environmentObject(ThemeColor(appTheme: "light"))
             .environmentObject(CurrentLanguage(code: "es"))

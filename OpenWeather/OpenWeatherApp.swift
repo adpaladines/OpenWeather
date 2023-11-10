@@ -26,6 +26,7 @@ struct OpenWeatherForecastApp: App {
     @AppStorage("app_lang") var appLang: String = "en"
     @AppStorage("appTheme") var appTheme = AppTheme.dark.rawValue
     @AppStorage("appThemeUserDefined") var appThemeUserDefined = false
+    @AppStorage("appIconSelected") var appIconSelected: String = AppIconType.light.rawValue
 
     var body: some Scene {
         WindowGroup {
