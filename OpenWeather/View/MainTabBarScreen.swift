@@ -10,8 +10,13 @@ import SwiftUI
 struct MainTabBarScreen: View {
     
     @EnvironmentObject var themeColor: ThemeColor
-    @EnvironmentObject var currentLanguage: CurrentLanguage
+//    @EnvironmentObject var currentLanguage: CurrentLanguage
     
+    @AppStorage("app_lang") var appLang: String = "en"
+    // We only need to change the value to refresh the item elements.
+    @State private var homeItemText = TabViewItemType.home.text
+    @State private var settingsItemText = TabViewItemType.settings.text
+
     var body: some View {
         TabView() {
             NavigationView {
@@ -31,13 +36,13 @@ struct MainTabBarScreen: View {
                     selectedCityName: "Deerfield Beach"
                 )
             }
-            
             .tabItem {
-                TabViewItem(type: .home)
+                TabViewItem(type: .home, title: homeItemText)
             }
+            
             SettingsScreen()
                 .tabItem {
-                    TabViewItem(type: .settings)
+                    TabViewItem(type: .settings, title: settingsItemText)
                 }
         }
         .navigationViewStyle(.stack)
@@ -50,6 +55,11 @@ struct MainTabBarScreen: View {
             UITabBar.appearance().standardAppearance = appearance
             // Use this appearance when scrolled all the way up:
             UITabBar.appearance().scrollEdgeAppearance = appearance
+        }
+        .onChange(of: appLang) { newValue in
+            homeItemText = TabViewItemType.home.text
+            settingsItemText = TabViewItemType.settings.text
+            print(TabViewItemType.home.text)
         }
     }
 }
