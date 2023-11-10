@@ -51,13 +51,6 @@ extension MainLocationViewModel: WeatherInfoProtocol {
         }
     }
     
-    func getImageUrlBy(id: String?) -> String? {
-        guard let id_ = id else {
-            return nil
-        }
-        return repository.getUrlStringImageBy(id: id_)
-    }
-    
     func getDailyForecastInfo(coordinate: CLLocationCoordinate2D) async {
         repository.setServiceManager(Services(), and: coordinate)
         do {
@@ -83,6 +76,13 @@ extension MainLocationViewModel: WeatherInfoProtocol {
         }catch {
             setCustomErrorStatus(with: error)
         }
+    }
+    
+    func getImageUrlBy(id: String?) -> String? {
+        guard let id_ = id else {
+            return nil
+        }
+        return repository.getUrlStringImageBy(id: id_)
     }
     
     var currentWeatherIconUrl: URL? {
@@ -119,23 +119,51 @@ import Combine
 extension MainLocationViewModel {
     
     func getCurrentWeatherInfoCombine(coordinate: CLLocationCoordinate2D) {
+        let unit = MeasurementUnit(rawValue: currentMeasurementUnit) ?? .standard
         repository.setServiceManager(Services(), and: coordinate)
-        
-        let unit = MeasurementUnit(rawValue: currentMeasurementUnit)  ?? .standard
         repository.getCurrentWeatherCombine(metrics: unit, testingPath: "")
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
-                switch completion {
-                case .finished:
-                    self?.setCustomErrorStatus(with: nil)
-                case .failure(let error):
-                    self?.setCustomErrorStatus(with: error)
-                    print(error.localizedDescription)
-                }
-            } receiveValue: { weatherData in
-                self.currentWeathrData = weatherData
+                self?.manageErrorStatus(completion: completion)
+            } receiveValue: { [weak self] weatherData in
+                self?.currentWeathrData = weatherData
             }
             .store(in: &cancellables)
+    }
+    
+    func getDailyForecastInfoCombine(coordinate: CLLocationCoordinate2D) {
+        let unit = MeasurementUnit(rawValue: currentMeasurementUnit)  ?? .standard
+        repository.setServiceManager(Services(), and: coordinate)
+        repository.getForecastDataCombine(metrics: unit, testingPath: "")
+            .receive(on: RunLoop.main)
+            .sink { [weak self] completion in
+                self?.manageErrorStatus(completion: completion)
+            } receiveValue: { [weak self] forecastData in
+                self?.fiveForecastData = forecastData
+            }
+            .store(in: &cancellables)
+    }
+    
+    func getAirPollutionDataCombine(coordinate: CLLocationCoordinate2D) {
+        repository.setServiceManager(Services(), and: coordinate)
+        repository.getAirPollutionDataCombine(testingPath: "")
+            .receive(on: RunLoop.main)
+            .sink { [weak self] completion in
+                self?.manageErrorStatus(completion: completion)
+            } receiveValue: { [weak self] airPollutionData in
+                self?.airPollutionData = airPollutionData
+            }
+            .store(in: &cancellables)
+    }
+    
+    func manageErrorStatus(completion: Subscribers.Completion<Error> ) {
+        switch completion {
+        case .finished:
+            setCustomErrorStatus(with: nil)
+        case .failure(let error):
+            setCustomErrorStatus(with: error)
+            print(error.localizedDescription)
+        }
     }
 }
 

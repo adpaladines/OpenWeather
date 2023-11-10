@@ -129,4 +129,44 @@ extension WeatherRepository {
             .eraseToAnyPublisher()
     }
     
+    func getForecastDataCombine(metrics: MeasurementUnit?, testingPath: String) -> AnyPublisher<ForecastData?, Error> {
+        guard let lat_ = lat, let lon_ = lon else {
+            print("Latitude and Longitude must be defined first")
+            return Fail(error: NetworkError.request).eraseToAnyPublisher()
+        }
+        let path = testingPath.isEmpty ? UrlEndpoints.shared.forecast : testingPath
+        var requestable = CurrentWeatherRequest(apiVersion: .version_2_5, path: path)
+        requestable.set(lat: lat_, lon: lon_, metrics: metrics)
+        
+        return serviceManager.getDataFromApiCombine(requestable: requestable)
+            .tryMap { data in
+                return try JSONDecoder().decode(ForecastData.self, from: data)
+            }
+            .mapError { error in
+                return NetworkError.parsingValue
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func getAirPollutionDataCombine(testingPath: String) -> AnyPublisher<AirPollutionData?, Error> {
+        guard let lat_ = lat, let lon_ = lon else {
+            print("Latitude and Longitude must be defined first")
+            return Fail(error: NetworkError.request).eraseToAnyPublisher()
+        }
+
+        let path = testingPath.isEmpty ? UrlEndpoints.shared.airPollution : testingPath
+        var requestable = CurrentWeatherRequest(apiVersion: .version_2_5, path: path)
+        requestable.set(lat: lat_, lon: lon_)
+        
+        return serviceManager.getDataFromApiCombine(requestable: requestable)
+            .tryMap { data in
+                return try JSONDecoder().decode(AirPollutionData.self, from: data)
+            }
+            .mapError { error in
+                return NetworkError.parsingValue
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    
 }

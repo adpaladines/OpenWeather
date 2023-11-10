@@ -11,13 +11,6 @@ import Combine
 
 class WeatherFakeRepository: Repositoryable {
     
-    func getCurrentWeatherCombine(metrics: MeasurementUnit?, testingPath: String) -> AnyPublisher<CurrentWeatherData?, Error> {
-        return Just(nil)
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
-    }
-    
-    
     var serviceManager: Serviceable = JsonManager()
     var lat: String = "33.753746"
     var lon: String = "-84.386330"
@@ -78,6 +71,25 @@ class WeatherFakeRepository: Repositoryable {
     
     func getAirPollutionData(testingPath: String) async throws -> AirPollutionData? {
         return airPollutionData
+    }
+    
+    //MARK: Combine methods
+    func getForecastDataCombine(metrics: MeasurementUnit?, testingPath: String) -> AnyPublisher<ForecastData?, Error> {
+        return Just(nil)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+    
+    func getAirPollutionDataCombine(testingPath: String) -> AnyPublisher<AirPollutionData?, Error> {
+        return Just(nil)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+    
+    func getCurrentWeatherCombine(metrics: MeasurementUnit?, testingPath: String) -> AnyPublisher<CurrentWeatherData?, Error> {
+        return Just(nil)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
     }
      
 }
