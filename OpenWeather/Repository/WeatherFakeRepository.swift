@@ -32,21 +32,6 @@ class WeatherFakeRepository: Repositoryable {
         print("No need to be defined for moking")
     }
     
-    func getCurrentWeather(metrics: MeasurementUnit?, testingPath: String) async throws -> CurrentWeatherData? {
-        guard !isStubbingData else {
-            return currentWeatherData
-        }
-        var requestable = CurrentWeatherRequest(apiVersion: .test, path: "weather")
-        requestable.set(lat: "50", lon: "50", metrics: .metric)
-        do {
-            let data = try await serviceManager.getDataFromApi(requestable: requestable)
-            let weatherData = try JSONDecoder().decode(CurrentWeatherData.self, from: data)
-            return weatherData
-        }catch {
-            throw error
-        }
-    }
-    
     func getUrlForCurrentWeatherIn(city name: String, stateCode: String?, countryCode: String?, metrics: MeasurementUnit?) {
     }
     
@@ -54,41 +39,46 @@ class WeatherFakeRepository: Repositoryable {
         "https://openweathermap.org/img/wn/10d@2x.png"
     }
     
-    func getForecastData(metrics: MeasurementUnit?, testingPath: String) async throws -> ForecastData? {
+    //MARK: Combine methods
+    func getForecastDataCombine(metrics: MeasurementUnit?, testingPath: String) -> AnyPublisher<ForecastData?, Error> {
         guard !isStubbingData else {
-            return fiveDaysForecast
+            return Just(fiveDaysForecast)
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
         }
         var requestable = CurrentWeatherRequest(apiVersion: .version_2_5, path: "fiveDaysForecast")
         requestable.set(lat: "50", lon: "50", metrics: .metric)
-        do {
-            let data = try await serviceManager.getDataFromApi(requestable: requestable)
-            let weatherData = try JSONDecoder().decode(ForecastData.self, from: data)
-            return weatherData
-        }catch {
-            throw error
-        }
-    }
-    
-    func getAirPollutionData(testingPath: String) async throws -> AirPollutionData? {
-        return airPollutionData
-    }
-    
-    //MARK: Combine methods
-    func getForecastDataCombine(metrics: MeasurementUnit?, testingPath: String) -> AnyPublisher<ForecastData?, Error> {
-        return Just(nil)
-            .setFailureType(to: Error.self)
+        return serviceManager.getDataFromApiCombine(requestable: requestable)
+            .tryMap { data in
+                return try JSONDecoder().decode(ForecastData.self, from: data)
+            }
+            .mapError { error in
+                return NetworkError.parsingValue
+            }
             .eraseToAnyPublisher()
     }
     
     func getAirPollutionDataCombine(testingPath: String) -> AnyPublisher<AirPollutionData?, Error> {
-        return Just(nil)
+        return Just(airPollutionData)
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
     
     func getCurrentWeatherCombine(metrics: MeasurementUnit?, testingPath: String) -> AnyPublisher<CurrentWeatherData?, Error> {
-        return Just(nil)
-            .setFailureType(to: Error.self)
+        guard !isStubbingData else {
+            return Just(currentWeatherData)
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
+        }
+        var requestable = CurrentWeatherRequest(apiVersion: .test, path: "weather")
+        requestable.set(lat: "50", lon: "50", metrics: .metric)
+        return serviceManager.getDataFromApiCombine(requestable: requestable)
+            .tryMap { data in
+                return try JSONDecoder().decode(CurrentWeatherData.self, from: data)
+            }
+            .mapError { error in
+                return NetworkError.parsingValue
+            }
             .eraseToAnyPublisher()
     }
      

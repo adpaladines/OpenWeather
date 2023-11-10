@@ -19,24 +19,6 @@ class Services {
 
 extension Services: Serviceable {
     
-    func getDataFromApi(requestable: Requestable) async throws -> Data {
-        do {
-            guard let request = requestable.createURLRequest() else {
-                throw NetworkError.invalidUrl
-            }
-            let (data, response) = try await urlSession.getData(for: request, delegate: nil)
-            guard response.isValidUrlResponse() else {
-                print(requestable.path)
-                throw NetworkError.response(response.httpStatusCode)
-            }
-            return data
-        } catch {
-            print(error.localizedDescription)
-            throw NetworkError.dataNotFound
-        }
-    }
-    
-//    func getDataFromApi(urlRequest: URLRequest) -> AnyPublisher<Data, Error> {
     func getDataFromApiCombine(requestable: Requestable) -> AnyPublisher<Data, Error> {
         guard let urlRequest = requestable.createURLRequest() else {
             return Fail(error: NetworkError.invalidUrl).eraseToAnyPublisher()
@@ -52,7 +34,6 @@ extension Services: Serviceable {
                 }
                 return data
             }
-//            .decode(type: type.self, decoder: JSONDecoder()) // - Parsing
             .eraseToAnyPublisher()
     }
     

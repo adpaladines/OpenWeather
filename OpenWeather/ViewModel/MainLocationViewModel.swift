@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreLocation
+import Combine
 
 enum AirQualityValue: String {
     case good = "Good"
@@ -35,48 +36,6 @@ class MainLocationViewModel: ObservableObject {
 }
 
 extension MainLocationViewModel: WeatherInfoProtocol {
-    
-    func getCurrentWeatherInfo(coordinate: CLLocationCoordinate2D) async {
-        repository.setServiceManager(Services(), and: coordinate)
-        do {
-            let unit = MeasurementUnit(rawValue: currentMeasurementUnit)  ?? .standard
-            let weatherData = try await repository.getCurrentWeather(metrics: unit, testingPath: "")
-            DispatchQueue.main.async {
-                self.currentWeathrData = weatherData
-                self.customError = NetworkError.none
-            }
-        }catch {
-            setCustomErrorStatus(with: error)
-            print(error.localizedDescription)
-        }
-    }
-    
-    func getDailyForecastInfo(coordinate: CLLocationCoordinate2D) async {
-        repository.setServiceManager(Services(), and: coordinate)
-        do {
-            let unit = MeasurementUnit(rawValue: currentMeasurementUnit)  ?? .standard
-            let forecastData = try await repository.getForecastData(metrics: unit, testingPath: "")
-            DispatchQueue.main.async {
-                self.fiveForecastData = forecastData
-                self.customError = NetworkError.none
-            }
-        }catch {
-            setCustomErrorStatus(with: error)
-        }
-    }
-    
-    func getAirPollutionData(coordinate: CLLocationCoordinate2D) async {
-        repository.setServiceManager(Services(), and: coordinate)
-        do {
-            let airPollutionData = try await repository.getAirPollutionData(testingPath: "")
-            DispatchQueue.main.async {
-                self.airPollutionData = airPollutionData
-                self.customError = NetworkError.none
-            }
-        }catch {
-            setCustomErrorStatus(with: error)
-        }
-    }
     
     func getImageUrlBy(id: String?) -> String? {
         guard let id_ = id else {
@@ -113,8 +72,6 @@ extension MainLocationViewModel: WeatherInfoProtocol {
         }
     }
 }
-
-import Combine
 
 extension MainLocationViewModel {
     

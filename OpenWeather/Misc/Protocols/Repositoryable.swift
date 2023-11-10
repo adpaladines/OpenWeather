@@ -12,14 +12,10 @@ import Combine
 protocol Repositoryable {
     var serviceManager: Serviceable { get }
     
-    func setServiceManager(_ serviceManager: Serviceable, and coordinate: CLLocationCoordinate2D)
-    func getCurrentWeather(metrics: MeasurementUnit?, testingPath: String) async throws -> CurrentWeatherData?
-//    func getUrlForCurrentWeatherIn(city name: String, stateCode: String?, countryCode: String?, metrics: MeasurementUnit?)
-    
     func getUrlStringImageBy(id: String) -> String?
-    func getForecastData(metrics: MeasurementUnit?, testingPath: String) async throws -> ForecastData?
-    func getAirPollutionData(testingPath: String) async throws -> AirPollutionData?
+    func setServiceManager(_ serviceManager: Serviceable, and coordinate: CLLocationCoordinate2D)
     
+//    func getUrlForCurrentWeatherIn(city name: String, stateCode: String?, countryCode: String?, metrics: MeasurementUnit?)
     func getCurrentWeatherCombine(metrics: MeasurementUnit?, testingPath: String) -> AnyPublisher<CurrentWeatherData?, Error>
     func getForecastDataCombine(metrics: MeasurementUnit?, testingPath: String) -> AnyPublisher<ForecastData?, Error>
     func getAirPollutionDataCombine(testingPath: String) -> AnyPublisher<AirPollutionData?, Error>

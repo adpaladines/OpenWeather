@@ -25,11 +25,13 @@ In the structure files contains:
     - [ ] View (modal or new config element) to change Api Key.
     - [ ] Usage of modifiable Api Key in app.
 - [ ] Migrations [Current Branch](https://github.com/adpaladines/OpenWeather/tree/migrations):
-    - [ ] Closures to Combine in Services.
+    - [x] Closures to Combine in Services.
         - [x] Current Weather.
-        - [ ] Air Quality.
-        - [ ] Five Days Forecast.
-    - [ ] Closures to Combine in ViewModel and Repository.
+        - [x] Air Quality.
+        - [x] Five Days Forecast.
+    - [x] Closures to Combine in ViewModel and Repository.
+    - [x] Delete unused functions with closures.
+    - [x] Modify fake repository data.
 - [ ] Api Key change in app tutorial [Current Branch](https://github.com/adpaladines/OpenWeather/tree/in-app-tutorial):
     - [ ] View explaining how create own Api Key.
     - [ ] View explaining how to change Api Key.
