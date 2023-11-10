@@ -26,6 +26,7 @@ class MainLocationViewModel: ObservableObject {
     @Published var fiveForecastData: ForecastData?
     @Published var airPollutionData: AirPollutionData?
     
+    private var cancellables: Set<AnyCancellable> = []
     private var repository: Repositoryable
     
     init(repository: Repositoryable) {
@@ -90,7 +91,11 @@ extension MainLocationViewModel: WeatherInfoProtocol {
         return imageUrl
     }
     
-    func setCustomErrorStatus(with error: Error) {
+    func setCustomErrorStatus(with error: Error?) {
+        guard let error = error else {
+            customError = NetworkError.none
+            return
+        }
         switch error {
         case is DecodingError:
             customError = NetworkError.parsingValue
@@ -106,6 +111,31 @@ extension MainLocationViewModel: WeatherInfoProtocol {
         default:
             customError = .dataNotFound
         }
+    }
+}
+
+import Combine
+
+extension MainLocationViewModel {
+    
+    func getCurrentWeatherInfoCombine(coordinate: CLLocationCoordinate2D) {
+        repository.setServiceManager(Services(), and: coordinate)
+        
+        let unit = MeasurementUnit(rawValue: currentMeasurementUnit)  ?? .standard
+        repository.getCurrentWeatherCombine(metrics: unit, testingPath: "")
+            .receive(on: RunLoop.main)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    self?.setCustomErrorStatus(with: nil)
+                case .failure(let error):
+                    self?.setCustomErrorStatus(with: error)
+                    print(error.localizedDescription)
+                }
+            } receiveValue: { weatherData in
+                self.currentWeathrData = weatherData
+            }
+            .store(in: &cancellables)
     }
 }
 

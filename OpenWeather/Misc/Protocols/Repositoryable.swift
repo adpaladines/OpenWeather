@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import Combine
 
 protocol Repositoryable {
     var serviceManager: Serviceable { get }
@@ -17,4 +18,6 @@ protocol Repositoryable {
     func getUrlStringImageBy(id: String) -> String?
     func getForecastData(metrics: MeasurementUnit?, testingPath: String) async throws -> ForecastData?
     func getAirPollutionData(testingPath: String) async throws -> AirPollutionData?
+    
+    func getCurrentWeatherCombine(metrics: MeasurementUnit?, testingPath: String) -> AnyPublisher<CurrentWeatherData?, Error>
 }

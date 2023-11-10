@@ -7,8 +7,16 @@
 
 import Foundation
 import CoreLocation
+import Combine
 
 class WeatherFakeRepository: Repositoryable {
+    
+    func getCurrentWeatherCombine(metrics: MeasurementUnit?, testingPath: String) -> AnyPublisher<CurrentWeatherData?, Error> {
+        return Just(nil)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+    
     
     var serviceManager: Serviceable = JsonManager()
     var lat: String = "33.753746"

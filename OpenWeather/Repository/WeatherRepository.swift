@@ -104,3 +104,29 @@ class WeatherRepository: Repositoryable {
     }
 
 }
+
+import Combine
+//MARK: - Same methods migrated to combine. Old ones will be deleted after publishing one app with both methods to compare them.
+extension WeatherRepository {
+    
+    func getCurrentWeatherCombine(metrics: MeasurementUnit? = nil, testingPath: String = "") -> AnyPublisher<CurrentWeatherData?, Error> {
+        guard let lat_ = lat, let lon_ = lon else {
+            print("Latitude and Longitude must be defined first")
+            return Fail(error: NetworkError.request).eraseToAnyPublisher()
+        }
+        
+        let path = testingPath.isEmpty ? UrlEndpoints.shared.currentWeather : testingPath
+        var requestable = CurrentWeatherRequest(apiVersion: .version_2_5, path: path)
+        requestable.set(lat: lat_, lon: lon_, metrics: metrics)
+        
+        return serviceManager.getDataFromApiCombine(requestable: requestable)
+            .tryMap { data in
+                return try JSONDecoder().decode(CurrentWeatherData.self, from: data)
+            }
+            .mapError { error in
+                return NetworkError.parsingValue
+            }
+            .eraseToAnyPublisher()
+    }
+    
+}

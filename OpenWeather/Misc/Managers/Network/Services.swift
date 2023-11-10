@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class Services {
     var urlSession: URLSessionable
@@ -34,5 +35,25 @@ extension Services: Serviceable {
             throw NetworkError.dataNotFound
         }
     }
-        
+    
+//    func getDataFromApi(urlRequest: URLRequest) -> AnyPublisher<Data, Error> {
+    func getDataFromApiCombine(requestable: Requestable) -> AnyPublisher<Data, Error> {
+        guard let urlRequest = requestable.createURLRequest() else {
+            return Fail(error: NetworkError.invalidUrl).eraseToAnyPublisher()
+        }
+        return URLSession.shared.dataTaskPublisher(for: urlRequest)
+            .tryMap { (data: Data, response: URLResponse) in
+                guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
+                    if (response as? HTTPURLResponse)?.statusCode == 404 {
+                        throw NetworkError.dataNotFound
+                    }else {
+                        throw NetworkError.response((response as? HTTPURLResponse)?.statusCode ?? 500)
+                    }
+                }
+                return data
+            }
+//            .decode(type: type.self, decoder: JSONDecoder()) // - Parsing
+            .eraseToAnyPublisher()
+    }
+    
 }
