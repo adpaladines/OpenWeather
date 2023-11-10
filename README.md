@@ -17,8 +17,9 @@ This app is made in SwiftUI, manages Color themes, Internationalization and meas
 
 ### Todo:
 In the structure files contains: 
-- [ ] Change language [Current Branch](https://github.com/adpaladines/OpenWeather/tree/languages-tabbar-fix):
-    - [ ] (fix): Bottom tab bar change languaje immediately.
+- [x] Change language [Current Branch](https://github.com/adpaladines/OpenWeather/tree/languages-tabbar-fix):
+    - [x] (fix): Bottom tab bar change languaje immediately.
+    - [x] Merge with develop branch.
 - [ ] Api Key hot swap:
     - [ ] Functionality to change Api Key.
     - [ ] View (modal or new config element) to change Api Key.
