@@ -18,7 +18,7 @@ struct UrlEndpoints {
     
     var apiKey: String
     private init() {
-        self.apiKey = "0674adec344e85aa2b4f4963f65a3e60"
+        self.apiKey = "8a03e3576f61f48d6ffa0f09d372cb0a"
     }
     
     var baseWeatherApi: String {

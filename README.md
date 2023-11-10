@@ -15,8 +15,27 @@ This app is made in SwiftUI, manages Color themes, Internationalization and meas
 [SwiftUI-image]: https://img.shields.io/badge/SwiftUI-4.0-orange?style=for-the-badge&logo=swift&logoColor=white
 [SwiftUI-url]: https://developer.apple.com/xcode/swiftui/
 
-
-
+### Todo:
+In the structure files contains: 
+- [x] Change language [Current Branch](https://github.com/adpaladines/OpenWeather/tree/languages-tabbar-fix):
+    - [x] (fix): Bottom tab bar change languaje immediately.
+    - [x] Merge with develop branch.
+- [ ] Api Key hot swap:
+    - [ ] Functionality to change Api Key.
+    - [ ] View (modal or new config element) to change Api Key.
+    - [ ] Usage of modifiable Api Key in app.
+- [ ] Migrations [Current Branch](https://github.com/adpaladines/OpenWeather/tree/migrations):
+    - [x] Closures to Combine in Services.
+        - [x] Current Weather.
+        - [x] Air Quality.
+        - [x] Five Days Forecast.
+    - [x] Closures to Combine in ViewModel and Repository.
+    - [x] Delete unused functions with closures.
+    - [x] Modify fake repository data.
+- [ ] Api Key change in app tutorial [Current Branch](https://github.com/adpaladines/OpenWeather/tree/in-app-tutorial):
+    - [ ] View explaining how create own Api Key.
+    - [ ] View explaining how to change Api Key.
+  
 App manages light and dark themes.
 
 | Capture Description | Screenshot 1 | Screenshot 2 |

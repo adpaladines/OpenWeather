@@ -9,6 +9,7 @@ import Foundation
 import CoreLocation
 
 protocol WeatherInfoProtocol {
-    func getCurrentWeatherInfo(coordinate: CLLocationCoordinate2D) async
-    func getDailyForecastInfo(coordinate: CLLocationCoordinate2D) async
+    func getCurrentWeatherInfoCombine(coordinate: CLLocationCoordinate2D)
+    func getDailyForecastInfoCombine(coordinate: CLLocationCoordinate2D)
+    func getAirPollutionDataCombine(coordinate: CLLocationCoordinate2D)
 }
