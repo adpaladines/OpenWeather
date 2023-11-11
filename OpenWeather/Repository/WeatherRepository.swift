@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import Combine
 
 class WeatherRepository: Repositoryable {
     
@@ -26,81 +27,74 @@ class WeatherRepository: Repositoryable {
         self.lon = coordinate.longitude.stringValue
     }
     
-    func getCurrentWeather(metrics: MeasurementUnit? = nil, testingPath: String = "") async throws -> CurrentWeatherData? {
-        guard
-            let lat_ = lat,
-            let lon_ = lon
-        else {
+    
+    
+    func getUrlStringImageBy(id: String) -> String? {
+        let newUrl = UrlEndpoints.shared.baseWeather + UrlEndpoints.shared.images + id + "@2x.png"
+        return newUrl
+    }
+
+}
+
+extension WeatherRepository {
+    
+    func getCurrentWeatherCombine(metrics: MeasurementUnit? = nil, testingPath: String = "") -> AnyPublisher<CurrentWeatherData?, Error> {
+        guard let lat_ = lat, let lon_ = lon else {
             print("Latitude and Longitude must be defined first")
-            return nil
+            return Fail(error: NetworkError.request).eraseToAnyPublisher()
         }
         
         let path = testingPath.isEmpty ? UrlEndpoints.shared.currentWeather : testingPath
         var requestable = CurrentWeatherRequest(apiVersion: .version_2_5, path: path)
         requestable.set(lat: lat_, lon: lon_, metrics: metrics)
         
-        do {
-            let data = try await serviceManager.getDataFromApi(requestable: requestable)
-            let weatherData = try JSONDecoder().decode(CurrentWeatherData.self, from: data)
-            return weatherData
-            
-        }catch {
-            print(error.localizedDescription)
-            throw error
-        }
+        return serviceManager.getDataFromApiCombine(requestable: requestable)
+            .tryMap { data in
+                return try JSONDecoder().decode(CurrentWeatherData.self, from: data)
+            }
+            .mapError { error in
+                return NetworkError.parsingValue
+            }
+            .eraseToAnyPublisher()
     }
     
-    func getUrlStringImageBy(id: String) -> String? {
-        let newUrl = UrlEndpoints.shared.baseWeather + UrlEndpoints.shared.images + id + "@2x.png"
-        return newUrl
-    }
-    
-    func getForecastData(metrics: MeasurementUnit? = nil, testingPath: String = "") async throws -> ForecastData? {
-        guard
-            let lat_ = lat,
-            let lon_ = lon
-        else {
+    func getForecastDataCombine(metrics: MeasurementUnit?, testingPath: String) -> AnyPublisher<ForecastData?, Error> {
+        guard let lat_ = lat, let lon_ = lon else {
             print("Latitude and Longitude must be defined first")
-            return nil
+            return Fail(error: NetworkError.request).eraseToAnyPublisher()
         }
         let path = testingPath.isEmpty ? UrlEndpoints.shared.forecast : testingPath
         var requestable = CurrentWeatherRequest(apiVersion: .version_2_5, path: path)
         requestable.set(lat: lat_, lon: lon_, metrics: metrics)
         
-        do {
-            let data = try await serviceManager.getDataFromApi(requestable: requestable)
-            let weatherData = try JSONDecoder().decode(ForecastData.self, from: data)
-            return weatherData
-            
-        }catch {
-            print(error.localizedDescription)
-            throw error
-        }
+        return serviceManager.getDataFromApiCombine(requestable: requestable)
+            .tryMap { data in
+                return try JSONDecoder().decode(ForecastData.self, from: data)
+            }
+            .mapError { error in
+                return NetworkError.parsingValue
+            }
+            .eraseToAnyPublisher()
     }
     
-    func getAirPollutionData(testingPath: String = "") async throws -> AirPollutionData? {
-        guard
-            let lat_ = lat,
-            let lon_ = lon
-        else {
+    func getAirPollutionDataCombine(testingPath: String) -> AnyPublisher<AirPollutionData?, Error> {
+        guard let lat_ = lat, let lon_ = lon else {
             print("Latitude and Longitude must be defined first")
-            return nil
+            return Fail(error: NetworkError.request).eraseToAnyPublisher()
         }
 
         let path = testingPath.isEmpty ? UrlEndpoints.shared.airPollution : testingPath
         var requestable = CurrentWeatherRequest(apiVersion: .version_2_5, path: path)
         requestable.set(lat: lat_, lon: lon_)
         
-        do {
-            let data = try await serviceManager.getDataFromApi(requestable: requestable)
-            let weatherData = try JSONDecoder().decode(AirPollutionData.self, from: data)
-            return weatherData
-            
-        }catch {
-            print(error.localizedDescription)
-            throw error
-        }
-        
+        return serviceManager.getDataFromApiCombine(requestable: requestable)
+            .tryMap { data in
+                return try JSONDecoder().decode(AirPollutionData.self, from: data)
+            }
+            .mapError { error in
+                return NetworkError.parsingValue
+            }
+            .eraseToAnyPublisher()
     }
-
+    
 }

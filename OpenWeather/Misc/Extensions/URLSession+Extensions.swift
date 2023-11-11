@@ -12,6 +12,10 @@ extension URLSession: URLSessionable {
     func getData(for urlRequest: URLRequest, delegate: URLSessionTaskDelegate?) async throws -> (Data, URLResponse) {
         try await self.data(for: urlRequest, delegate: delegate)
     }
+    
+    func getDataCombine(for urlRequest: URLRequest, delegate: URLSessionTaskDelegate?) async throws -> (Data, URLResponse) {
+        try await self.data(for: urlRequest, delegate: delegate)
+    }
         
 }
 

@@ -110,9 +110,9 @@ struct MainLocationScreen: View {
             .task {
                 if isForTesting ?? false {
                     let coord = CLLocationCoordinate2D(latitude: 51.50998, longitude: -0.1337)
-                    await viewModel.getCurrentWeatherInfo(coordinate: coord)
-                    await viewModel.getDailyForecastInfo(coordinate: coord)
-                    await viewModel.getAirPollutionData(coordinate: coord)
+                    viewModel.getCurrentWeatherInfoCombine(coordinate: coord)
+                    viewModel.getDailyForecastInfoCombine(coordinate: coord)
+                    viewModel.getAirPollutionDataCombine(coordinate: coord)
                 }
             }
             .refreshable {
@@ -124,9 +124,9 @@ struct MainLocationScreen: View {
     
     func getweatherData(coordinate: CLLocationCoordinate2D?) async  {
         if let coordinate_ = coordinate {
-            await viewModel.getCurrentWeatherInfo(coordinate: coordinate_)
-            await viewModel.getDailyForecastInfo(coordinate: coordinate_)
-            await viewModel.getAirPollutionData(coordinate: coordinate_)
+            viewModel.getCurrentWeatherInfoCombine(coordinate: coordinate_)
+            viewModel.getDailyForecastInfoCombine(coordinate: coordinate_)
+            viewModel.getAirPollutionDataCombine(coordinate: coordinate_)
         }
     }
 }
