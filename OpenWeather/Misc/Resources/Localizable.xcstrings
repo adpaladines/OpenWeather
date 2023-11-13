@@ -15,10 +15,24 @@
       }
     },
     "Address" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dirección"
+          }
+        }
+      }
     },
     "Address search" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar dirección"
+          }
+        }
+      }
     },
     "Air Quality info" : {
       "extractionState" : "manual",
@@ -37,6 +51,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Centígrados"
+          }
+        }
+      }
+    },
+    "Customizations" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personalizaciones"
           }
         }
       }
@@ -190,7 +215,14 @@
       }
     },
     "Loading..." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cargando..."
+          }
+        }
+      }
     },
     "Malformed URL." : {
       "localizations" : {
@@ -472,7 +504,14 @@
       }
     },
     "Theme" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tema"
+          }
+        }
+      }
     },
     "Today" : {
       "localizations" : {

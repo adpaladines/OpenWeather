@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct AvailableLanguage {
     let code: String
@@ -13,6 +14,7 @@ struct AvailableLanguage {
 }
 
 struct SettingsScreen: View {
+    
     //MARK: AppStorage
     @AppStorage("appTheme") var appTheme = AppTheme.dark.rawValue
     @AppStorage("app_lang") var appLang: String = "en"
@@ -42,13 +44,14 @@ struct SettingsScreen: View {
     var body: some View {
         NavigationView {
             ScrollView {
+                
                 VStack {
                     VStack(alignment: .center) {
                         Text("Preferences".localized())
                             .font(.title2)
                             .fontWeight(.bold)
                     }
-                    .padding([.bottom, .top])
+                    .padding(.bottom)
                     HStack {
                         Image(systemName: "thermometer.transmission")
                         Text("Select your measure:".localized())
@@ -63,6 +66,35 @@ struct SettingsScreen: View {
                             currentMeasurementUnit = measurement.rawValue
                         }
                     }
+                    
+                    HStack {
+                        Image(systemName: "key.icloud")
+                        Text("Api Key:".localized())
+                        Spacer()
+                        Picker(selection: $measure, label: Text("Measure".localized())) {
+                            ForEach(MeasurementUnit.allCases, id:\.self) { measurement in
+                                Text(measurement.getUnit())
+                            }
+                        }
+                        .tint(themeColor.button)
+                        .onChange(of: measure) { measurement in
+                            currentMeasurementUnit = measurement.rawValue
+                        }
+                    }
+                    
+                }
+                .padding()
+                .background(themeColor.containerBackground)
+                .cornerRadius(12)
+                .padding(.bottom, 24)
+                
+                VStack {
+                    VStack(alignment: .center) {
+                        Text("Customizations".localized())
+                            .font(.title2)
+                            .fontWeight(.bold)
+                    }
+                    .padding([.bottom])
                     HStack {
                         Image(systemName: "paintpalette")
                         Text("Select your theme:".localized())
@@ -113,6 +145,7 @@ struct SettingsScreen: View {
                 .padding()
                 .background(themeColor.containerBackground)
                 .cornerRadius(12)
+                
             }
             .background(themeColor.screenBackground)
             .navigationBarTitle("settings".localized())
