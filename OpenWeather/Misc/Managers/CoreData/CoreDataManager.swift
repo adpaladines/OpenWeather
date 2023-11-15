@@ -9,15 +9,32 @@ import Foundation
 import CoreData
 import Combine
 
-struct ApiKeyData {
+struct ApiKeyData: Identifiable {
     let uuid: String
     let name: String
     let customDescription: String
+    
+    init(uuid: String, name: String, customDescription: String) {
+        self.uuid = uuid
+        self.name = name
+        self.customDescription = customDescription
+    }
+    
+    init(from entity: ApiKeyEntity) {
+        self.uuid = entity.uuid ?? UUID().uuidString
+        self.name = entity.name ?? "No name registered".localized()
+        self.customDescription = entity.customDescription ?? "No description registered".localized()
+    }
+    
+    var id: String {
+        uuid
+    }
 }
 
-class CoreDataManager: CoreDataOperationsProtocol {
-
-    typealias ItemType = [ApiKeyData]
+class ApiKeyCoreDataManager: CoreDataOperationsProtocol {
+    
+    typealias ItemType = ApiKeyData
+    typealias ItemEntityType = ApiKeyEntity
     
     let context: NSManagedObjectContext
     
@@ -25,66 +42,103 @@ class CoreDataManager: CoreDataOperationsProtocol {
         self.context = context
     }
     
-    func fetchSingleItemFromDatabase(uuid: String) throws -> ApiKeyEntity? {
-        let fetchRequest: NSFetchRequest<ApiKeyEntity> = ApiKeyEntity.fetchRequest()
+    func fetchSingleItemFromDatabase(uuid: String) -> AnyPublisher<ItemEntityType, Error> {
+        let fetchRequest: NSFetchRequest<ItemEntityType> = ItemEntityType.fetchRequest()
         let predicate = NSPredicate(format: "uuid == %@", uuid)
         fetchRequest.predicate = predicate
-        let result = try context.fetch(fetchRequest).first
-        return result
+        
+        return Future { [weak self] promise in
+            do {
+                let result = try self?.context.fetch(fetchRequest).first
+                if let result_ = result {
+                    promise(.success(result_))
+                }else {
+                    promise(.failure(NSError(domain: String(reflecting: ItemEntityType.self), code: 404, userInfo: [NSLocalizedDescriptionKey: "No data found".localized()])))
+                }
+            } catch {
+                promise(.failure(error))
+            }
+        }
+        .eraseToAnyPublisher()
     }
     
-    func fetchDataFromDatabase() throws -> [ApiKeyEntity] {
-        let request: NSFetchRequest<ApiKeyEntity> = ApiKeyEntity.fetchRequest()
-        let result = try context.fetch(request)
-        return result
+    func fetchDataFromDatabase() -> AnyPublisher<[ItemEntityType], Error> {
+        let request: NSFetchRequest<ItemEntityType> = ItemEntityType.fetchRequest()
+        
+        return Future { [weak self] promise in
+            do {
+                let result = try self?.context.fetch(request)
+                promise(.success(result ?? []))
+            } catch {
+                promise(.failure(error))
+            }
+        }
+        .eraseToAnyPublisher()
     }
 
-    func saveDataIntoDatabase(item: ApiKeyData) throws {
-        let noteEntity = ApiKeyEntity(context: context)
+    func saveDataIntoDatabase(item: ItemType) -> AnyPublisher<Bool, Error> {
+        let noteEntity = ItemEntityType(context: context)
         noteEntity.uuid = item.uuid
         noteEntity.name = item.name
         noteEntity.customDescription = item.customDescription
         noteEntity.dateCreation = Date()
         noteEntity.dateUpdate = Date()
         
-        do {
-            try context.save()
-        }catch let error {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func updateApiKeyEntity(with item: ApiKeyData) throws {
-        guard let noteEntity = try fetchSingleItemFromDatabase(uuid: item.uuid) else {
-            print("ApiKeyEntity with UUID: \(item.uuid) not found.")
-            return
-        }
-        noteEntity.uuid = item.uuid
-        noteEntity.name = item.name
-        noteEntity.customDescription = item.customDescription
-        noteEntity.dateUpdate = Date()
-        try context.save()
-    }
-    
-    func deleteEntity(with note: ApiKeyData) throws{
-        guard let noteEntity = try fetchSingleItemFromDatabase(uuid: note.uuid) else {
-            print("ApiKeyEntity with UUID: \(note.uuid) not found.")
-            return
-        }
-        context.delete(noteEntity)
-        try context.save()
-//        print("Note with uuid: \(note.uuid), deleted!")
-    }
-        
-    func clearData() async throws {
-        try await context.perform {
-            let results = try self.fetchDataFromDatabase()
-            results.forEach { entity in
-                autoreleasepool {
-                    self.context.delete(entity)
-                }
+        return Future { [weak self] promise in
+            do {
+                try self?.context.save()
+                promise(.success(true))
+            } catch {
+                promise(.failure(error))
             }
-            try self.context.save()
         }
+        .eraseToAnyPublisher()
     }
+    
+    func updateApiKeyEntity(with item: ItemType) -> AnyPublisher<Bool, Error> {
+        return fetchSingleItemFromDatabase(uuid: item.uuid)
+            .tryMap { [weak self] apiKeyEntity -> Void in
+                apiKeyEntity.name = item.name
+                apiKeyEntity.customDescription = item.customDescription
+                apiKeyEntity.dateUpdate = Date()
+                
+                try self?.context.save()
+            }
+            .mapError { error in
+                return error
+            }
+            .map { _ in true }
+            .eraseToAnyPublisher()
+    }
+    
+    func deleteEntity(with item: ItemType) -> AnyPublisher<Bool, Error> {
+        return fetchSingleItemFromDatabase(uuid: item.uuid)
+            .tryMap { [weak self] apiKeyEntity -> Void in
+                self?.context.delete(apiKeyEntity)
+                try self?.context.save()
+            }
+            .mapError { error in
+                return error
+            }
+            .map { _ in true }
+            .eraseToAnyPublisher()
+    }
+    
+    func clearData() -> AnyPublisher<Bool, Error> {
+        return fetchDataFromDatabase()
+            .tryMap { [weak self] apiKeyEntities -> Void in
+                apiKeyEntities.forEach { entity in
+                    autoreleasepool {
+                        self?.context.delete(entity)
+                    }
+                }
+                try self?.context.save()
+            }
+            .mapError { error in
+                return error
+            }
+            .map { _ in true }
+            .eraseToAnyPublisher()
+    }
+
 }

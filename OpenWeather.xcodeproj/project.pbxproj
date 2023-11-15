@@ -72,6 +72,8 @@
 		DDDDA4F12AEADE8F009FB7C0 /* weather.json in Resources */ = {isa = PBXBuildFile; fileRef = DDC798442AEA91D100BF9800 /* weather.json */; };
 		DDDDA4F22AEADEEA009FB7C0 /* MainLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDDA4E32AEAD9FE009FB7C0 /* MainLocationViewModel.swift */; };
 		DDDDA4F42AEADFA3009FB7C0 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDDA4F32AEADFA3009FB7C0 /* SettingsScreen.swift */; };
+		DDEA5C0E2B04FCB0009C4211 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEA5C0D2B04FCB0009C4211 /* PersistenceController.swift */; };
+		DDEA5C132B0560DC009C4211 /* SettingsApiKeysScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEA5C122B0560DC009C4211 /* SettingsApiKeysScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +163,8 @@
 		DDDDA4EC2AEADAE0009FB7C0 /* Repositoryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositoryable.swift; sourceTree = "<group>"; };
 		DDDDA4EE2AEADB05009FB7C0 /* WeatherFakeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherFakeRepository.swift; sourceTree = "<group>"; };
 		DDDDA4F32AEADFA3009FB7C0 /* SettingsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
+		DDEA5C0D2B04FCB0009C4211 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		DDEA5C122B0560DC009C4211 /* SettingsApiKeysScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsApiKeysScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +213,7 @@
 			children = (
 				DD74E8EF2B01917400EE00F9 /* CoreDataManager.swift */,
 				DD74E8F32B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld */,
+				DDEA5C0D2B04FCB0009C4211 /* PersistenceController.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -460,6 +465,7 @@
 			isa = PBXGroup;
 			children = (
 				DDDDA4F32AEADFA3009FB7C0 /* SettingsScreen.swift */,
+				DDEA5C122B0560DC009C4211 /* SettingsApiKeysScreen.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -653,6 +659,7 @@
 				DDDDA4E22AEAD9C2009FB7C0 /* TabViewItem.swift in Sources */,
 				DDC798532AEA93DA00BF9800 /* URLResponse+Extensions.swift in Sources */,
 				DDC7983A2AEA909600BF9800 /* NetworkError.swift in Sources */,
+				DDEA5C0E2B04FCB0009C4211 /* PersistenceController.swift in Sources */,
 				DDC7984F2AEA939E00BF9800 /* String+Extensions.swift in Sources */,
 				DDDDA4C42AEAC27B009FB7C0 /* MainLocation.swift in Sources */,
 				DDC7986F2AEA967B00BF9800 /* Services.swift in Sources */,
@@ -665,6 +672,7 @@
 				DDC798552AEA93F600BF9800 /* Color+Extensions.swift in Sources */,
 				DD49E0632AEBEB4E00C8F2D5 /* AppIconManager.swift in Sources */,
 				DD49E06A2AEC08B800C8F2D5 /* MapSearchManager.swift in Sources */,
+				DDEA5C132B0560DC009C4211 /* SettingsApiKeysScreen.swift in Sources */,
 				DDC798752AEA96D400BF9800 /* JsonManager.swift in Sources */,
 				DDC7984D2AEA938500BF9800 /* CLLocationDegrees+Extensions.swift in Sources */,
 				DDDDA4ED2AEADAE0009FB7C0 /* Repositoryable.swift in Sources */,

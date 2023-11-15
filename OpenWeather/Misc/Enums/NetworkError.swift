@@ -43,5 +43,26 @@ extension NetworkError: LocalizedError, Equatable {
         }
         return localizedString
     }
+    
+    mutating func setCustomErrorStatus(with error: Error?) {
+        guard let error = error else {
+            self = NetworkError.none
+            return
+        }
+        switch error {
+        case is DecodingError:
+            self = NetworkError.parsingValue
+        case is URLError:
+            self = .invalidUrl
+        case NetworkError.dataNotFound:
+            self = NetworkError.dataNotFound
+        case NetworkError.response:
+            self = NetworkError.response(error._code)
+        case is CancellationError:
+            self = .dataNotFound
+        default:
+            self = .dataNotFound
+        }
+    }
 }
 

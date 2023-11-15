@@ -25,7 +25,11 @@ struct SettingsScreen: View {
     @EnvironmentObject var themeColor: ThemeColor
     
     //MARK: StateObject
-    @StateObject var viewModel = SettingsViewModel()
+    @ObservedObject var viewModel = SettingsViewModel(
+        CDManager: ApiKeyCoreDataManager(
+            context: PersistenceController.shared.backgroundContext
+        )
+    )
     
     //MARK: State
     @State private var isDarkModeEnabled: Bool = true
@@ -71,10 +75,8 @@ struct SettingsScreen: View {
                         Image(systemName: "key.icloud")
                         Text("Api Key:".localized())
                         Spacer()
-                        Picker(selection: $measure, label: Text("Measure".localized())) {
-                            ForEach(MeasurementUnit.allCases, id:\.self) { measurement in
-                                Text(measurement.getUnit())
-                            }
+                        NavigationLink("Add or select your Api Key") {
+                            SettingsApiKeysScreen(viewModel: viewModel)
                         }
                         .tint(themeColor.button)
                         .onChange(of: measure) { measurement in
@@ -150,7 +152,7 @@ struct SettingsScreen: View {
             .background(themeColor.screenBackground)
             .navigationBarTitle("settings".localized())
             .preferredColorScheme(themeColor.colorScheme)
-            .padding()
+//            .padding()
             
             .onAppear {
                 if let appTheme_ = AppTheme(rawValue: appTheme) {
@@ -178,6 +180,6 @@ struct SettingsScreen: View {
 
 #Preview {
     SettingsScreen()
-        .environmentObject(ThemeColor(appTheme: AppTheme.dark.rawValue))
+        .environmentObject(ThemeColor(appTheme: AppTheme.light.rawValue))
 }
 

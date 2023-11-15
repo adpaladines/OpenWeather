@@ -14,6 +14,9 @@
         }
       }
     },
+    "Add or select your Api Key" : {
+
+    },
     "Address" : {
       "localizations" : {
         "es" : {
@@ -41,6 +44,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Calidad de aire"
+          }
+        }
+      }
+    },
+    "API Keys" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claves API"
           }
         }
       }
@@ -275,12 +289,34 @@
         }
       }
     },
+    "No data found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se encontró información"
+          }
+        }
+      }
+    },
     "No data loaded." : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No se encontró datos."
+          }
+        }
+      }
+    },
+    "No description registered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descripción no definida"
           }
         }
       }
@@ -295,12 +331,23 @@
         }
       }
     },
+    "No name registered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre no definido"
+          }
+        }
+      }
+    },
     "No service response (timeout)." : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Timeout. Sin respuesta del servidor"
+            "value" : "Timeout. Sin respuesta del servidor."
           }
         }
       }
