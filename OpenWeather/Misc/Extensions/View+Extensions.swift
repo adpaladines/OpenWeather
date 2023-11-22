@@ -49,4 +49,20 @@ extension View {
             }
         }
     }
+    
+    ///Usage:
+    ///Text("Connecting...")
+    ///.font(.title)
+    ///.offset(y: -150)
+    ///.pulse(loading: self.loading) // true-> Animating; false-> opacity:0
+    func pulse(loading: Bool) -> some View {
+        self
+            .opacity(loading ? 1 : 0)
+            .animation(
+                Animation.easeInOut(duration: 0.5)
+                    .repeatForever(autoreverses: true),
+                value: loading
+        )
+    }
+    
 }

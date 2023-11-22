@@ -13,22 +13,39 @@ struct MainCitySearchBarView: View {
 
     @Binding var selectedCityName: String
     
+    @State var isAlertShown: Bool = false
+    
     var cityName: String?
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
             Text(cityName ?? "No city found")
                 .foregroundColor(themeColor.text)
             Spacer()
-            NavigationLink(
-                destination: CitySearchScreen(
-                    selectedCityName: $selectedCityName
-                )
-            ) {
-                Image(systemName: "magnifyingglass")
+//            NavigationLink(
+//                destination: CitySearchScreen(
+//                    selectedCityName: $selectedCityName
+//                )
+//            ) {
+//                Image(systemName: "magnifyingglass.circle")
+//                    .foregroundColor(themeColor.text)
+//            }
+            Button {
+                isAlertShown.toggle()
+            }label: {
+                Image(systemName: "magnifyingglass.circle")
                     .foregroundColor(themeColor.text)
             }
+
         }
         .frame(maxWidth: .infinity)
+        .alert(isPresented: $isAlertShown, content: {
+            Alert(
+                title: Text("Coming soon!"),
+                message: Text("Next releases will provide a city selector!"),
+                dismissButton: Alert.Button.default(Text("Awesome!"))
+            )
+        })
+        .preferredColorScheme(themeColor.colorScheme)
     }
 }
 

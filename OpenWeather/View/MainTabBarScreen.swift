@@ -39,11 +39,13 @@ struct MainTabBarScreen: View {
             .tabItem {
                 TabViewItem(type: .home, title: homeItemText)
             }
+            .tag(1)
             
             SettingsScreen()
                 .tabItem {
                     TabViewItem(type: .settings, title: settingsItemText)
                 }
+                .tag(2)
         }
         .navigationViewStyle(.stack)
         .accentColor(themeColor.button)

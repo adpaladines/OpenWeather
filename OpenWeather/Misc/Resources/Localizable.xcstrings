@@ -67,8 +67,17 @@
         }
       }
     },
+    "Awesome!" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genial!"
+          }
+        }
+      }
+    },
     "Cancel" : {
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -88,8 +97,15 @@
         }
       }
     },
-    "Child View" : {
-
+    "Coming soon!" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pronto llegará!"
+          }
+        }
+      }
     },
     "Customizations" : {
       "extractionState" : "manual",
@@ -112,8 +128,18 @@
         }
       }
     },
+    "Delete" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar"
+          }
+        }
+      }
+    },
     "Description" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -124,6 +150,7 @@
       }
     },
     "Details" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -133,13 +160,12 @@
         }
       }
     },
-    "Edit Element" : {
-      "extractionState" : "stale",
+    "Edit" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Editar elemento"
+            "value" : "Editar"
           }
         }
       }
@@ -345,7 +371,7 @@
       }
     },
     "Name" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -366,12 +392,32 @@
       }
     },
     "New Element" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nuevo elemento"
+          }
+        }
+      }
+    },
+    "Next releases will provide a city selector!" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Próximos releases tendrán un seleccionador de ciudad!"
+          }
+        }
+      }
+    },
+    "No Api Key provided." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tienes una Api Key."
           }
         }
       }
@@ -435,6 +481,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Timeout. Sin respuesta del servidor."
+          }
+        }
+      }
+    },
+    "Options for: \n%@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opciones para:\n%@"
+          }
+        }
+      }
+    },
+    "Options:" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opciones:"
           }
         }
       }
@@ -521,6 +587,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Guardar"
+          }
+        }
+      }
+    },
+    "Select as default" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleccionar"
           }
         }
       }
@@ -679,12 +755,6 @@
         }
       }
     },
-    "Toggle Value" : {
-
-    },
-    "Toggle Value: %@" : {
-
-    },
     "Tomorrow" : {
       "localizations" : {
         "es" : {
@@ -696,7 +766,6 @@
       }
     },
     "UUID" : {
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -717,6 +786,17 @@
         }
       }
     },
+    "Verify if you provided an Api Key in Settings tab." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifique si proporcionó una clave Api en la pestaña Configuración."
+          }
+        }
+      }
+    },
     "Very Poor" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -724,6 +804,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Muy Pobre"
+          }
+        }
+      }
+    },
+    "We got an error." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtuvimos un error."
           }
         }
       }

@@ -10,10 +10,14 @@ import SwiftUI
 struct SettingsApiKeysScreen: View {
     
     @AppStorage("api_key_selected") var apiKeySelected: String = ""
+    
     @EnvironmentObject var themeColor: ThemeColor
     @ObservedObject var viewModel: SettingsViewModel
     
+    @State private var showActionSheet = false
     @State private var isFormOpened: Bool = false
+    
+    @State private var selectedObject: ApiKeyData? = nil
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -30,12 +34,11 @@ struct SettingsApiKeysScreen: View {
                     .frame(height: 46)
                     .containerBackground(withColor: themeColor.containerBackground)
                     .onTapGesture {
-                        apiKeySelected = item.uuid
+                        showActionSheet = true
+                        selectedObject = item
                     }
                 }
             }
-            
-//            .frame(maxWidth: 640)
             .padding(.top)
             .padding(.horizontal)
         }
@@ -45,8 +48,8 @@ struct SettingsApiKeysScreen: View {
         .preferredColorScheme(themeColor.colorScheme)
         .toolbar(content: {
             Button {
+                selectedObject = nil
                 isFormOpened.toggle()
-                viewModel.add(new: ApiKeyData(uuid: UUID().uuidString, name: "Ex: \(Date().timeIntervalSince1970)", customDescription: "This is just an example to be saved in Core Data \(Date())."))
             }label: {
                 Image(systemName: "plus.circle")
             }
@@ -54,12 +57,38 @@ struct SettingsApiKeysScreen: View {
         .onAppear {
             viewModel.getItems()
         }
-        .sheet(isPresented: $isFormOpened, onDismiss: {
-            print("Sheet dismissed with status")
-        }) {
-            ApiKeyFormSheetView(viewModel: viewModel, isPresented: $isFormOpened)
-        }
+        .sheet(
+            isPresented: $isFormOpened,
+            onDismiss: {
+                print("Sheet dismissed with status")
+            }) {
+                ApiKeyFormSheetView(apiKeyData: selectedObject, viewModel: viewModel, isPresented: $isFormOpened)
+            }
+            .confirmationDialog(
+                selectedObject != nil ? "Options for: \n\(selectedObject!.uuid)" : "Options:",
+                isPresented: $showActionSheet,
+                titleVisibility: Visibility.visible
+            ) {
+                Button("Select as default") {
+                    guard let uuid = selectedObject?.uuid else { return }
+                    apiKeySelected = uuid
+                }
+                Button("Edit") {
+                    isFormOpened = true
+                }
+                Button("Delete", role: .destructive) {
+                    guard
+                        let item = selectedObject,
+                        let index = viewModel.items.firstIndex(where: { $0.uuid == item.uuid })
+                    else
+                    { return }
+                    viewModel.delete(item: item)
+                    viewModel.items.remove(at: index)
+                }
+                Button("Cancel", role: .cancel) { }
+            }
     }
+    
 }
 
 #Preview {

@@ -137,4 +137,25 @@ class ThemeColor: ObservableObject {
         return Color(hex: "")
     }
     
+    var warning: Color {
+        guard isLight else {
+            return Color(hex: "FEE445")
+        }
+        return Color(hex: "CAA100")
+    }
+    
+    var gray: Color {
+        guard isLight else {
+            return Color(hex: "8F8F94")
+        }
+        return Color(hex: "828287")
+    }
+    
+    var error: Color {
+        guard isLight else {
+            return Color(hex: "FF4E43")
+        }
+        return Color(hex: "FB3B30")
+    }
+    
 }

@@ -16,6 +16,7 @@ enum NetworkError: Error {
     case parsingValue
     case none
     case network(String)
+    case missingApiKey
 }
 
 extension NetworkError: LocalizedError, Equatable {
@@ -24,6 +25,8 @@ extension NetworkError: LocalizedError, Equatable {
         let localizedString: String
         let reflectionString = String(reflecting: self)
         switch self {
+        case .missingApiKey:
+            localizedString = NSLocalizedString("No Api Key provided.".localized(), comment: reflectionString)
         case .invalidUrl:
             localizedString = NSLocalizedString("Malformed URL.".localized(), comment: reflectionString)
         case .dataNotFound:

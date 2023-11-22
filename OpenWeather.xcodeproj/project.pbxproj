@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DD0F92882B07E0E20092438A /* asdasdsdasd.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0F92872B07E0E20092438A /* asdasdsdasd.swift */; };
 		DD49E0632AEBEB4E00C8F2D5 /* AppIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD49E0622AEBEB4E00C8F2D5 /* AppIconManager.swift */; };
 		DD49E0662AEBEF6600C8F2D5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD49E0652AEBEF6600C8F2D5 /* SettingsViewModel.swift */; };
 		DD49E06A2AEC08B800C8F2D5 /* MapSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD49E0692AEC08B800C8F2D5 /* MapSearchManager.swift */; };
@@ -15,6 +14,8 @@
 		DD74E8F02B01917400EE00F9 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD74E8EF2B01917400EE00F9 /* CoreDataManager.swift */; };
 		DD74E8F22B01919500EE00F9 /* CoreDataOperationsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD74E8F12B01919500EE00F9 /* CoreDataOperationsProtocol.swift */; };
 		DD74E8F52B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD74E8F32B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld */; };
+		DD9543392B0E86EB00AC0473 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = DD9543382B0E86EB00AC0473 /* KeychainAccess */; };
+		DD95433C2B0EA73600AC0473 /* FormHiddenBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD95433B2B0EA73600AC0473 /* FormHiddenBackground.swift */; };
 		DDA27C622AEAE4A5005E0292 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DDA27C612AEAE4A5005E0292 /* Localizable.xcstrings */; };
 		DDC7980E2AE9FC7000BF9800 /* OpenWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7980D2AE9FC7000BF9800 /* OpenWeatherApp.swift */; };
 		DDC798122AE9FC7100BF9800 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDC798112AE9FC7100BF9800 /* Assets.xcassets */; };
@@ -97,7 +98,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DD0F92872B07E0E20092438A /* asdasdsdasd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = asdasdsdasd.swift; sourceTree = "<group>"; };
 		DD49E0622AEBEB4E00C8F2D5 /* AppIconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManager.swift; sourceTree = "<group>"; };
 		DD49E0652AEBEF6600C8F2D5 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		DD49E0682AEBFE4C00C8F2D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -106,6 +106,7 @@
 		DD74E8EF2B01917400EE00F9 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		DD74E8F12B01919500EE00F9 /* CoreDataOperationsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataOperationsProtocol.swift; sourceTree = "<group>"; };
 		DD74E8F42B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OpenWeatherDataModel.xcdatamodel; sourceTree = "<group>"; };
+		DD95433B2B0EA73600AC0473 /* FormHiddenBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormHiddenBackground.swift; sourceTree = "<group>"; };
 		DDA27C612AEAE4A5005E0292 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		DDC7980A2AE9FC7000BF9800 /* OpenWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC7980D2AE9FC7000BF9800 /* OpenWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherApp.swift; sourceTree = "<group>"; };
@@ -178,6 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD9543392B0E86EB00AC0473 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +224,21 @@
 				DDEA5C0D2B04FCB0009C4211 /* PersistenceController.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		DD9543322B0E82B400AC0473 /* KeyChain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = KeyChain;
+			sourceTree = "<group>";
+		};
+		DD95433A2B0EA72900AC0473 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				DD95433B2B0EA73600AC0473 /* FormHiddenBackground.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 		DDC798012AE9FC7000BF9800 = {
@@ -385,6 +402,7 @@
 		DDC7986A2AEA963A00BF9800 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				DD9543322B0E82B400AC0473 /* KeyChain */,
 				DD74E8EE2B01915700EE00F9 /* CoreData */,
 				DD49E0672AEBF4EA00C8F2D5 /* IconManager */,
 				DDC7986D2AEA966800BF9800 /* Network */,
@@ -431,7 +449,6 @@
 				DDEA5C122B0560DC009C4211 /* SettingsApiKeysScreen.swift */,
 				DDCE90ED2B07A8D800FA90AD /* ApiKeyCellView.swift */,
 				DDCE90EF2B07AF5800FA90AD /* ApiKeyFormSheetView.swift */,
-				DD0F92872B07E0E20092438A /* asdasdsdasd.swift */,
 			);
 			path = ApiKeyManager;
 			sourceTree = "<group>";
@@ -439,6 +456,7 @@
 		DDDDA4B02AEAC111009FB7C0 /* Appearance */ = {
 			isa = PBXGroup;
 			children = (
+				DD95433A2B0EA72900AC0473 /* ViewModifiers */,
 				DDDDA4AE2AEAC0D5009FB7C0 /* ThemeColor.swift */,
 			);
 			path = Appearance;
@@ -542,6 +560,9 @@
 			dependencies = (
 			);
 			name = OpenWeather;
+			packageProductDependencies = (
+				DD9543382B0E86EB00AC0473 /* KeychainAccess */,
+			);
 			productName = OpenWeather;
 			productReference = DDC7980A2AE9FC7000BF9800 /* OpenWeather.app */;
 			productType = "com.apple.product-type.application";
@@ -614,6 +635,9 @@
 				Base,
 			);
 			mainGroup = DDC798012AE9FC7000BF9800;
+			packageReferences = (
+				DD9543372B0E86EB00AC0473 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+			);
 			productRefGroup = DDC7980B2AE9FC7000BF9800 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -678,6 +702,7 @@
 				DDC7983A2AEA909600BF9800 /* NetworkError.swift in Sources */,
 				DDEA5C0E2B04FCB0009C4211 /* PersistenceController.swift in Sources */,
 				DDC7984F2AEA939E00BF9800 /* String+Extensions.swift in Sources */,
+				DD95433C2B0EA73600AC0473 /* FormHiddenBackground.swift in Sources */,
 				DDDDA4C42AEAC27B009FB7C0 /* MainLocation.swift in Sources */,
 				DDC7986F2AEA967B00BF9800 /* Services.swift in Sources */,
 				DDDDA4B42AEAC143009FB7C0 /* ForecastData.swift in Sources */,
@@ -704,7 +729,6 @@
 				DDC798592AEA943400BF9800 /* Int+Extensions.swift in Sources */,
 				DDDDA4EF2AEADB05009FB7C0 /* WeatherFakeRepository.swift in Sources */,
 				DD49E0662AEBEF6600C8F2D5 /* SettingsViewModel.swift in Sources */,
-				DD0F92882B07E0E20092438A /* asdasdsdasd.swift in Sources */,
 				DDC798572AEA940F00BF9800 /* Double+Extensions.swift in Sources */,
 				DDDDA4D72AEAD91A009FB7C0 /* TabViewItemType.swift in Sources */,
 				DDDDA4AF2AEAC0D5009FB7C0 /* ThemeColor.swift in Sources */,
@@ -1068,6 +1092,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DD9543372B0E86EB00AC0473 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DD9543382B0E86EB00AC0473 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD9543372B0E86EB00AC0473 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		DD74E8F32B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld */ = {
