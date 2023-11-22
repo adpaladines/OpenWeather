@@ -26,7 +26,7 @@ class MainLocationViewModel: ObservableObject {
     @Published var currentWeathrData: CurrentWeatherData?
     @Published var fiveForecastData: ForecastData?
     @Published var airPollutionData: AirPollutionData?
-    
+        
     private var cancellables: Set<AnyCancellable> = []
     private var repository: Repositoryable
     

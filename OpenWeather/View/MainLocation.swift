@@ -13,6 +13,39 @@ enum LocationType {
     case currentLocation
 }
 
+struct MissingApiKeyView: View {
+    
+    @EnvironmentObject var themeColor: ThemeColor
+    let error: Error
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 60))
+                .foregroundColor(themeColor.error)
+                .padding(.bottom, 20)
+            
+            Text("We got an error.".localized())
+                .font(.title)
+                .foregroundColor(themeColor.error)
+                .padding(.bottom, 20)
+            
+            Text(error.localizedDescription)
+                .fontWeight(.semibold)
+                .foregroundColor(themeColor.gray)
+                .multilineTextAlignment(.center)
+                .padding(.bottom, 30)
+
+            Text("Verify if you provided an Api Key in Settings tab.".localized())
+                .foregroundColor(themeColor.warning)
+                .multilineTextAlignment(.center)
+            Spacer()
+        }
+        .padding()
+    }
+}
+
 struct MainLocationScreen: View {
     
     @EnvironmentObject var themeColor: ThemeColor
@@ -50,12 +83,18 @@ struct MainLocationScreen: View {
             .background(themeColor.containerBackground)
             
             ScrollView(showsIndicators: false) {
+                if let error = viewModel.customError {
+                    MissingApiKeyView(error: error)
+                        .padding(.top, 64)
+                }
                 
-                FiveDaysForecastbarView(viewModel: viewModel, isClosed: $isClosedForecast)
-                    .containerBackground(withColor: themeColor.containerBackground)
-                    .frame(maxWidth: 640)
-                    .padding(.horizontal)
-                    .padding(.top)
+                if viewModel.fiveForecastData?.list.count ?? 0 > 0 {
+                    FiveDaysForecastbarView(viewModel: viewModel, isClosed: $isClosedForecast)
+                        .containerBackground(withColor: themeColor.containerBackground)
+                        .frame(maxWidth: 640)
+                        .padding(.horizontal)
+                        .padding(.top)
+                }
                 
                 if viewModel.miniWidgets.count > 0 {
                     CollapsibleHeaderView(title: "Today's info".localized(), image: Image(systemName: "info.circle"), isClosed: $isClosedCurrentWeather)

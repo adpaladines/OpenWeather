@@ -27,8 +27,6 @@ class WeatherRepository: Repositoryable {
         self.lon = coordinate.longitude.stringValue
     }
     
-    
-    
     func getUrlStringImageBy(id: String) -> String? {
         let newUrl = UrlEndpoints.shared.baseWeather + UrlEndpoints.shared.images + id + "@2x.png"
         return newUrl
@@ -44,11 +42,16 @@ extension WeatherRepository {
             return Fail(error: NetworkError.request).eraseToAnyPublisher()
         }
         
+        guard UrlEndpoints.shared.apiKey.isNotEmpty else {
+            return Fail(error: NetworkError.request).eraseToAnyPublisher()
+        }
+        
         let path = testingPath.isEmpty ? UrlEndpoints.shared.currentWeather : testingPath
         var requestable = CurrentWeatherRequest(apiVersion: .version_2_5, path: path)
         requestable.set(lat: lat_, lon: lon_, metrics: metrics)
         
         return serviceManager.getDataFromApiCombine(requestable: requestable)
+//            .debounce(for: .seconds(1), scheduler: DispatchQueue.global())
             .tryMap { data in
                 return try JSONDecoder().decode(CurrentWeatherData.self, from: data)
             }
@@ -68,6 +71,7 @@ extension WeatherRepository {
         requestable.set(lat: lat_, lon: lon_, metrics: metrics)
         
         return serviceManager.getDataFromApiCombine(requestable: requestable)
+//            .debounce(for: .seconds(1), scheduler: DispatchQueue.global())
             .tryMap { data in
                 return try JSONDecoder().decode(ForecastData.self, from: data)
             }
@@ -88,6 +92,7 @@ extension WeatherRepository {
         requestable.set(lat: lat_, lon: lon_)
         
         return serviceManager.getDataFromApiCombine(requestable: requestable)
+//            .debounce(for: .seconds(1), scheduler: DispatchQueue.global())
             .tryMap { data in
                 return try JSONDecoder().decode(AirPollutionData.self, from: data)
             }

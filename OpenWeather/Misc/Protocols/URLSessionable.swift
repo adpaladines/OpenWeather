@@ -8,5 +8,8 @@
 import Foundation
 
 protocol URLSessionable {
+    
     func getData(for urlRequest: URLRequest, delegate: URLSessionTaskDelegate?) async throws -> (Data, URLResponse)
+    
+    
 }

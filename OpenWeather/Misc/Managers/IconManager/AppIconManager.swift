@@ -15,27 +15,25 @@ protocol AppIconManagerProtocol {
 
 enum AppIconType: String, CaseIterable {
     case light
-//    case monoLight
     case dark
-//    case monoDark
 }
 
 extension AppIconType {
     
     var getIconName: String? {
         switch self {
-        case .light://, .monoLight:
+        case .light:
             return nil
-        case .dark://, .monoDark:
+        case .dark:
             return "AppIcon-2"
         }
     }
     
     var iconThemeName: String {
         switch self {
-        case .light://, .monoLight:
+        case .light:
             return "Light".localized()
-        case .dark://, .monoDark:
+        case .dark:
             return "Dark".localized()
         }
     }

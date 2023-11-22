@@ -16,10 +16,11 @@ enum ApiVersion: String {
 struct UrlEndpoints {
     static let shared: UrlEndpoints = .init()
     
-    var apiKey: String
-    private init() {
-        self.apiKey = "8a03e3576f61f48d6ffa0f09d372cb0a"
+    var apiKey: String {
+        UserDefaults.standard.string(forKey: "api_key_selected") ?? ""
     }
+    
+    private init() {}
     
     var baseWeatherApi: String {
         "https://api.openweathermap.org"

@@ -23,6 +23,7 @@ extension Services: Serviceable {
         guard let urlRequest = requestable.createURLRequest() else {
             return Fail(error: NetworkError.invalidUrl).eraseToAnyPublisher()
         }
+        
         return URLSession.shared.dataTaskPublisher(for: urlRequest)
             .tryMap { (data: Data, response: URLResponse) in
                 guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
