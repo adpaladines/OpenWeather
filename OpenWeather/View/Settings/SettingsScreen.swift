@@ -75,7 +75,7 @@ struct SettingsScreen: View {
                         Image(systemName: "key.icloud")
                         Text("Api Key:".localized())
                         Spacer()
-                        NavigationLink("Add or select your Api Key") {
+                        NavigationLink("Api Key vault".localized()) {
                             SettingsApiKeysScreen(viewModel: viewModel)
                         }
                         .tint(themeColor.button)

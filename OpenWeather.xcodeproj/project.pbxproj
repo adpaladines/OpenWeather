@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD0F92882B07E0E20092438A /* asdasdsdasd.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0F92872B07E0E20092438A /* asdasdsdasd.swift */; };
 		DD49E0632AEBEB4E00C8F2D5 /* AppIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD49E0622AEBEB4E00C8F2D5 /* AppIconManager.swift */; };
 		DD49E0662AEBEF6600C8F2D5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD49E0652AEBEF6600C8F2D5 /* SettingsViewModel.swift */; };
 		DD49E06A2AEC08B800C8F2D5 /* MapSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD49E0692AEC08B800C8F2D5 /* MapSearchManager.swift */; };
@@ -45,6 +46,8 @@
 		DDC798732AEA96B800BF9800 /* CurrentWeatherRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC798722AEA96B800BF9800 /* CurrentWeatherRequest.swift */; };
 		DDC798752AEA96D400BF9800 /* JsonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC798742AEA96D400BF9800 /* JsonManager.swift */; };
 		DDC798772AEA96EE00BF9800 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC798762AEA96EE00BF9800 /* LocationManager.swift */; };
+		DDCE90EE2B07A8D800FA90AD /* ApiKeyCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE90ED2B07A8D800FA90AD /* ApiKeyCellView.swift */; };
+		DDCE90F02B07AF5800FA90AD /* ApiKeyFormSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE90EF2B07AF5800FA90AD /* ApiKeyFormSheetView.swift */; };
 		DDDDA4AF2AEAC0D5009FB7C0 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDDA4AE2AEAC0D5009FB7C0 /* ThemeColor.swift */; };
 		DDDDA4B22AEAC128009FB7C0 /* CurrentWeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDDA4B12AEAC128009FB7C0 /* CurrentWeatherData.swift */; };
 		DDDDA4B42AEAC143009FB7C0 /* ForecastData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDDA4B32AEAC143009FB7C0 /* ForecastData.swift */; };
@@ -94,6 +97,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DD0F92872B07E0E20092438A /* asdasdsdasd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = asdasdsdasd.swift; sourceTree = "<group>"; };
 		DD49E0622AEBEB4E00C8F2D5 /* AppIconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManager.swift; sourceTree = "<group>"; };
 		DD49E0652AEBEF6600C8F2D5 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		DD49E0682AEBFE4C00C8F2D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 		DDC798722AEA96B800BF9800 /* CurrentWeatherRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherRequest.swift; sourceTree = "<group>"; };
 		DDC798742AEA96D400BF9800 /* JsonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonManager.swift; sourceTree = "<group>"; };
 		DDC798762AEA96EE00BF9800 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		DDCE90ED2B07A8D800FA90AD /* ApiKeyCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyCellView.swift; sourceTree = "<group>"; };
+		DDCE90EF2B07AF5800FA90AD /* ApiKeyFormSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyFormSheetView.swift; sourceTree = "<group>"; };
 		DDDDA4AE2AEAC0D5009FB7C0 /* ThemeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
 		DDDDA4B12AEAC128009FB7C0 /* CurrentWeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherData.swift; sourceTree = "<group>"; };
 		DDDDA4B32AEAC143009FB7C0 /* ForecastData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastData.swift; sourceTree = "<group>"; };
@@ -419,6 +425,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		DDCE90EC2B07A8C000FA90AD /* ApiKeyManager */ = {
+			isa = PBXGroup;
+			children = (
+				DDEA5C122B0560DC009C4211 /* SettingsApiKeysScreen.swift */,
+				DDCE90ED2B07A8D800FA90AD /* ApiKeyCellView.swift */,
+				DDCE90EF2B07AF5800FA90AD /* ApiKeyFormSheetView.swift */,
+				DD0F92872B07E0E20092438A /* asdasdsdasd.swift */,
+			);
+			path = ApiKeyManager;
+			sourceTree = "<group>";
+		};
 		DDDDA4B02AEAC111009FB7C0 /* Appearance */ = {
 			isa = PBXGroup;
 			children = (
@@ -464,8 +481,8 @@
 		DDDDA4BE2AEAC1D8009FB7C0 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				DDCE90EC2B07A8C000FA90AD /* ApiKeyManager */,
 				DDDDA4F32AEADFA3009FB7C0 /* SettingsScreen.swift */,
-				DDEA5C122B0560DC009C4211 /* SettingsApiKeysScreen.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -673,6 +690,7 @@
 				DD49E0632AEBEB4E00C8F2D5 /* AppIconManager.swift in Sources */,
 				DD49E06A2AEC08B800C8F2D5 /* MapSearchManager.swift in Sources */,
 				DDEA5C132B0560DC009C4211 /* SettingsApiKeysScreen.swift in Sources */,
+				DDCE90EE2B07A8D800FA90AD /* ApiKeyCellView.swift in Sources */,
 				DDC798752AEA96D400BF9800 /* JsonManager.swift in Sources */,
 				DDC7984D2AEA938500BF9800 /* CLLocationDegrees+Extensions.swift in Sources */,
 				DDDDA4ED2AEADAE0009FB7C0 /* Repositoryable.swift in Sources */,
@@ -686,6 +704,7 @@
 				DDC798592AEA943400BF9800 /* Int+Extensions.swift in Sources */,
 				DDDDA4EF2AEADB05009FB7C0 /* WeatherFakeRepository.swift in Sources */,
 				DD49E0662AEBEF6600C8F2D5 /* SettingsViewModel.swift in Sources */,
+				DD0F92882B07E0E20092438A /* asdasdsdasd.swift in Sources */,
 				DDC798572AEA940F00BF9800 /* Double+Extensions.swift in Sources */,
 				DDDDA4D72AEAD91A009FB7C0 /* TabViewItemType.swift in Sources */,
 				DDDDA4AF2AEAC0D5009FB7C0 /* ThemeColor.swift in Sources */,
@@ -696,6 +715,7 @@
 				DDC798602AEA95B100BF9800 /* URLResponseable.swift in Sources */,
 				DDC798642AEA95D400BF9800 /* Requestable.swift in Sources */,
 				DDC7985D2AEA952700BF9800 /* Bundle+Extensions.swift in Sources */,
+				DDCE90F02B07AF5800FA90AD /* ApiKeyFormSheetView.swift in Sources */,
 				DDDDA4DB2AEAD942009FB7C0 /* MiniWidgetsAirQualityGridView.swift in Sources */,
 				DD74E8F22B01919500EE00F9 /* CoreDataOperationsProtocol.swift in Sources */,
 				DDDDA4CC2AEAC3A9009FB7C0 /* MainCitySearchBarView.swift in Sources */,

@@ -7,39 +7,13 @@
 
 import SwiftUI
 
-struct ApiKeyCellView: View {
-    
-    @EnvironmentObject var themeColor: ThemeColor
-    var isSelected: Bool
-    var title: String
-    
-    var body: some View {
-        HStack(alignment: .center, spacing: 16) {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(themeColor.imageBackground)
-                .overlay {
-                    Image(systemName: isSelected ? "checkmark.circle.fill" : "checkmark.circle")
-                        .resizable()
-                        .frame(width: 24, height: 24, alignment: .center)
-                        .foregroundColor(themeColor.button)
-                }
-                .frame(width: 28, height: 28, alignment: .center)
-                .padding(.leading)
-            Text(title)
-                .fontWeight(.medium)
-                .foregroundColor(themeColor.text)
-            Spacer()
-        }
-        .padding(.trailing)
-    }
-    
-}
-
 struct SettingsApiKeysScreen: View {
     
     @AppStorage("api_key_selected") var apiKeySelected: String = ""
     @EnvironmentObject var themeColor: ThemeColor
     @ObservedObject var viewModel: SettingsViewModel
+    
+    @State private var isFormOpened: Bool = false
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -48,7 +22,7 @@ struct SettingsApiKeysScreen: View {
                     GridItem()
                 ],
                 spacing: 16) {
-                ForEach(viewModel.testItems) { item in
+                ForEach(viewModel.items) { item in
                     ApiKeyCellView(
                         isSelected: apiKeySelected == item.uuid,
                         title: item.name
@@ -71,6 +45,7 @@ struct SettingsApiKeysScreen: View {
         .preferredColorScheme(themeColor.colorScheme)
         .toolbar(content: {
             Button {
+                isFormOpened.toggle()
                 viewModel.add(new: ApiKeyData(uuid: UUID().uuidString, name: "Ex: \(Date().timeIntervalSince1970)", customDescription: "This is just an example to be saved in Core Data \(Date())."))
             }label: {
                 Image(systemName: "plus.circle")
@@ -78,6 +53,11 @@ struct SettingsApiKeysScreen: View {
         })
         .onAppear {
             viewModel.getItems()
+        }
+        .sheet(isPresented: $isFormOpened, onDismiss: {
+            print("Sheet dismissed with status")
+        }) {
+            ApiKeyFormSheetView(viewModel: viewModel, isPresented: $isFormOpened)
         }
     }
 }

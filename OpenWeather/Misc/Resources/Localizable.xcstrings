@@ -14,9 +14,6 @@
         }
       }
     },
-    "Add or select your Api Key" : {
-
-    },
     "Address" : {
       "localizations" : {
         "es" : {
@@ -59,6 +56,28 @@
         }
       }
     },
+    "Api Keys vault" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bóveda de claves Api"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        }
+      }
+    },
     "Celcius" : {
       "localizations" : {
         "es" : {
@@ -68,6 +87,9 @@
           }
         }
       }
+    },
+    "Child View" : {
+
     },
     "Customizations" : {
       "extractionState" : "manual",
@@ -86,6 +108,49 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oscuro"
+          }
+        }
+      }
+    },
+    "Description" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descripción"
+          }
+        }
+      }
+    },
+    "Details" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detalles"
+          }
+        }
+      }
+    },
+    "Edit Element" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar elemento"
+          }
+        }
+      }
+    },
+    "Edition" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edición"
           }
         }
       }
@@ -279,12 +344,34 @@
         }
       }
     },
+    "Name" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre"
+          }
+        }
+      }
+    },
     "Network error: (netError)" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Error de red"
+          }
+        }
+      }
+    },
+    "New Element" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuevo elemento"
           }
         }
       }
@@ -423,6 +510,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Respuesta no pudo ser enviada."
+          }
+        }
+      }
+    },
+    "Save" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar"
           }
         }
       }
@@ -581,12 +679,40 @@
         }
       }
     },
+    "Toggle Value" : {
+
+    },
+    "Toggle Value: %@" : {
+
+    },
     "Tomorrow" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mañana"
+          }
+        }
+      }
+    },
+    "UUID" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UUID"
+          }
+        }
+      }
+    },
+    "UUID: %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UUID: %@"
           }
         }
       }

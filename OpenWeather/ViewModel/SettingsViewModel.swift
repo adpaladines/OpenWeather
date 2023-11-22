@@ -15,12 +15,6 @@ class SettingsViewModel: ObservableObject {
     @Published var items: [ApiKeyData] = []
     @Published var customError: NetworkError
     @Published var success: Bool = false
-
-    @Published var testItems: [ApiKeyData] = [
-        ApiKeyData(uuid: UUID().uuidString, name: "NewItem 1.", customDescription: "Description"),
-        ApiKeyData(uuid: UUID().uuidString, name: "NewItem 2.", customDescription: "Description"),
-        ApiKeyData(uuid: UUID().uuidString, name: "NewItem 3.", customDescription: "Description")
-    ]
     
     private var appIconType: AppIconType?
     private var appIconManager: AppIconManagerProtocol?
