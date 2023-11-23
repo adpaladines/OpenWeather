@@ -33,6 +33,29 @@ class MainLocationViewModel: ObservableObject {
     init(repository: Repositoryable) {
         self.repository = repository
     }
+    
+    private func combineServiceCalls(coordinate: CLLocationCoordinate2D) -> AnyPublisher<CombinedResult, Error> {
+        let unit = MeasurementUnit(rawValue: currentMeasurementUnit) ?? .standard
+        repository.setServiceManager(Services(), and: coordinate)
+        
+        return Publishers.Zip3(
+            repository.getCurrentWeatherCombine(metrics: unit, testingPath: ""),
+            repository.getForecastDataCombine(metrics: unit, testingPath: ""),
+            repository.getAirPollutionDataCombine(testingPath: "")
+        )
+        .receive(on: RunLoop.main)
+        .map { currentWeatherData, forecastData, airPollutionData in
+            print(currentWeatherData?.main.temp as Any)
+            print(forecastData?.list.first?.main.humidity as Any)
+            print(airPollutionData?.list.first?.so2 as Any)
+            return CombinedResult(
+                weather: currentWeatherData,
+                forecast: forecastData,
+                air: airPollutionData
+            )
+        }
+        .eraseToAnyPublisher()
+    }
 }
 
 extension MainLocationViewModel: WeatherInfoProtocol {
@@ -73,42 +96,27 @@ extension MainLocationViewModel: WeatherInfoProtocol {
     }
 }
 
+//MARK: Server Fetch Request
 extension MainLocationViewModel {
     
-    func getCurrentWeatherInfoCombine(coordinate: CLLocationCoordinate2D) {
-        let unit = MeasurementUnit(rawValue: currentMeasurementUnit) ?? .standard
-        repository.setServiceManager(Services(), and: coordinate)
-        repository.getCurrentWeatherCombine(metrics: unit, testingPath: "")
-            .receive(on: RunLoop.main)
+    func fetchServerData(coordinate: CLLocationCoordinate2D) {
+        combineServiceCalls(coordinate: coordinate)
             .sink { [weak self] completion in
                 self?.manageErrorStatus(completion: completion)
-            } receiveValue: { [weak self] weatherData in
-                self?.currentWeathrData = weatherData
-            }
-            .store(in: &cancellables)
-    }
-    
-    func getDailyForecastInfoCombine(coordinate: CLLocationCoordinate2D) {
-        let unit = MeasurementUnit(rawValue: currentMeasurementUnit)  ?? .standard
-        repository.setServiceManager(Services(), and: coordinate)
-        repository.getForecastDataCombine(metrics: unit, testingPath: "")
-            .receive(on: RunLoop.main)
-            .sink { [weak self] completion in
-                self?.manageErrorStatus(completion: completion)
-            } receiveValue: { [weak self] forecastData in
-                self?.fiveForecastData = forecastData
-            }
-            .store(in: &cancellables)
-    }
-    
-    func getAirPollutionDataCombine(coordinate: CLLocationCoordinate2D) {
-        repository.setServiceManager(Services(), and: coordinate)
-        repository.getAirPollutionDataCombine(testingPath: "")
-            .receive(on: RunLoop.main)
-            .sink { [weak self] completion in
-                self?.manageErrorStatus(completion: completion)
-            } receiveValue: { [weak self] airPollutionData in
-                self?.airPollutionData = airPollutionData
+            } receiveValue: { [weak self] combinedResult in
+                guard
+                    let weather = combinedResult.weather,
+                    let forecast = combinedResult.forecast,
+                    let air = combinedResult.air
+                else {
+                    self?.fiveForecastData = nil
+                    self?.airPollutionData = nil
+                    self?.currentWeathrData = nil
+                    return
+                }
+                self?.fiveForecastData = forecast
+                self?.airPollutionData = air
+                self?.currentWeathrData = weather
             }
             .store(in: &cancellables)
     }
@@ -118,6 +126,9 @@ extension MainLocationViewModel {
         case .finished:
             setCustomErrorStatus(with: nil)
         case .failure(let error):
+            fiveForecastData = nil
+            airPollutionData = nil
+            currentWeathrData = nil
             setCustomErrorStatus(with: error)
             print(error.localizedDescription)
         }
