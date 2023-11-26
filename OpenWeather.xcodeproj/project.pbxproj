@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD0838F52B0F195C009EE6C3 /* CombinedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0838F42B0F195C009EE6C3 /* CombinedResult.swift */; };
 		DD49E0632AEBEB4E00C8F2D5 /* AppIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD49E0622AEBEB4E00C8F2D5 /* AppIconManager.swift */; };
 		DD49E0662AEBEF6600C8F2D5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD49E0652AEBEF6600C8F2D5 /* SettingsViewModel.swift */; };
 		DD49E06A2AEC08B800C8F2D5 /* MapSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD49E0692AEC08B800C8F2D5 /* MapSearchManager.swift */; };
@@ -98,6 +99,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DD0838F42B0F195C009EE6C3 /* CombinedResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedResult.swift; sourceTree = "<group>"; };
 		DD49E0622AEBEB4E00C8F2D5 /* AppIconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManager.swift; sourceTree = "<group>"; };
 		DD49E0652AEBEF6600C8F2D5 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		DD49E0682AEBFE4C00C8F2D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				DDDDA4B52AEAC159009FB7C0 /* AirPollutionData.swift */,
 				DDDDA4E52AEADA5C009FB7C0 /* MiniWidgetData.swift */,
 				DDDDA4E72AEADA75009FB7C0 /* MiniGaugeData.swift */,
+				DD0838F42B0F195C009EE6C3 /* CombinedResult.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -713,6 +716,7 @@
 				DD74E8F52B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld in Sources */,
 				DDC798552AEA93F600BF9800 /* Color+Extensions.swift in Sources */,
 				DD49E0632AEBEB4E00C8F2D5 /* AppIconManager.swift in Sources */,
+				DD0838F52B0F195C009EE6C3 /* CombinedResult.swift in Sources */,
 				DD49E06A2AEC08B800C8F2D5 /* MapSearchManager.swift in Sources */,
 				DDEA5C132B0560DC009C4211 /* SettingsApiKeysScreen.swift in Sources */,
 				DDCE90EE2B07A8D800FA90AD /* ApiKeyCellView.swift in Sources */,
@@ -925,7 +929,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andres.paladines.open.weather.OpenWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -959,7 +963,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andres.paladines.open.weather.OpenWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

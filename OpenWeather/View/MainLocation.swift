@@ -83,7 +83,7 @@ struct MainLocationScreen: View {
             .background(themeColor.containerBackground)
             
             ScrollView(showsIndicators: false) {
-                if let error = viewModel.customError {
+                if let error = viewModel.customError, error != .none {
                     MissingApiKeyView(error: error)
                         .padding(.top, 64)
                 }
@@ -149,9 +149,10 @@ struct MainLocationScreen: View {
             .task {
                 if isForTesting ?? false {
                     let coord = CLLocationCoordinate2D(latitude: 51.50998, longitude: -0.1337)
-                    viewModel.getCurrentWeatherInfoCombine(coordinate: coord)
-                    viewModel.getDailyForecastInfoCombine(coordinate: coord)
-                    viewModel.getAirPollutionDataCombine(coordinate: coord)
+                    viewModel.fetchServerData(coordinate: coord)
+//                    viewModel.getCurrentWeatherInfoCombine(coordinate: coord)
+//                    viewModel.getDailyForecastInfoCombine(coordinate: coord)
+//                    viewModel.getAirPollutionDataCombine(coordinate: coord)
                 }
             }
             .refreshable {
@@ -162,10 +163,11 @@ struct MainLocationScreen: View {
     }
     
     func getweatherData(coordinate: CLLocationCoordinate2D?) async  {
-        if let coordinate_ = coordinate {
-            viewModel.getCurrentWeatherInfoCombine(coordinate: coordinate_)
-            viewModel.getDailyForecastInfoCombine(coordinate: coordinate_)
-            viewModel.getAirPollutionDataCombine(coordinate: coordinate_)
+        if let coord = coordinate {
+            viewModel.fetchServerData(coordinate: coord)
+//            viewModel.getCurrentWeatherInfoCombine(coordinate: coord)
+//            viewModel.getDailyForecastInfoCombine(coordinate: coord)
+//            viewModel.getAirPollutionDataCombine(coordinate: coord)
         }
     }
 }
