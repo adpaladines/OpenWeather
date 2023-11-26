@@ -83,10 +83,15 @@ struct MainLocationScreen: View {
             .background(themeColor.containerBackground)
             
             ScrollView(showsIndicators: false) {
-                if let error = viewModel.customError, error != .none {
-                    MissingApiKeyView(error: error)
+//                if let error = viewModel.customError, error != .none {
+                MissingApiKeyView(error: viewModel.customError ?? .none)
                         .padding(.top, 64)
-                }
+                        .opacity((viewModel.customError ?? .none) != NetworkError.none ? 1 : 0)
+                        .animation(.easeInOut(duration: 0.3), value: viewModel.customError)
+                        .frame(
+                            height: (viewModel.customError ?? .none) != NetworkError.none ? nil : 0,
+                            alignment: .center)
+//                }
                 
                 if viewModel.fiveForecastData?.list.count ?? 0 > 0 {
                     FiveDaysForecastbarView(viewModel: viewModel, isClosed: $isClosedForecast)
@@ -122,6 +127,10 @@ struct MainLocationScreen: View {
                         .redacted(reason: isLoading ? .placeholder: [])
                 }
             }
+            .refreshable {
+                viewModel.customError = nil
+                locationManager.startUpdatingLocation()
+            }
             .frame(maxWidth: .infinity)
             .background(themeColor.screenBackground)
             .onChange(of: viewModel.customError, perform: { newValue in
@@ -155,10 +164,7 @@ struct MainLocationScreen: View {
 //                    viewModel.getAirPollutionDataCombine(coordinate: coord)
                 }
             }
-            .refreshable {
-                viewModel.customError = nil
-                locationManager.startUpdatingLocation()
-            }
+            
         }
     }
     
