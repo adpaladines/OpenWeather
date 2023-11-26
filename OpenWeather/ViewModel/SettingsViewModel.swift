@@ -46,6 +46,7 @@ extension SettingsViewModel {
     
     func getItems() {
         CDManager.fetchDataFromDatabase()
+            .receive(on: RunLoop.main)
             .tryMap { itemEntities in
                 return itemEntities.compactMap { ApiKeyData(from: $0) }
             }

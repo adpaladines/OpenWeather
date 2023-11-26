@@ -12,8 +12,6 @@ enum MeasurementUnit: String, CaseIterable {
     case standard
     case metric
     case imperial
-    case none
-    
     
     func getUnit() -> String {
         let value: String
@@ -24,8 +22,6 @@ enum MeasurementUnit: String, CaseIterable {
             value = "Celcius"
         case .imperial:
             value = "Fahrenheit"
-        case .none:
-            value = "Kelvin"
         }
         return value
     }
@@ -39,8 +35,6 @@ enum MeasurementUnit: String, CaseIterable {
             value = "metric"
         case .imperial:
             value = "imperial"
-        case .none:
-            value = "standard"
         }
         return value
     }

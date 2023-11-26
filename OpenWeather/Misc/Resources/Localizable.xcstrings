@@ -351,6 +351,7 @@
       }
     },
     "Mono Dark" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -361,6 +362,7 @@
       }
     },
     "Mono Light" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {

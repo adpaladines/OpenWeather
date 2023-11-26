@@ -13,39 +13,6 @@ enum LocationType {
     case currentLocation
 }
 
-struct MissingApiKeyView: View {
-    
-    @EnvironmentObject var themeColor: ThemeColor
-    let error: Error
-    
-    var body: some View {
-        VStack {
-            Spacer()
-            Image(systemName: "exclamationmark.triangle.fill")
-                .font(.system(size: 60))
-                .foregroundColor(themeColor.error)
-                .padding(.bottom, 20)
-            
-            Text("We got an error.".localized())
-                .font(.title)
-                .foregroundColor(themeColor.error)
-                .padding(.bottom, 20)
-            
-            Text(error.localizedDescription)
-                .fontWeight(.semibold)
-                .foregroundColor(themeColor.gray)
-                .multilineTextAlignment(.center)
-                .padding(.bottom, 30)
-
-            Text("Verify if you provided an Api Key in Settings tab.".localized())
-                .foregroundColor(themeColor.warning)
-                .multilineTextAlignment(.center)
-            Spacer()
-        }
-        .padding()
-    }
-}
-
 struct MainLocationScreen: View {
     
     @EnvironmentObject var themeColor: ThemeColor
@@ -83,55 +50,59 @@ struct MainLocationScreen: View {
             .background(themeColor.containerBackground)
             
             ScrollView(showsIndicators: false) {
-//                if let error = viewModel.customError, error != .none {
-                MissingApiKeyView(error: viewModel.customError ?? .none)
-                        .padding(.top, 64)
+//            RefreshableScrollView(onRefresh: refreshData) {
+//                VStack(spacing: 16) {
+                    //                if let error = viewModel.customError, error != .none {
+                    MissingApiKeyView(error: viewModel.customError ?? .none)
+                        .padding(.top, 36)
                         .opacity((viewModel.customError ?? .none) != NetworkError.none ? 1 : 0)
                         .animation(.easeInOut(duration: 0.3), value: viewModel.customError)
                         .frame(
                             height: (viewModel.customError ?? .none) != NetworkError.none ? nil : 0,
                             alignment: .center)
+                    //                }
+                    
+                    if viewModel.fiveForecastData?.list.count ?? 0 > 0 {
+                        FiveDaysForecastbarView(viewModel: viewModel, isClosed: $isClosedForecast)
+                            .containerBackground(withColor: themeColor.containerBackground)
+                            .frame(maxWidth: 640)
+                            .padding(.horizontal)
+                            .padding(.top)
+                    }
+                    
+                    if viewModel.miniWidgets.count > 0 {
+                        CollapsibleHeaderView(title: "Today's info".localized(), image: Image(systemName: "info.circle"), isClosed: $isClosedCurrentWeather)
+                            .containerBackground(withColor: themeColor.containerBackground)
+                            .frame(maxWidth: 640)
+                            .padding(.top)
+                            .padding(.horizontal)
+                        
+                        MainMiniWidgetsGridView(isClosed: $isClosedCurrentWeather, miniWidgets: viewModel.miniWidgets)
+                            .frame(maxWidth: 645)
+                            .padding(.bottom)
+                            .padding(.horizontal)
+                    }
+                    
+                    if viewModel.miniWidgetsAirQuality.count > 0 {
+                        CollapsibleHeaderView(title: "Air Quality info".localized(), image: Image(systemName: "wind.circle"), isClosed: $isClosedAirQuality)
+                            .containerBackground(withColor: themeColor.containerBackground)
+                            .frame(maxWidth: 640)
+                            .padding(.horizontal)
+                        
+                        MiniWidgetsAirQualityGridView(isClosed: $isClosedAirQuality, miniGauges: viewModel.miniWidgetsAirQuality)
+                            .frame(maxWidth: 640)
+                            .padding(.bottom)
+                            .padding(.horizontal)
+                            .redacted(reason: isLoading ? .placeholder: [])
+                    }
+                    
 //                }
-                
-                if viewModel.fiveForecastData?.list.count ?? 0 > 0 {
-                    FiveDaysForecastbarView(viewModel: viewModel, isClosed: $isClosedForecast)
-                        .containerBackground(withColor: themeColor.containerBackground)
-                        .frame(maxWidth: 640)
-                        .padding(.horizontal)
-                        .padding(.top)
-                }
-                
-                if viewModel.miniWidgets.count > 0 {
-                    CollapsibleHeaderView(title: "Today's info".localized(), image: Image(systemName: "info.circle"), isClosed: $isClosedCurrentWeather)
-                        .containerBackground(withColor: themeColor.containerBackground)
-                        .frame(maxWidth: 640)
-                        .padding(.top)
-                        .padding(.horizontal)
-                    
-                    MainMiniWidgetsGridView(isClosed: $isClosedCurrentWeather, miniWidgets: viewModel.miniWidgets)
-                        .frame(maxWidth: 645)
-                        .padding(.bottom)
-                        .padding(.horizontal)
-                }
-                
-                if viewModel.miniWidgetsAirQuality.count > 0 {
-                    CollapsibleHeaderView(title: "Air Quality info".localized(), image: Image(systemName: "wind.circle"), isClosed: $isClosedAirQuality)
-                        .containerBackground(withColor: themeColor.containerBackground)
-                        .frame(maxWidth: 640)
-                        .padding(.horizontal)
-                    
-                    MiniWidgetsAirQualityGridView(isClosed: $isClosedAirQuality, miniGauges: viewModel.miniWidgetsAirQuality)
-                        .frame(maxWidth: 640)
-                        .padding(.bottom)
-                        .padding(.horizontal)
-                        .redacted(reason: isLoading ? .placeholder: [])
-                }
             }
             .refreshable {
                 viewModel.customError = nil
                 locationManager.startUpdatingLocation()
             }
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity)	
             .background(themeColor.screenBackground)
             .onChange(of: viewModel.customError, perform: { newValue in
                 isLoading = false
@@ -155,17 +126,12 @@ struct MainLocationScreen: View {
                     }
                 }
             })
-            .task {
-                if isForTesting ?? false {
-                    let coord = CLLocationCoordinate2D(latitude: 51.50998, longitude: -0.1337)
-                    viewModel.fetchServerData(coordinate: coord)
-//                    viewModel.getCurrentWeatherInfoCombine(coordinate: coord)
-//                    viewModel.getDailyForecastInfoCombine(coordinate: coord)
-//                    viewModel.getAirPollutionDataCombine(coordinate: coord)
-                }
-            }
-            
         }
+    }
+    
+    func refreshData() {
+        viewModel.customError = nil
+        locationManager.startUpdatingLocation()
     }
     
     func getweatherData(coordinate: CLLocationCoordinate2D?) async  {

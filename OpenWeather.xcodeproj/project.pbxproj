@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		DD0838F52B0F195C009EE6C3 /* CombinedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0838F42B0F195C009EE6C3 /* CombinedResult.swift */; };
+		DD38BF102B13D40E006A1D6A /* MissingApiKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38BF0F2B13D40E006A1D6A /* MissingApiKeyView.swift */; };
+		DD38BF122B13D838006A1D6A /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38BF112B13D838006A1D6A /* RefreshableScrollView.swift */; };
 		DD49E0632AEBEB4E00C8F2D5 /* AppIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD49E0622AEBEB4E00C8F2D5 /* AppIconManager.swift */; };
 		DD49E0662AEBEF6600C8F2D5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD49E0652AEBEF6600C8F2D5 /* SettingsViewModel.swift */; };
 		DD49E06A2AEC08B800C8F2D5 /* MapSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD49E0692AEC08B800C8F2D5 /* MapSearchManager.swift */; };
@@ -15,7 +17,6 @@
 		DD74E8F02B01917400EE00F9 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD74E8EF2B01917400EE00F9 /* CoreDataManager.swift */; };
 		DD74E8F22B01919500EE00F9 /* CoreDataOperationsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD74E8F12B01919500EE00F9 /* CoreDataOperationsProtocol.swift */; };
 		DD74E8F52B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD74E8F32B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld */; };
-		DD9543392B0E86EB00AC0473 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = DD9543382B0E86EB00AC0473 /* KeychainAccess */; };
 		DD95433C2B0EA73600AC0473 /* FormHiddenBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD95433B2B0EA73600AC0473 /* FormHiddenBackground.swift */; };
 		DDA27C622AEAE4A5005E0292 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DDA27C612AEAE4A5005E0292 /* Localizable.xcstrings */; };
 		DDC7980E2AE9FC7000BF9800 /* OpenWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7980D2AE9FC7000BF9800 /* OpenWeatherApp.swift */; };
@@ -100,6 +101,8 @@
 
 /* Begin PBXFileReference section */
 		DD0838F42B0F195C009EE6C3 /* CombinedResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedResult.swift; sourceTree = "<group>"; };
+		DD38BF0F2B13D40E006A1D6A /* MissingApiKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingApiKeyView.swift; sourceTree = "<group>"; };
+		DD38BF112B13D838006A1D6A /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
 		DD49E0622AEBEB4E00C8F2D5 /* AppIconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManager.swift; sourceTree = "<group>"; };
 		DD49E0652AEBEF6600C8F2D5 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		DD49E0682AEBFE4C00C8F2D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -181,7 +184,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD9543392B0E86EB00AC0473 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +204,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD38BF042B13C5B2006A1D6A /* RefreshableScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				DD38BF112B13D838006A1D6A /* RefreshableScrollView.swift */,
+			);
+			path = RefreshableScrollView;
+			sourceTree = "<group>";
+		};
 		DD49E0672AEBF4EA00C8F2D5 /* IconManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -473,8 +483,8 @@
 				DDDDA4BE2AEAC1D8009FB7C0 /* Settings */,
 				DDDDA4BF2AEAC1EF009FB7C0 /* Gaugues */,
 				DDDDA4C02AEAC1F8009FB7C0 /* MainScreen */,
-				DDDDA4C12AEAC25E009FB7C0 /* MainTabBarScreen.swift */,
 				DDDDA4C32AEAC27B009FB7C0 /* MainLocation.swift */,
+				DDDDA4C12AEAC25E009FB7C0 /* MainTabBarScreen.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -491,10 +501,12 @@
 		DDDDA4BD2AEAC1D4009FB7C0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				DD38BF042B13C5B2006A1D6A /* RefreshableScrollView */,
 				DDDDA4E02AEAD982009FB7C0 /* TabBar */,
 				DDDDA4D82AEAD92D009FB7C0 /* CollapsibleHeaderView.swift */,
 				DDDDA4DA2AEAD942009FB7C0 /* MiniWidgetsAirQualityGridView.swift */,
 				DDDDA4DC2AEAD958009FB7C0 /* MainMiniWidgetsGridView.swift */,
+				DD38BF0F2B13D40E006A1D6A /* MissingApiKeyView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -564,7 +576,6 @@
 			);
 			name = OpenWeather;
 			packageProductDependencies = (
-				DD9543382B0E86EB00AC0473 /* KeychainAccess */,
 			);
 			productName = OpenWeather;
 			productReference = DDC7980A2AE9FC7000BF9800 /* OpenWeather.app */;
@@ -639,7 +650,6 @@
 			);
 			mainGroup = DDC798012AE9FC7000BF9800;
 			packageReferences = (
-				DD9543372B0E86EB00AC0473 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = DDC7980B2AE9FC7000BF9800 /* Products */;
 			projectDirPath = "";
@@ -714,8 +724,10 @@
 				DDC7983C2AEA90C000BF9800 /* Units.swift in Sources */,
 				DDC798662AEA95F100BF9800 /* Serviceable.swift in Sources */,
 				DD74E8F52B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld in Sources */,
+				DD38BF122B13D838006A1D6A /* RefreshableScrollView.swift in Sources */,
 				DDC798552AEA93F600BF9800 /* Color+Extensions.swift in Sources */,
 				DD49E0632AEBEB4E00C8F2D5 /* AppIconManager.swift in Sources */,
+				DD38BF102B13D40E006A1D6A /* MissingApiKeyView.swift in Sources */,
 				DD0838F52B0F195C009EE6C3 /* CombinedResult.swift in Sources */,
 				DD49E06A2AEC08B800C8F2D5 /* MapSearchManager.swift in Sources */,
 				DDEA5C132B0560DC009C4211 /* SettingsApiKeysScreen.swift in Sources */,
@@ -917,19 +929,20 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenWeather/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_CFBundleDisplayName = OpWeather;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We will use your location to give Weather Forecast Information.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andres.paladines.open.weather.OpenWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -951,19 +964,20 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenWeather/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_CFBundleDisplayName = OpWeather;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We will use your location to give Weather Forecast Information.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andres.paladines.open.weather.OpenWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -983,7 +997,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We will use your location to give Weather Forecast Information.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andres.paladines.open.weather.OpenWeatherTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1005,7 +1019,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We will use your location to give Weather Forecast Information.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andres.paladines.open.weather.OpenWeatherTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1025,7 +1039,7 @@
 				DEVELOPMENT_TEAM = 3PLD5VHEP6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We will use your location to give Weather Forecast Information.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andres.paladines.open.weather.OpenWeatherUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1045,7 +1059,7 @@
 				DEVELOPMENT_TEAM = 3PLD5VHEP6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We will use your location to give Weather Forecast Information.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andres.paladines.open.weather.OpenWeatherUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1096,25 +1110,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		DD9543372B0E86EB00AC0473 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.2.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		DD9543382B0E86EB00AC0473 /* KeychainAccess */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DD9543372B0E86EB00AC0473 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
-			productName = KeychainAccess;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		DD74E8F32B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld */ = {
