@@ -18,6 +18,8 @@
 		DD74E8F22B01919500EE00F9 /* CoreDataOperationsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD74E8F12B01919500EE00F9 /* CoreDataOperationsProtocol.swift */; };
 		DD74E8F52B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD74E8F32B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld */; };
 		DD95433C2B0EA73600AC0473 /* FormHiddenBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD95433B2B0EA73600AC0473 /* FormHiddenBackground.swift */; };
+		DD9EDED92B14E3D1000402B0 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9EDED82B14E3D1000402B0 /* PermissionManager.swift */; };
+		DD9EDEDB2B14E8ED000402B0 /* PermiossionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9EDEDA2B14E8ED000402B0 /* PermiossionError.swift */; };
 		DDA27C622AEAE4A5005E0292 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DDA27C612AEAE4A5005E0292 /* Localizable.xcstrings */; };
 		DDC7980E2AE9FC7000BF9800 /* OpenWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7980D2AE9FC7000BF9800 /* OpenWeatherApp.swift */; };
 		DDC798122AE9FC7100BF9800 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDC798112AE9FC7100BF9800 /* Assets.xcassets */; };
@@ -112,6 +114,8 @@
 		DD74E8F12B01919500EE00F9 /* CoreDataOperationsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataOperationsProtocol.swift; sourceTree = "<group>"; };
 		DD74E8F42B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OpenWeatherDataModel.xcdatamodel; sourceTree = "<group>"; };
 		DD95433B2B0EA73600AC0473 /* FormHiddenBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormHiddenBackground.swift; sourceTree = "<group>"; };
+		DD9EDED82B14E3D1000402B0 /* PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
+		DD9EDEDA2B14E8ED000402B0 /* PermiossionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermiossionError.swift; sourceTree = "<group>"; };
 		DDA27C612AEAE4A5005E0292 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		DDC7980A2AE9FC7000BF9800 /* OpenWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC7980D2AE9FC7000BF9800 /* OpenWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherApp.swift; sourceTree = "<group>"; };
@@ -253,6 +257,14 @@
 			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
+		DD9EDED72B14E3C1000402B0 /* PermissionManager */ = {
+			isa = PBXGroup;
+			children = (
+				DD9EDED82B14E3D1000402B0 /* PermissionManager.swift */,
+			);
+			path = PermissionManager;
+			sourceTree = "<group>";
+		};
 		DDC798012AE9FC7000BF9800 = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +328,7 @@
 		DDC798372AEA907E00BF9800 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				DD9EDED72B14E3C1000402B0 /* PermissionManager */,
 				DDDDA4B02AEAC111009FB7C0 /* Appearance */,
 				DDC7986A2AEA963A00BF9800 /* Managers */,
 				DDC7985E2AEA959500BF9800 /* Protocols */,
@@ -332,6 +345,7 @@
 				DDC798392AEA909600BF9800 /* NetworkError.swift */,
 				DDC7983B2AEA90C000BF9800 /* Units.swift */,
 				DDC7983D2AEA90E600BF9800 /* HttpRequestType.swift */,
+				DD9EDEDA2B14E8ED000402B0 /* PermiossionError.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -718,8 +732,10 @@
 				DD95433C2B0EA73600AC0473 /* FormHiddenBackground.swift in Sources */,
 				DDDDA4C42AEAC27B009FB7C0 /* MainLocation.swift in Sources */,
 				DDC7986F2AEA967B00BF9800 /* Services.swift in Sources */,
+				DD9EDEDB2B14E8ED000402B0 /* PermiossionError.swift in Sources */,
 				DDDDA4B42AEAC143009FB7C0 /* ForecastData.swift in Sources */,
 				DDDDA4D92AEAD92D009FB7C0 /* CollapsibleHeaderView.swift in Sources */,
+				DD9EDED92B14E3D1000402B0 /* PermissionManager.swift in Sources */,
 				DDDDA4EB2AEADAC1009FB7C0 /* WeatherRepository.swift in Sources */,
 				DDC7983C2AEA90C000BF9800 /* Units.swift in Sources */,
 				DDC798662AEA95F100BF9800 /* Serviceable.swift in Sources */,
@@ -923,7 +939,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"OpenWeather/Preview Content\"";
 				DEVELOPMENT_TEAM = 3PLD5VHEP6;
 				ENABLE_PREVIEWS = YES;
@@ -942,7 +958,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andres.paladines.open.weather.OpenWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -958,7 +974,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"OpenWeather/Preview Content\"";
 				DEVELOPMENT_TEAM = 3PLD5VHEP6;
 				ENABLE_PREVIEWS = YES;
@@ -977,7 +993,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andres.paladines.open.weather.OpenWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
