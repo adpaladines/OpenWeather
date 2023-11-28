@@ -17,7 +17,7 @@ struct MainLocationScreen: View {
     
     @EnvironmentObject var themeColor: ThemeColor
     
-    @StateObject var locationManager = LocationManager()
+    @StateObject var locationManager = LocationManager(permissionManager: LocationPermissionManager())
     @StateObject var viewModel: MainLocationViewModel
     
     @State private var isClosedCurrentWeather = false
@@ -37,7 +37,7 @@ struct MainLocationScreen: View {
                     selectedCityName: $selectedCityName,
                     cityName: viewModel.currentWeathrData?.name
                 )
-                    .padding()
+                .padding()
                 MainTemperatureBarView(
                     temperature: viewModel.currentWeathrData?.main.temp,
                     feelsLike: viewModel.currentWeathrData?.main.feels_like,
@@ -99,23 +99,23 @@ struct MainLocationScreen: View {
 //                }
             }
             .refreshable {
-                viewModel.customError = nil
-                locationManager.startUpdatingLocation()
+                refreshData()
             }
             .frame(maxWidth: .infinity)	
             .background(themeColor.screenBackground)
-            .onChange(of: viewModel.customError, perform: { newValue in
+            .onChange(of: viewModel.customError) { newValue in
                 isLoading = false
                 guard newValue != nil else { return }
-                locationManager.stopUpdatingLocation()
-            })
-            .onChange(of: viewModel.currentMeasurementUnit, perform: { newValue in
+                locationManager.stopLocationUpdates()
+            }
+            .onChange(of: viewModel.currentMeasurementUnit) { newValue in
                 viewModel.customError = nil
-                locationManager.startUpdatingLocation()
-            })
-            .onChange(of: locationManager.currentLocation, perform: {
+                locationManager.startLocationUpdates()
+            }
+            .onChange(of: locationManager.currentLocation) {
                 newValue in
                 Task {
+                    locationManager.stopLocationUpdates()
                     guard let error = viewModel.customError else {
                         await getweatherData(coordinate: newValue?.coordinate)
                         return
@@ -125,13 +125,19 @@ struct MainLocationScreen: View {
                         await getweatherData(coordinate: newValue?.coordinate)
                     }
                 }
-            })
+            }
+            .onAppear {
+                refreshData()
+            }
+            .onChange(of: selectedCityName) { newValue in
+                print("CHANGE CAME HERE: \(newValue)")
+            }
         }
     }
     
     func refreshData() {
         viewModel.customError = nil
-        locationManager.startUpdatingLocation()
+        locationManager.startLocationUpdates()
     }
     
     func getweatherData(coordinate: CLLocationCoordinate2D?) async  {

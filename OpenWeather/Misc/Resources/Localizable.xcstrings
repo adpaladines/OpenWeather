@@ -329,6 +329,12 @@
         }
       }
     },
+    "Location permission was denied previously. Please go to settings, find the name of this app and set location permission again." : {
+
+    },
+    "Location permission was not authorized. Please go to settings, find the name of this app and set location permission again." : {
+
+    },
     "Malformed URL." : {
       "localizations" : {
         "es" : {
@@ -809,6 +815,9 @@
           }
         }
       }
+    },
+    "View in Map" : {
+
     },
     "We got an error." : {
       "extractionState" : "stale",

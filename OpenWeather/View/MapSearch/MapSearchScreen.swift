@@ -10,12 +10,16 @@ import CoreLocation
 import MapKit
 
 struct CitySearchScreen: View {
-    
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var themeColor: ThemeColor
     @StateObject private var mapSearch = MapSearchManager()
     
     @Binding var selectedCityName: String
     
+//    @State private var selectedObject: MKLocalSearchCompletion?
+    @State private var showActionSheet = false
+    @State private var navigateToMapScreen = false
+
     var body: some View {
         VStack {
             RoundedRectangle(cornerRadius: 12)
@@ -33,12 +37,11 @@ struct CitySearchScreen: View {
                 .padding()
             ScrollView {
                 LazyVGrid(columns: [GridItem.init()]) {
-//                    ForEach(mapSearch.locationResults, id: \.self) { location in
-                    ForEach(mapSearch.locationResultStrings, id: \.self) { location in
-//                        NavigationLink(destination: Detail(locationResult: location)) {
+                    ForEach(mapSearch.locationResults, id: \.title) { result in
                         VStack(alignment: .leading) {
-//                                Text(location.title)
-                            Text(location)
+                            Text(result.title)
+                                .font(.title2)
+                                .fontWeight(.medium)
                                 .foregroundStyle(themeColor.text)
                             Divider()
                         }
@@ -46,27 +49,58 @@ struct CitySearchScreen: View {
                             TapGesture()
                                 .onEnded { value in
                                     print(value)
+                                    mapSearch.selectedObject = result
+//                                    selectedObject = result
+                                    showActionSheet = true
                                 }
                         )
                         .padding()
-//                        }
                     }
                 }
+                .background(themeColor.containerBackground)
                 .cornerRadius(12)
-//                .background(themeColor.containerBackground)
                 .background(.clear)
             }
             .cornerRadius(12)
-            
         }
         .background(themeColor.screenBackground)
         .preferredColorScheme(themeColor.colorScheme)
         .navigationTitle(Text("Address search"))
-        
+        .confirmationDialog(
+            mapSearch.selectedObject != nil ? "Options for: \n\(mapSearch.selectedObject!.title)" : "Options:",
+            isPresented: $showActionSheet,
+            titleVisibility: Visibility.visible
+        ) {
+            Button("Select as default") {
+                guard 
+                    mapSearch.selectedObject != nil,
+                    mapSearch.cityName.isNotEmpty
+                else {
+                    navigateToMapScreen = false
+                    return
+                }
+                selectedCityName = mapSearch.cityName
+                dismiss()
+                print(mapSearch.cityName)
+            }
+
+            Button("View in Map") {
+                if mapSearch.selectedObject != nil {
+                    navigateToMapScreen = true
+                }
+            }
+            Button("Cancel", role: .cancel) { }
+        }
+        .navigationDestination(
+            isPresented: $navigateToMapScreen,
+            destination: {
+                DetailScreen(locationResult: mapSearch.selectedObject ?? MKLocalSearchCompletion())
+            }
+        )
     }
 }
 
-class DetailViewModel : ObservableObject {
+class DetailViewModel: ObservableObject {
     @Published var isLoading = true
     @Published private var coordinate : CLLocationCoordinate2D?
     @Published var region: MKCoordinateRegion = MKCoordinateRegion()
@@ -81,7 +115,13 @@ class DetailViewModel : ObservableObject {
         search.start { (response, error) in
             if error == nil, let coordinate = response?.mapItems.first?.placemark.coordinate {
                 self.coordinate = coordinate
-                self.region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
+                self.region = MKCoordinateRegion(
+                    center: coordinate,
+                    span: MKCoordinateSpan(
+                        latitudeDelta: 0.3,
+                        longitudeDelta: 0.3
+                    )
+                )
                 self.isLoading = false
             }
         }
@@ -92,7 +132,10 @@ class DetailViewModel : ObservableObject {
     }
 }
 
-struct Detail : View {
+struct DetailScreen : View {
+    
+    @EnvironmentObject var themeColor: ThemeColor
+    
     var locationResult : MKLocalSearchCompletion
     @StateObject private var viewModel = DetailViewModel()
     
@@ -106,8 +149,18 @@ struct Detail : View {
             if viewModel.isLoading {
                 Text("Loading...")
             } else {
-                Map(coordinateRegion: $viewModel.region,
-                    annotationItems: [Marker(location: MapMarker(coordinate: viewModel.coordinateForMap))]) { (marker) in
+                Map(
+                    coordinateRegion: $viewModel.region,
+                    annotationItems:
+                        [
+                            Marker(
+                                location: MapMarker(
+                                    coordinate: viewModel.coordinateForMap,
+                                    tint: themeColor.button
+                                )
+                            )
+                        ]
+                ) { (marker) in
                     marker.location
                 }
             }

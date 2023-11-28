@@ -10,16 +10,16 @@ import Combine
 import MapKit
 
 class MapSearchManager : NSObject, ObservableObject {
-//    @Published var locationResults : [MKLocalSearchCompletion] = []
-    @Published var locationResultStrings : [String] = []
+    
     @Published var searchTerm = ""
+    @Published var locationResults : [MKLocalSearchCompletion] = []
+    @Published var selectedObject: MKLocalSearchCompletion?
     
-    private var cancellables : Set<AnyCancellable> = []
-    
+    private var currentPromise : ((Result<[MKLocalSearchCompletion], Error>) -> Void)?
+    private var cancellables = Set<AnyCancellable>()
     private var searchCompleter = MKLocalSearchCompleter()
-//    private var currentPromise : ((Result<[MKLocalSearchCompletion], Error>) -> Void)?
-    private var currentPromiseStrings : ((Result<[String], Error>) -> Void)?
-
+    private var cityNamesList = [String]()
+    
     override init() {
         super.init()
         searchCompleter.delegate = self
@@ -28,62 +28,83 @@ class MapSearchManager : NSObject, ObservableObject {
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .removeDuplicates()
             .flatMap({ (currentSearchTerm) in
-                self.searchTermToResults(searchTerm: currentSearchTerm)
+                self.searchTerm(searchTerm: currentSearchTerm)
             })
             .sink(receiveCompletion: { (completion) in
-                //handle error
+                switch completion {
+                case .finished:
+                    print("Search finished!")
+                case .failure(let error):
+                    print("Error:")
+                    print(error.localizedDescription)
+                }
             }, receiveValue: { (results) in
-//                self.locationResults = results
-                self.locationResultStrings = results
+                self.locationResults = results
             })
             .store(in: &cancellables)
     }
     
-//    func searchTermToResults(searchTerm: String) -> Future<[MKLocalSearchCompletion], Error> {
-//        Future { promise in
-//            self.searchCompleter.queryFragment = searchTerm
-//            self.currentPromise = promise
-//        }
-//    }
-    
-    func searchTermToResults(searchTerm: String) -> Future<[String], Error> {
+    func searchTerm(searchTerm: String) -> Future<[MKLocalSearchCompletion], Error> {
         Future { promise in
+            guard searchTerm.isNotEmpty else {
+                promise(.success([]))
+                return
+            }
             self.searchCompleter.queryFragment = searchTerm
-            self.currentPromiseStrings = promise
+            self.currentPromise = promise
         }
+    }
+    
+    var cityName: String {
+        guard let obj = selectedObject, let cityName = getCity(from: obj.title) else {
+            return ""
+        }
+        if cityNamesList.contains(where: { $0.contains(cityName)}) {
+            return cityName
+        }
+        return ""
     }
     
 }
 
 extension MapSearchManager : MKLocalSearchCompleterDelegate {
     
+    func getCity(from string: String) -> String? {
+        if string.contains(",") {
+            let splitByComma = string.components(separatedBy: ",")
+            if splitByComma.count > 0 {
+                return splitByComma[0]
+            }
+        }
+        return nil
+    }
+    
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-//        currentPromise?(.success(completer.results))
-        var cityResults: [String] = []
+
+        var cityCompletions: [MKLocalSearchCompletion] = []
         let completionResults = completer.results.filter({ (result) -> Bool in
             return result.title != ""
         })
         if completionResults.count > 0 {
             var newResults: [String] = []
+            var newCityCompletions: [MKLocalSearchCompletion] = []
             for result in completionResults {
-                if result.title.contains(",") {
-                    let splitByComma = result.title.components(separatedBy: ",")
-                    if splitByComma.count > 0 {
-                        if !newResults.contains(splitByComma[0]) {
-                            newResults.append(splitByComma[0])
-                        }
+                if let cityName = getCity(from: result.title) {
+                    if !newResults.contains(cityName) {
+                        newResults.append(cityName)
+                        newCityCompletions.append(result)
                     }
                 }
             }
             if newResults.count > 0 {
-                cityResults = newResults
+                cityNamesList = newResults
+                cityCompletions = newCityCompletions
             }
         }
-        currentPromiseStrings?(.success(cityResults))
+        currentPromise?(.success(cityCompletions))
     }
     
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        //could deal with the error here, but beware that it will finish the Combine publisher stream
-        //currentPromise?(.failure(error))
+        currentPromise?(.success([]))
     }
 }

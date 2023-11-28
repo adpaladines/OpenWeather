@@ -18,24 +18,18 @@ struct MainCitySearchBarView: View {
     var cityName: String?
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
-            Text(cityName ?? "No city found")
-                .foregroundColor(themeColor.text)
-            Spacer()
-//            NavigationLink(
-//                destination: CitySearchScreen(
-//                    selectedCityName: $selectedCityName
-//                )
-//            ) {
-//                Image(systemName: "magnifyingglass.circle")
-//                    .foregroundColor(themeColor.text)
-//            }
-            Button {
-                isAlertShown.toggle()
-            }label: {
+            NavigationLink(
+                destination: CitySearchScreen(
+                    selectedCityName: $selectedCityName
+                )
+            ) {
+                Text(cityName ?? "No city found")
+                    .foregroundColor(themeColor.text)
+                Spacer()
+                
                 Image(systemName: "magnifyingglass.circle")
                     .foregroundColor(themeColor.text)
             }
-
         }
         .frame(maxWidth: .infinity)
         .alert(isPresented: $isAlertShown, content: {

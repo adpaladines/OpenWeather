@@ -9,137 +9,83 @@ import Foundation
 import CoreLocation
 import Combine
 
-class LocationManager: NSObject, ObservableObject {
-    
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var currentLocation: CLLocation?
-    @Published var locationPermissionError: Bool = false
-    
-    private let cllocationManager = CLLocationManager()
-    private var cancellables: Set<AnyCancellable> = []
-    
-    
-    private var locationSubject = PassthroughSubject<CLLocation, Never>()
+    @Published var locationError: Error?
 
-    override init() {
+    private var permissionManager: LocationPermissionManager
+    private var locationManager: CLLocationManager
+
+    init(permissionManager: LocationPermissionManager) {
+        self.permissionManager = permissionManager
+        self.locationManager = CLLocationManager()
         super.init()
         
-        cllocationManager.delegate = self
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        setupBindings()
+    }
 
-        // Combine permissions check and location updates
-        Future<Bool, Never> { promise in
-            self.checkLocationPermissions { result in
-                promise(.success(result))
+    private func setupBindings() {
+        permissionManager.$permissionStatus
+            .sink { [weak self] status in
+                self?.handlePermissionStatus(status)
             }
-        }
-        .sink { [weak self] hasPermission in
-            if hasPermission {
-                self?.startUpdatingLocation()
-            } else {
-                // Handle lack of permissions, show an alert, etc.
-            }
-        }
-        .store(in: &cancellables)
-
-        // Connect the locationSubject to the didUpdateLocations callback
-        locationSubject
-            .throttle(for: 2, scheduler: DispatchQueue.main, latest: true)
-            .sink { [weak self] location in
-                self?.currentLocation = location
-            }
-            .store(in: &cancellables)
+            .store(in: &permissionManager.cancellables)
     }
 
-    func startUpdatingLocation() {
-        DispatchQueue.main.async {
-            self.cllocationManager.requestWhenInUseAuthorization()
-            self.cllocationManager.startUpdatingLocation()
-        }
+    func requestLocationAccess(authorizationType: LocationAuthorizationType) {
+        permissionManager.requestLocationAccess(authorizationType: authorizationType)
     }
 
-    func stopUpdatingLocation() {
-        DispatchQueue.main.async {
-            self.cllocationManager.stopUpdatingLocation()
-        }
+    func startLocationUpdates() {
+        locationManager.startUpdatingLocation()
     }
-    
-    private func checkLocationPermissions(completion: @escaping (Bool) -> Void) {
-        if CLLocationManager.locationServicesEnabled() {
-            switch cllocationManager.authorizationStatus {
-            case .authorizedWhenInUse, .authorizedAlways:
-                completion(true)
-            case .denied, .restricted:
-                completion(false)
-            case .notDetermined:
-                // Ask for permission
-                cllocationManager.requestWhenInUseAuthorization()
-                completion(false)
-            @unknown default:
-                completion(false)
-            }
-        } else {
-            completion(false)
-        }
-    }
-}
 
-extension LocationManager: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else {
-            return
-        }
-        
-        // Publish the location update to the subject
-        locationSubject.send(location)
+    func stopLocationUpdates() {
+        locationManager.stopUpdatingLocation()
     }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
-    }
-}
 
-/*
-class LocationManager: NSObject, ObservableObject {
-    
-    @Published var currentLocation: CLLocation?
-    
-    private let cllocationManager = CLLocationManager()
-    
-    override init() {
-        super.init()
-        // First of all, we will request permissions.
-        cllocationManager.requestWhenInUseAuthorization()
-        cllocationManager.delegate = self
-        startUpdatingLocation()
-    }
-    
-    func startUpdatingLocation() {
-        DispatchQueue.main.async {
-            self.cllocationManager.startUpdatingLocation()
-        }
-    }
-    
-    func stopUpdatingLocation() {
-        DispatchQueue.main.async {
-            self.cllocationManager.stopUpdatingLocation()
-        }
-    }
-}
+    // MARK: - CLLocationManagerDelegate
 
-extension LocationManager: CLLocationManagerDelegate {
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        guard currentLocation != locations.last else { return }
-        DispatchQueue.main.async {
-            self.currentLocation = location
-        }
-        
+        currentLocation = location
     }
-    
+
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
+        locationError = error
+    }
+
+    // Handle changes in permission status
+    private func handlePermissionStatus(_ status: PermissionStatus) {
+        switch status {
+        case .authorized:
+            startLocationUpdates()
+        case .denied, .restricted:
+            locationError = LocationError.permissionDenied
+        default:
+            break
+        }
+    }
+}
+
+enum LocationError: Error {
+    case unauthorized
+    case permissionDenied
+}
+extension LocationError: LocalizedError, Equatable {
+        
+    var errorDescription: String? {
+        let localizedString: String
+        let reflectionString = String(reflecting: self)
+        switch self {
+        case .unauthorized:
+            localizedString = NSLocalizedString("Location permission was not authorized. Please go to settings, find the name of this app and set location permission again.".localized(), comment: reflectionString)
+        case .permissionDenied:
+            localizedString = NSLocalizedString("Location permission was denied previously. Please go to settings, find the name of this app and set location permission again.".localized(), comment: reflectionString)
+        }
+        return localizedString
     }
     
 }
-*/

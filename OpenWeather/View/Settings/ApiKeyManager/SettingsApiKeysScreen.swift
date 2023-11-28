@@ -64,29 +64,29 @@ struct SettingsApiKeysScreen: View {
             }) {
                 ApiKeyFormSheetView(apiKeyData: selectedObject, viewModel: viewModel, isPresented: $isFormOpened)
             }
-            .confirmationDialog(
-                selectedObject != nil ? "Options for: \n\(selectedObject!.uuid)" : "Options:",
-                isPresented: $showActionSheet,
-                titleVisibility: Visibility.visible
-            ) {
-                Button("Select as default") {
-                    guard let uuid = selectedObject?.uuid else { return }
-                    apiKeySelected = uuid
-                }
-                Button("Edit") {
-                    isFormOpened = true
-                }
-                Button("Delete", role: .destructive) {
-                    guard
-                        let item = selectedObject,
-                        let index = viewModel.items.firstIndex(where: { $0.uuid == item.uuid })
-                    else
-                    { return }
-                    viewModel.delete(item: item)
-                    viewModel.items.remove(at: index)
-                }
-                Button("Cancel", role: .cancel) { }
+        .confirmationDialog(
+            selectedObject != nil ? "Options for: \n\(selectedObject!.name)" : "Options:",
+            isPresented: $showActionSheet,
+            titleVisibility: Visibility.visible
+        ) {
+            Button("Select as default") {
+                guard let uuid = selectedObject?.uuid else { return }
+                apiKeySelected = uuid
             }
+            Button("Edit") {
+                isFormOpened = true
+            }
+            Button("Delete", role: .destructive) {
+                guard
+                    let item = selectedObject,
+                    let index = viewModel.items.firstIndex(where: { $0.uuid == item.uuid })
+                else
+                { return }
+                viewModel.delete(item: item)
+                viewModel.items.remove(at: index)
+            }
+            Button("Cancel", role: .cancel) { }
+        }
     }
     
 }

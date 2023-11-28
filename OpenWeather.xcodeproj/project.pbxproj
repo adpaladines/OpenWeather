@@ -428,6 +428,7 @@
 		DDC7986A2AEA963A00BF9800 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				DD9EDED72B14E3C1000402B0 /* PermissionManager */,
 				DD9543322B0E82B400AC0473 /* KeyChain */,
 				DD74E8EE2B01915700EE00F9 /* CoreData */,
 				DD49E0672AEBF4EA00C8F2D5 /* IconManager */,
