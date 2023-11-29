@@ -35,11 +35,17 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 
     func requestLocationAccess(authorizationType: LocationAuthorizationType) {
-        permissionManager.requestLocationAccess(authorizationType: authorizationType)
+        DispatchQueue.global().async {
+            self.permissionManager.requestLocationAccess(authorizationType: authorizationType)
+        }
     }
 
     func startLocationUpdates() {
-        locationManager.startUpdatingLocation()
+        guard permissionManager.permissionStatus != .authorized else {
+            locationManager.startUpdatingLocation()
+            return
+        }
+        requestLocationAccess(authorizationType: .whenInUse)
     }
 
     func stopLocationUpdates() {
@@ -61,7 +67,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private func handlePermissionStatus(_ status: PermissionStatus) {
         switch status {
         case .authorized:
-            startLocationUpdates()
+            locationManager.startUpdatingLocation()
         case .denied, .restricted:
             locationError = LocationError.permissionDenied
         default:
