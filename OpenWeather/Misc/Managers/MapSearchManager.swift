@@ -15,21 +15,29 @@ class MapSearchManager : NSObject, ObservableObject {
     @Published var locationResults : [MKLocalSearchCompletion] = []
     @Published var selectedObject: MKLocalSearchCompletion?
     
-    private var currentPromise : ((Result<[MKLocalSearchCompletion], Error>) -> Void)?
+    private var currentPromise: ((Result<[MKLocalSearchCompletion], Error>) -> Void)?
     private var cancellables = Set<AnyCancellable>()
     private var searchCompleter = MKLocalSearchCompleter()
     private var cityNamesList = [String]()
     
     override init() {
         super.init()
+        setDelegates()
+        defineObservers()
+    }
+    
+    func setDelegates() {
         searchCompleter.delegate = self
-        
+    }
+    
+    func defineObservers() {
         $searchTerm
+            .receive(on: RunLoop.main)
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .removeDuplicates()
-            .flatMap({ (currentSearchTerm) in
-                self.searchTerm(searchTerm: currentSearchTerm)
-            })
+            .flatMap { string in
+                self.searchTerm(searchTerm: string)
+            }
             .sink(receiveCompletion: { (completion) in
                 switch completion {
                 case .finished:
@@ -64,6 +72,16 @@ class MapSearchManager : NSObject, ObservableObject {
         }
         return ""
     }
+    
+    var confirmDialogString: String {
+        selectedObject != nil
+        ? "Options for: \n\(selectedObject!.title)".localized()
+        : "Options:".localized()
+    }
+    
+//    var cityCoordinates: CLLocationCoordinate2D {
+//        
+//    }
     
 }
 

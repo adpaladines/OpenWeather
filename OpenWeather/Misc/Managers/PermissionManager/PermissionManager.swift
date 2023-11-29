@@ -36,33 +36,30 @@ class LocationPermissionManager: NSObject, ObservableObject, CLLocationManagerDe
     @Published private(set) var permissionStatus: PermissionStatus = .notDetermined
     
     internal var cancellables: Set<AnyCancellable> = []
+    private let locationManager = CLLocationManager()
     
     func requestLocationAccess(authorizationType: LocationAuthorizationType) {
-        let locationManager = CLLocationManager()
+        
         locationManager.delegate = self
-        
-        guard CLLocationManager.locationServicesEnabled() else {
-            permissionStatus = .authorized
-            return
-        }
-        
-        switch authorizationType {
-        case .whenInUse:
-            locationManager.requestWhenInUseAuthorization()
-            
-        case .always:
-            locationManager.requestAlwaysAuthorization()
-        }
-        
-        // Combine the authorization status changes
-        $permissionStatus
-            .filter { $0 != PermissionStatus.notDetermined }
-            .prefix(1)
-            .sink { status in
-                // Perform any additional actions on status change if needed
+        if CLLocationManager.locationServicesEnabled() {
+            switch authorizationType {
+            case .whenInUse:
+                locationManager.requestWhenInUseAuthorization()
+            case .always:
+                locationManager.requestAlwaysAuthorization()
             }
-            .store(in: &cancellables)
+            $permissionStatus
+                .filter { $0 != PermissionStatus.notDetermined }
+                .prefix(1)
+                .sink { status in
+                    print(status)
+                }
+                .store(in: &cancellables)
+        } else {
+            permissionStatus = .authorized
+        }
     }
+
     
     // MARK: - CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

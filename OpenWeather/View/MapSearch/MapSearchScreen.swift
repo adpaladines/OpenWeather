@@ -10,23 +10,26 @@ import CoreLocation
 import MapKit
 
 struct CitySearchScreen: View {
+    
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var themeColor: ThemeColor
-    @StateObject private var mapSearch = MapSearchManager()
+    
+    @StateObject private var searchManager = MapSearchManager()
+    @StateObject private var mapCoordinatesViewModel = MapCoordinatesViewModel()
     
     @Binding var selectedCityName: String
     
 //    @State private var selectedObject: MKLocalSearchCompletion?
     @State private var showActionSheet = false
     @State private var navigateToMapScreen = false
-
+    @State private var chargingLocation = false
     var body: some View {
         VStack {
             RoundedRectangle(cornerRadius: 12)
                 .fill(themeColor.containerBackground)
                 .overlay {
                     HStack {
-                        TextField("Address", text: $mapSearch.searchTerm)
+                        TextField("Search your city".localized(), text: $searchManager.searchTerm)
                             .padding(.horizontal, 16)
                             .frame(height: 36)
                     }
@@ -37,7 +40,7 @@ struct CitySearchScreen: View {
                 .padding()
             ScrollView {
                 LazyVGrid(columns: [GridItem.init()]) {
-                    ForEach(mapSearch.locationResults, id: \.title) { result in
+                    ForEach(searchManager.locationResults, id: \.title) { result in
                         VStack(alignment: .leading) {
                             Text(result.title)
                                 .font(.title2)
@@ -45,11 +48,10 @@ struct CitySearchScreen: View {
                                 .foregroundStyle(themeColor.text)
                             Divider()
                         }
-                        .gesture(
+                        .highPriorityGesture(
                             TapGesture()
-                                .onEnded { value in
-                                    print(value)
-                                    mapSearch.selectedObject = result
+                                .onEnded { _ in
+                                    searchManager.selectedObject = result
 //                                    selectedObject = result
                                     showActionSheet = true
                                 }
@@ -65,111 +67,45 @@ struct CitySearchScreen: View {
         }
         .background(themeColor.screenBackground)
         .preferredColorScheme(themeColor.colorScheme)
-        .navigationTitle(Text("Address search"))
+        .navigationTitle(Text("City search".localized()))
         .confirmationDialog(
-            mapSearch.selectedObject != nil ? "Options for: \n\(mapSearch.selectedObject!.title)" : "Options:",
+            searchManager.confirmDialogString,
             isPresented: $showActionSheet,
             titleVisibility: Visibility.visible
         ) {
-            Button("Select as default") {
-                guard 
-                    mapSearch.selectedObject != nil,
-                    mapSearch.cityName.isNotEmpty
+            Button("Select as default".localized()) {
+                guard
+                    let obj = searchManager.selectedObject,
+                    searchManager.cityName.isNotEmpty
                 else {
                     navigateToMapScreen = false
                     return
                 }
-                selectedCityName = mapSearch.cityName
-                dismiss()
-                print(mapSearch.cityName)
+                chargingLocation = true
+                mapCoordinatesViewModel.reconcileLocation(location: obj)
             }
 
-            Button("View in Map") {
-                if mapSearch.selectedObject != nil {
+            Button("View in Map".localized()) {
+                if searchManager.selectedObject != nil {
                     navigateToMapScreen = true
                 }
             }
-            Button("Cancel", role: .cancel) { }
+            Button("Cancel".localized(), role: .cancel) { }
         }
         .navigationDestination(
             isPresented: $navigateToMapScreen,
             destination: {
-                DetailScreen(locationResult: mapSearch.selectedObject ?? MKLocalSearchCompletion())
+                MapCoordinatesScreen(locationResult: searchManager.selectedObject ?? MKLocalSearchCompletion())
             }
         )
-    }
-}
-
-class DetailViewModel: ObservableObject {
-    @Published var isLoading = true
-    @Published private var coordinate : CLLocationCoordinate2D?
-    @Published var region: MKCoordinateRegion = MKCoordinateRegion()
-    
-    var coordinateForMap : CLLocationCoordinate2D {
-        coordinate ?? CLLocationCoordinate2D()
-    }
-    
-    func reconcileLocation(location: MKLocalSearchCompletion) {
-        let searchRequest = MKLocalSearch.Request(completion: location)
-        let search = MKLocalSearch(request: searchRequest)
-        search.start { (response, error) in
-            if error == nil, let coordinate = response?.mapItems.first?.placemark.coordinate {
-                self.coordinate = coordinate
-                self.region = MKCoordinateRegion(
-                    center: coordinate,
-                    span: MKCoordinateSpan(
-                        latitudeDelta: 0.3,
-                        longitudeDelta: 0.3
-                    )
-                )
-                self.isLoading = false
-            }
+        .onChange(of: mapCoordinatesViewModel.coordinate) { newValue in
+            selectedCityName = searchManager.cityName
+            chargingLocation = false
+            print(searchManager.cityName)
+            guard let cityCoordinates = newValue else { return }
+            print(cityCoordinates)
+            dismiss()
         }
-    }
-    
-    func clear() {
-        isLoading = true
-    }
-}
-
-struct DetailScreen : View {
-    
-    @EnvironmentObject var themeColor: ThemeColor
-    
-    var locationResult : MKLocalSearchCompletion
-    @StateObject private var viewModel = DetailViewModel()
-    
-    struct Marker: Identifiable {
-        let id = UUID()
-        var location: MapMarker
-    }
-    
-    var body: some View {
-        Group {
-            if viewModel.isLoading {
-                Text("Loading...")
-            } else {
-                Map(
-                    coordinateRegion: $viewModel.region,
-                    annotationItems:
-                        [
-                            Marker(
-                                location: MapMarker(
-                                    coordinate: viewModel.coordinateForMap,
-                                    tint: themeColor.button
-                                )
-                            )
-                        ]
-                ) { (marker) in
-                    marker.location
-                }
-            }
-        }.onAppear {
-            viewModel.reconcileLocation(location: locationResult)
-        }.onDisappear {
-            viewModel.clear()
-        }
-        .navigationTitle(Text(locationResult.title))
     }
 }
 

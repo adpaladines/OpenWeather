@@ -15,13 +15,17 @@ enum LocationType {
 
 struct MainLocationScreen: View {
     
+    
+    
     @EnvironmentObject var themeColor: ThemeColor
     
     @StateObject var locationManager = LocationManager(permissionManager: LocationPermissionManager())
     @StateObject var viewModel: MainLocationViewModel
     
+    @State private var isLocationSelectorOpen = false
     @State private var isClosedCurrentWeather = false
     @State private var isClosedAirQuality = false
+    @State private var isCurrentPOsition = true //search current location or saved lat long
     @State private var isClosedForecast = false
     @State private var isLoading = true
     @State var locationTypeSelected: LocationType = .currentLocation
@@ -35,6 +39,7 @@ struct MainLocationScreen: View {
             VStack(spacing: 0) {
                 MainCitySearchBarView(
                     selectedCityName: $selectedCityName,
+                    isLocationSelectorOpen: $isLocationSelectorOpen,
                     cityName: viewModel.currentWeathrData?.name
                 )
                 .padding()
@@ -132,6 +137,15 @@ struct MainLocationScreen: View {
             .onChange(of: selectedCityName) { newValue in
                 print("CHANGE CAME HERE: \(newValue)")
             }
+            .sheet(
+                isPresented: $isLocationSelectorOpen,
+                onDismiss: {
+                    print("Sheet dismissed with status")
+                },
+                content: {
+                    SavedLocationsSelectorSheetView()
+                }
+            )
         }
     }
     
@@ -143,9 +157,6 @@ struct MainLocationScreen: View {
     func getweatherData(coordinate: CLLocationCoordinate2D?) async  {
         if let coord = coordinate {
             viewModel.fetchServerData(coordinate: coord)
-//            viewModel.getCurrentWeatherInfoCombine(coordinate: coord)
-//            viewModel.getDailyForecastInfoCombine(coordinate: coord)
-//            viewModel.getAirPollutionDataCombine(coordinate: coord)
         }
     }
 }
@@ -167,6 +178,5 @@ struct MainLocationScreen_Previews: PreviewProvider {
         return contentView
             .environmentObject(ThemeColor(appTheme: "light"))
             .environmentObject(CurrentLanguage(code: "es"))
-
     }
 }

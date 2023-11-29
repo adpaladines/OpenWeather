@@ -61,9 +61,10 @@ struct SettingsApiKeysScreen: View {
             isPresented: $isFormOpened,
             onDismiss: {
                 print("Sheet dismissed with status")
-            }) {
+            },
+            content: {
                 ApiKeyFormSheetView(apiKeyData: selectedObject, viewModel: viewModel, isPresented: $isFormOpened)
-            }
+            })
         .confirmationDialog(
             selectedObject != nil ? "Options for: \n\(selectedObject!.name)" : "Options:",
             isPresented: $showActionSheet,

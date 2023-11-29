@@ -15,6 +15,7 @@
       }
     },
     "Address" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -25,6 +26,7 @@
       }
     },
     "Address search" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -330,10 +332,24 @@
       }
     },
     "Location permission was denied previously. Please go to settings, find the name of this app and set location permission again." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El permiso de ubicación fue denegado anteriormente. Vaya a la configuración, busque el nombre de esta aplicación y configure el permiso de ubicación nuevamente."
+          }
+        }
+      }
     },
     "Location permission was not authorized. Please go to settings, find the name of this app and set location permission again." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El permiso de ubicación no fue autorizado. Vaya a la configuración, busque el nombre de esta aplicación y configure el permiso de ubicación nuevamente."
+          }
+        }
+      }
     },
     "Malformed URL." : {
       "localizations" : {
@@ -599,6 +615,17 @@
         }
       }
     },
+    "Search your city" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Busca tu ciudad"
+          }
+        }
+      }
+    },
     "Select as default" : {
       "localizations" : {
         "es" : {
@@ -817,7 +844,15 @@
       }
     },
     "View in Map" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver en el mapa"
+          }
+        }
+      }
     },
     "We got an error." : {
       "extractionState" : "stale",
