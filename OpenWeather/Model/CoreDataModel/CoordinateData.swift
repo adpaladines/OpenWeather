@@ -10,28 +10,44 @@ import CoreData
 import Combine
 
 struct CoordinateEntityData: Identifiable {
-    let id: String
-    let name: String
-    let customDescription: String
+    let customID: String
+    let cityName: String
+    let latitude: Double
+    let longitude: Double
+    let isSelected: Bool
+    let dateCreation: Date
+    let dateUpdate: Date
     
-    init(id: String, name: String, customDescription: String) {
-        self.id = id
-        self.name = name
-        self.customDescription = customDescription
+    init(customID: String, name: String, latitude: Double, longitude: Double, isSelected: Bool, dateCreation: Date? = nil,
+         dateUpdate: Date? = nil) {
+        self.customID = customID
+        self.cityName = name
+        self.latitude = latitude
+        self.longitude = longitude
+        self.isSelected = isSelected
+        self.dateCreation = dateCreation ?? Date()
+        self.dateUpdate = dateUpdate ?? Date()
     }
     
-    init(from entity: ApiKeyEntity) {
-        self.id = entity.uuid ?? UUID().uuidString
-        self.name = entity.name ?? "No name registered".localized()
-        self.customDescription = entity.customDescription ?? "No description registered".localized()
+    init(from entity: CoordinateEntity) {
+        self.customID = entity.customID ?? UUID().uuidString
+        self.cityName = entity.cityName ?? "No name registered".localized()
+        self.latitude = entity.latitude
+        self.longitude = entity.longitude
+        self.isSelected = entity.isSelected
+        self.dateCreation = entity.dateCreation ?? Date()
+        self.dateUpdate = entity.dateUpdate ?? Date()
     }
 
+    var id: String {
+        customID
+    }
 }
 
 class CoordinateEntityCoreDataManager: CoreDataOperationsProtocol {
     
     typealias ItemType = CoordinateEntityData
-    typealias ItemEntityType = ApiKeyEntity
+    typealias ItemEntityType = CoordinateEntity
     
     let context: NSManagedObjectContext
     
@@ -74,12 +90,14 @@ class CoordinateEntityCoreDataManager: CoreDataOperationsProtocol {
     }
 
     func saveDataIntoDatabase(item: ItemType) -> AnyPublisher<Bool, Error> {
-        let noteEntity = ItemEntityType(context: context)
-        noteEntity.uuid = item.uuid
-        noteEntity.name = item.name
-        noteEntity.customDescription = item.customDescription
-        noteEntity.dateCreation = Date()
-        noteEntity.dateUpdate = Date()
+        let itemEntity = ItemEntityType(context: context)
+        itemEntity.customID = item.customID 
+        itemEntity.cityName = item.cityName 
+        itemEntity.latitude = item.latitude
+        itemEntity.longitude = item.longitude
+        itemEntity.isSelected = item.isSelected
+        itemEntity.dateCreation = Date()
+        itemEntity.dateUpdate = Date()
         
         return Future { [weak self] promise in
             do {
@@ -93,10 +111,11 @@ class CoordinateEntityCoreDataManager: CoreDataOperationsProtocol {
     }
     
     func updateApiKeyEntity(with item: ItemType) -> AnyPublisher<Bool, Error> {
-        return fetchSingleItemFromDatabase(uuid: item.uuid)
+        return fetchSingleItemFromDatabase(uuid: item.customID)
             .tryMap { [weak self] apiKeyEntity -> Void in
-                apiKeyEntity.name = item.name
-                apiKeyEntity.customDescription = item.customDescription
+                apiKeyEntity.cityName = item.cityName
+                apiKeyEntity.latitude = item.latitude
+                apiKeyEntity.longitude = item.longitude
                 apiKeyEntity.dateUpdate = Date()
                 
                 try self?.context.save()
@@ -109,7 +128,7 @@ class CoordinateEntityCoreDataManager: CoreDataOperationsProtocol {
     }
     
     func deleteEntity(with item: ItemType) -> AnyPublisher<Bool, Error> {
-        return fetchSingleItemFromDatabase(uuid: item.uuid)
+        return fetchSingleItemFromDatabase(uuid: item.customID)
             .tryMap { [weak self] apiKeyEntity -> Void in
                 self?.context.delete(apiKeyEntity)
                 try self?.context.save()

@@ -15,26 +15,27 @@ enum LocationType {
 
 struct MainLocationScreen: View {
     
-    
-    
+    //MARK: Environment
     @EnvironmentObject var themeColor: ThemeColor
-    
+
+    //MARK: StateObject
     @StateObject var locationManager = LocationManager(permissionManager: LocationPermissionManager())
     @StateObject var viewModel: MainLocationViewModel
     
+    //MARK: State(private)
     @State private var isLocationSelectorOpen = false
     @State private var isClosedCurrentWeather = false
     @State private var isClosedAirQuality = false
     @State private var isCurrentPOsition = true //search current location or saved lat long
     @State private var isClosedForecast = false
     @State private var isLoading = true
+    
+    //MARK: State(internal)
     @State var locationTypeSelected: LocationType = .currentLocation
-    
     @State var selectedCityName: String
-    
-    var isForTesting: Bool?
-    
+        
     var body: some View {
+        
         VStack(spacing: 0) {
             VStack(spacing: 0) {
                 MainCitySearchBarView(
@@ -100,7 +101,6 @@ struct MainLocationScreen: View {
                             .padding(.horizontal)
                             .redacted(reason: isLoading ? .placeholder: [])
                     }
-                    
 //                }
             }
             .refreshable {
@@ -171,8 +171,7 @@ struct MainLocationScreen_Previews: PreviewProvider {
                     isStubbingData: true
                 )
             ), 
-            selectedCityName: "Deerfield Beach", 
-            isForTesting: true
+            selectedCityName: "Deerfield Beach"
         )
         
         return contentView

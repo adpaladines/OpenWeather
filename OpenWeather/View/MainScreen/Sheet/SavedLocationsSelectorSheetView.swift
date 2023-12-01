@@ -9,10 +9,19 @@ import SwiftUI
 
 struct SavedLocationsSelectorSheetView: View {
     
+    //MARK: Environment
     @Environment(\.dismiss) var dismiss
     
+    //MARK: EnvironmentObject
     @EnvironmentObject var themeColor: ThemeColor
-    @ObservedObject var viewModel: SavedLocationsViewModel()
+    
+    //MARK: StateObject
+    @ObservedObject var viewModel = SavedLocationsViewModel(
+        CDManager: ApiKeyCoreDataManager(
+            context: PersistenceController.shared.backgroundContext
+        )
+    )
+    
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {

@@ -9,14 +9,18 @@ import SwiftUI
 
 struct MainCitySearchBarView: View {
     
+    //MARK: Environment
     @EnvironmentObject var themeColor: ThemeColor
-
+    
+    //MARK: Bindings
     @Binding var selectedCityName: String
     @Binding var isLocationSelectorOpen: Bool
     
+    //MARK: State(internal)
     @State var isAlertShown: Bool = false
     
     var cityName: String?
+    
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
             VStack(alignment: .leading) {

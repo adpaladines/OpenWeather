@@ -8,7 +8,11 @@
         <attribute name="uuid" optional="YES" attributeType="String"/>
     </entity>
     <entity name="CoordinateEntity" representedClassName="CoordinateEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="cityName" optional="YES" attributeType="String"/>
+        <attribute name="customID" optional="YES" attributeType="String"/>
+        <attribute name="dateCreation" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
