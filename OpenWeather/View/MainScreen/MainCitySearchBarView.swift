@@ -24,38 +24,47 @@ struct MainCitySearchBarView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
             VStack(alignment: .leading) {
-                HStack {
-                    Button {
-                        isLocationSelectorOpen = true
-                    }label: {
-                        Image(systemName: "list.bullet")
-                            .fontWeight(.black)
-                            .foregroundColor(themeColor.button)
-                    }
-                    Spacer()
-                    NavigationLink(
-                        destination: CitySearchScreen(
-                            selectedCityName: $selectedCityName
-                        )
-                    ) {
-                        Image(systemName: "magnifyingglass")
-                            .fontWeight(.heavy)
-                            .foregroundColor(themeColor.button)
+//                HStack {
+//                    Button {
+//                        isLocationSelectorOpen = true
+//                    }label: {
+//                        Image(systemName: "list.bullet")
+//                            .fontWeight(.black)
+//                            .foregroundColor(themeColor.button)
+//                    }
+//                    Spacer()
+//                    NavigationLink(
+//                        destination: CitySearchScreen(
+//                            selectedCityName: $selectedCityName
+//                        )
+//                    ) {
+//                        Image(systemName: "magnifyingglass")
+//                            .fontWeight(.heavy)
+//                            .foregroundColor(themeColor.button)
+//                    }
+//                }
+                Button {
+                    isAlertShown.toggle()
+                }label: {
+                    HStack {
+                        Text(cityName ?? "No city found".localized())
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .foregroundColor(themeColor.text)
+                            .padding(.vertical)
+                        Spacer()
+                        Image(systemName: "magnifyingglass.circle")
+                            .foregroundColor(themeColor.text)
                     }
                 }
-                Text(cityName ?? "No city found")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(themeColor.text)
-                    .padding(.vertical)
             }
         }
         .frame(maxWidth: .infinity)
         .alert(isPresented: $isAlertShown, content: {
             Alert(
-                title: Text("Coming soon!"),
-                message: Text("Next releases will provide a city selector!"),
-                dismissButton: Alert.Button.default(Text("Awesome!"))
+                title: Text("Coming soon!".localized()),
+                message: Text("Next releases will provide a city selector!".localized()),
+                dismissButton: Alert.Button.default(Text("Awesome!".localized()))
             )
         })
         .preferredColorScheme(themeColor.colorScheme)

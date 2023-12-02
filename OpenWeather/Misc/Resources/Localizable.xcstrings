@@ -70,6 +70,7 @@
       }
     },
     "Awesome!" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -100,6 +101,7 @@
       }
     },
     "Coming soon!" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -331,7 +333,11 @@
         }
       }
     },
+    "Location permission was denied previously.\nPlease go to settings, find the name of this app and set location permission again." : {
+
+    },
     "Location permission was denied previously. Please go to settings, find the name of this app and set location permission again." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -341,7 +347,11 @@
         }
       }
     },
+    "Location permission was not authorized. \nPlease go to settings, find the name of this app and set location permission again." : {
+
+    },
     "Location permission was not authorized. Please go to settings, find the name of this app and set location permission again." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -427,6 +437,7 @@
       }
     },
     "Next releases will provide a city selector!" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -499,6 +510,9 @@
         }
       }
     },
+    "No problem set." : {
+
+    },
     "No service response (timeout)." : {
       "localizations" : {
         "es" : {
@@ -508,6 +522,9 @@
           }
         }
       }
+    },
+    "Open Settings" : {
+
     },
     "Options for: \n%@" : {
       "localizations" : {
@@ -800,7 +817,11 @@
         }
       }
     },
+    "Undetermined error while locating your position.\nPlease go to settings, find the name of this app and set location permission again.\nIf the problem persists, concact to developer's email." : {
+
+    },
     "UUID" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -809,6 +830,9 @@
           }
         }
       }
+    },
+    "UUID (required)" : {
+
     },
     "UUID: %@" : {
       "extractionState" : "stale",

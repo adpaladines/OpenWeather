@@ -11,10 +11,11 @@ import Combine
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var currentLocation: CLLocation?
-    @Published var locationError: Error?
+    @Published var locationError: LocationError = .none
 
     private var permissionManager: LocationPermissionManager
     private var locationManager: CLLocationManager
+    internal var cancellables: Set<AnyCancellable> = []
 
     init(permissionManager: LocationPermissionManager) {
         self.permissionManager = permissionManager
@@ -28,10 +29,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     private func setupBindings() {
         permissionManager.$permissionStatus
+            .prefix(1)
             .sink { [weak self] status in
                 self?.handlePermissionStatus(status)
             }
-            .store(in: &permissionManager.cancellables)
+            .store(in: &cancellables)
     }
 
     func requestLocationAccess(authorizationType: LocationAuthorizationType) {
@@ -60,13 +62,13 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        locationError = error
+        locationError = .undetermined
     }
 
     // Handle changes in permission status
     private func handlePermissionStatus(_ status: PermissionStatus) {
         switch status {
-        case .authorized:
+        case .authorized: locationError = .none
             locationManager.startUpdatingLocation()
         case .denied, .restricted:
             locationError = LocationError.permissionDenied
@@ -79,6 +81,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 enum LocationError: Error {
     case unauthorized
     case permissionDenied
+    case none
+    case undetermined
 }
 extension LocationError: LocalizedError, Equatable {
         
@@ -87,9 +91,13 @@ extension LocationError: LocalizedError, Equatable {
         let reflectionString = String(reflecting: self)
         switch self {
         case .unauthorized:
-            localizedString = NSLocalizedString("Location permission was not authorized. Please go to settings, find the name of this app and set location permission again.".localized(), comment: reflectionString)
+            localizedString = NSLocalizedString("Location permission was not authorized. \nPlease go to settings, find the name of this app and set location permission again.".localized(), comment: reflectionString)
         case .permissionDenied:
-            localizedString = NSLocalizedString("Location permission was denied previously. Please go to settings, find the name of this app and set location permission again.".localized(), comment: reflectionString)
+            localizedString = NSLocalizedString("Location permission was denied previously.\nPlease go to settings, find the name of this app and set location permission again.".localized(), comment: reflectionString)
+        case .none:
+            localizedString = NSLocalizedString("No problem set.".localized(), comment: reflectionString)
+        case .undetermined:
+            localizedString = NSLocalizedString("Undetermined error while locating your position.\nPlease go to settings, find the name of this app and set location permission again.\nIf the problem persists, concact to developer's email.".localized(), comment: reflectionString)
         }
         return localizedString
     }

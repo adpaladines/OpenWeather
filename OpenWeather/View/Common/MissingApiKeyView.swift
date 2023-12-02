@@ -11,6 +11,14 @@ struct MissingApiKeyView: View {
     
     @EnvironmentObject var themeColor: ThemeColor
     let error: Error
+    let showApiKeyWarning: Bool
+    let showSettingsButton: Bool
+    
+    init(error: Error, showApiKeyWarning: Bool = true, showSettingsButton: Bool = false) {
+        self.error = error
+        self.showApiKeyWarning = showApiKeyWarning
+        self.showSettingsButton = showSettingsButton
+    }
     
     var body: some View {
         VStack {
@@ -32,13 +40,30 @@ struct MissingApiKeyView: View {
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 30)
 
-            Text("Verify if you provided an Api Key in Settings tab.".localized())
-                .foregroundColor(themeColor.warning)
-                .lineLimit(2)
-                .multilineTextAlignment(.center)
+            if showApiKeyWarning {
+                Text("Verify if you provided an Api Key in Settings tab.".localized())
+                    .foregroundColor(themeColor.warning)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
+            }
+            if showSettingsButton {
+                Button(action: {
+                    openAppSettings()
+                }) {
+                    Text("Open Settings")
+                        .padding(.all, 8)
+                }
+                .tint(themeColor.button)
+            }
             Spacer()
         }
         .padding(.vertical)
+        .preferredColorScheme(themeColor.colorScheme)
+    }
+    
+    private func openAppSettings() {
+        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+        UIApplication.shared.openURL(settingsURL)
     }
 }
 

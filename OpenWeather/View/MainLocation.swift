@@ -51,66 +51,83 @@ struct MainLocationScreen: View {
                 )
                 .padding(.horizontal)
                 .padding(.bottom)
-//                .makeSecureTextField()
             }
             .background(themeColor.containerBackground)
             
             ScrollView(showsIndicators: false) {
-//            RefreshableScrollView(onRefresh: refreshData) {
-//                VStack(spacing: 16) {
-                    //                if let error = viewModel.customError, error != .none {
-                    MissingApiKeyView(error: viewModel.customError ?? .none)
-                        .padding(.top, 36)
-                        .opacity((viewModel.customError ?? .none) != NetworkError.none ? 1 : 0)
-                        .animation(.easeInOut(duration: 0.3), value: viewModel.customError)
-                        .frame(
-                            height: (viewModel.customError ?? .none) != NetworkError.none ? nil : 0,
-                            alignment: .center)
-                    //                }
+                MissingApiKeyView(error: viewModel.customError ?? .none)
+                    .padding(.top, 36)
+                    .opacity((viewModel.customError ?? .none) != NetworkError.none ? 1 : 0)
+                    .animation(.easeInOut(duration: 0.3), value: viewModel.customError)
+                    .frame(
+                        height: (viewModel.customError ?? .none) != NetworkError.none ? nil : 0,
+                        alignment: .center
+                    )
+                    .frame(maxWidth: 480)
+                
+                MissingApiKeyView(
+                    error: locationManager.locationError,
+                    showApiKeyWarning: false,
+                    showSettingsButton: true
+                )
+                    .padding(.top, 36)
+                    .opacity(locationManager.locationError != LocationError.none ? 1 : 0)
+                    .animation(.easeInOut(duration: 0.3), value: locationManager.locationError)
+                    .frame(
+                        height: locationManager.locationError != LocationError.none ? nil : 0,
+                        alignment: .center
+                    )
+                    .frame(maxWidth: 480)
+                
+                if viewModel.fiveForecastData?.list.count ?? 0 > 0 {
+                    FiveDaysForecastbarView(viewModel: viewModel, isClosed: $isClosedForecast)
+                        .containerBackground(withColor: themeColor.containerBackground)
+                        .frame(maxWidth: 640)
+                        .padding(.horizontal)
+                        .padding(.top)
+                }
+                
+                if viewModel.miniWidgets.count > 0 {
+                    CollapsibleHeaderView(title: "Today's info".localized(), image: Image(systemName: "info.circle"), isClosed: $isClosedCurrentWeather)
+                        .containerBackground(withColor: themeColor.containerBackground)
+                        .frame(maxWidth: 640)
+                        .padding(.top)
+                        .padding(.horizontal)
                     
-                    if viewModel.fiveForecastData?.list.count ?? 0 > 0 {
-                        FiveDaysForecastbarView(viewModel: viewModel, isClosed: $isClosedForecast)
-                            .containerBackground(withColor: themeColor.containerBackground)
-                            .frame(maxWidth: 640)
-                            .padding(.horizontal)
-                            .padding(.top)
-                    }
+                    MainMiniWidgetsGridView(isClosed: $isClosedCurrentWeather, miniWidgets: viewModel.miniWidgets)
+                        .frame(maxWidth: 645)
+                        .padding(.bottom)
+                        .padding(.horizontal)
+                }
+                
+                if viewModel.miniWidgetsAirQuality.count > 0 {
+                    CollapsibleHeaderView(title: "Air Quality info".localized(), image: Image(systemName: "wind.circle"), isClosed: $isClosedAirQuality)
+                        .containerBackground(withColor: themeColor.containerBackground)
+                        .frame(maxWidth: 640)
+                        .padding(.horizontal)
                     
-                    if viewModel.miniWidgets.count > 0 {
-                        CollapsibleHeaderView(title: "Today's info".localized(), image: Image(systemName: "info.circle"), isClosed: $isClosedCurrentWeather)
-                            .containerBackground(withColor: themeColor.containerBackground)
-                            .frame(maxWidth: 640)
-                            .padding(.top)
-                            .padding(.horizontal)
-                        
-                        MainMiniWidgetsGridView(isClosed: $isClosedCurrentWeather, miniWidgets: viewModel.miniWidgets)
-                            .frame(maxWidth: 645)
-                            .padding(.bottom)
-                            .padding(.horizontal)
-                    }
-                    
-                    if viewModel.miniWidgetsAirQuality.count > 0 {
-                        CollapsibleHeaderView(title: "Air Quality info".localized(), image: Image(systemName: "wind.circle"), isClosed: $isClosedAirQuality)
-                            .containerBackground(withColor: themeColor.containerBackground)
-                            .frame(maxWidth: 640)
-                            .padding(.horizontal)
-                        
-                        MiniWidgetsAirQualityGridView(isClosed: $isClosedAirQuality, miniGauges: viewModel.miniWidgetsAirQuality)
-                            .frame(maxWidth: 640)
-                            .padding(.bottom)
-                            .padding(.horizontal)
-                            .redacted(reason: isLoading ? .placeholder: [])
-                    }
-//                }
+                    MiniWidgetsAirQualityGridView(isClosed: $isClosedAirQuality, miniGauges: viewModel.miniWidgetsAirQuality)
+                        .frame(maxWidth: 640)
+                        .padding(.bottom)
+                        .padding(.horizontal)
+                        .redacted(reason: isLoading ? .placeholder: [])
+                }
             }
             .refreshable {
                 refreshData()
             }
-            .frame(maxWidth: .infinity)	
+            .frame(maxWidth: .infinity)
             .background(themeColor.screenBackground)
             .onChange(of: viewModel.customError) { newValue in
                 isLoading = false
                 guard newValue != nil else { return }
+                locationManager.stopLocationUpdates()
+            }
+            .onChange(of: locationManager.locationError) { newValue in
+                isLoading = false
+                guard newValue != LocationError.none else {
+                    return
+                }
                 locationManager.stopLocationUpdates()
             }
             .onChange(of: viewModel.currentMeasurementUnit) { newValue in
@@ -131,6 +148,7 @@ struct MainLocationScreen: View {
                     }
                 }
             }
+            
             .onAppear {
                 refreshData()
             }
@@ -151,6 +169,7 @@ struct MainLocationScreen: View {
     
     func refreshData() {
         viewModel.customError = nil
+        locationManager.locationError = .none
         locationManager.startLocationUpdates()
     }
     

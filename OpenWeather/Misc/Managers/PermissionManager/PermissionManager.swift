@@ -32,7 +32,7 @@ protocol PermissionManager {
     func getLocationStatus(_ status: CLAuthorizationStatus) -> PermissionStatus
 }
 
-class LocationPermissionManager: NSObject, ObservableObject, CLLocationManagerDelegate, PermissionManager {
+class LocationPermissionManager: NSObject, ObservableObject, PermissionManager {
     @Published private(set) var permissionStatus: PermissionStatus = .notDetermined
     
     internal var cancellables: Set<AnyCancellable> = []
@@ -48,22 +48,25 @@ class LocationPermissionManager: NSObject, ObservableObject, CLLocationManagerDe
             case .always:
                 locationManager.requestAlwaysAuthorization()
             }
-            $permissionStatus
-                .filter { $0 != PermissionStatus.notDetermined }
-                .prefix(1)
-                .sink { status in
-                    print(status)
-                }
-                .store(in: &cancellables)
         } else {
-            permissionStatus = .authorized
+            permissionStatus = .restricted
         }
     }
+    
+}
 
+extension LocationPermissionManager: CLLocationManagerDelegate {
     
     // MARK: - CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         let newStatus = getLocationStatus(status)
+        permissionStatus = newStatus
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        print(String(reflecting: manager.desiredAccuracy))
+        print(String(reflecting: manager.authorizationStatus))
+        let newStatus = getLocationStatus(manager.authorizationStatus)
         permissionStatus = newStatus
     }
     
