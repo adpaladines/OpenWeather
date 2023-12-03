@@ -16,7 +16,7 @@ class CurrentLanguage: ObservableObject {
     }
 }
 
-//0->It works only as a listener to refresh the app every time we change the language.
+//0-> It works only as a listener to refresh the app every time we change the language.
 
 @main
 struct OpenWeatherForecastApp: App {
@@ -26,12 +26,14 @@ struct OpenWeatherForecastApp: App {
     @AppStorage("app_lang") var appLang: String = "en"
     @AppStorage("appTheme") var appTheme = AppTheme.dark.rawValue
     @AppStorage("appThemeUserDefined") var appThemeUserDefined = false
+    @AppStorage("appIconSelected") var appIconSelected: String = AppIconType.light.rawValue
 
     var body: some Scene {
         WindowGroup {
             MainTabBarScreen()
                 .environmentObject(ThemeColor(appTheme: appTheme))
                 .environmentObject(CurrentLanguage(code: appLang)) //0->
+                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         }
     }
 }

@@ -14,6 +14,28 @@
         }
       }
     },
+    "Address" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dirección"
+          }
+        }
+      }
+    },
+    "Address search" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar dirección"
+          }
+        }
+      }
+    },
     "Air Quality info" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -21,6 +43,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Calidad de aire"
+          }
+        }
+      }
+    },
+    "API Keys" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claves API"
+          }
+        }
+      }
+    },
+    "Api Keys vault" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bóveda de claves Api"
+          }
+        }
+      }
+    },
+    "Awesome!" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genial!"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
           }
         }
       }
@@ -35,12 +101,89 @@
         }
       }
     },
+    "Coming soon!" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pronto llegará!"
+          }
+        }
+      }
+    },
+    "Customizations" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personalizaciones"
+          }
+        }
+      }
+    },
     "Dark" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oscuro"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar"
+          }
+        }
+      }
+    },
+    "Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descripción"
+          }
+        }
+      }
+    },
+    "Details" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detalles"
+          }
+        }
+      }
+    },
+    "Edit" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar"
+          }
+        }
+      }
+    },
+    "Edition" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edición"
           }
         }
       }
@@ -183,6 +326,44 @@
         }
       }
     },
+    "Loading..." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cargando..."
+          }
+        }
+      }
+    },
+    "Location permission was denied previously.\nPlease go to settings, find the name of this app and set location permission again." : {
+
+    },
+    "Location permission was denied previously. Please go to settings, find the name of this app and set location permission again." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El permiso de ubicación fue denegado anteriormente. Vaya a la configuración, busque el nombre de esta aplicación y configure el permiso de ubicación nuevamente."
+          }
+        }
+      }
+    },
+    "Location permission was not authorized. \nPlease go to settings, find the name of this app and set location permission again." : {
+
+    },
+    "Location permission was not authorized. Please go to settings, find the name of this app and set location permission again." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El permiso de ubicación no fue autorizado. Vaya a la configuración, busque el nombre de esta aplicación y configure el permiso de ubicación nuevamente."
+          }
+        }
+      }
+    },
     "Malformed URL." : {
       "localizations" : {
         "es" : {
@@ -205,6 +386,7 @@
       }
     },
     "Mono Dark" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -215,11 +397,23 @@
       }
     },
     "Mono Light" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mono Light"
+          }
+        }
+      }
+    },
+    "Name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre"
           }
         }
       }
@@ -234,12 +428,66 @@
         }
       }
     },
+    "New Element" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuevo elemento"
+          }
+        }
+      }
+    },
+    "Next releases will provide a city selector!" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Próximos releases tendrán un seleccionador de ciudad!"
+          }
+        }
+      }
+    },
+    "No Api Key provided." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tienes una Api Key."
+          }
+        }
+      }
+    },
+    "No data found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se encontró información"
+          }
+        }
+      }
+    },
     "No data loaded." : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No se encontró datos."
+          }
+        }
+      }
+    },
+    "No description registered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descripción no definida"
           }
         }
       }
@@ -254,12 +502,49 @@
         }
       }
     },
+    "No name registered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre no definido"
+          }
+        }
+      }
+    },
+    "No problem set." : {
+
+    },
     "No service response (timeout)." : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Timeout. Sin respuesta del servidor"
+            "value" : "Timeout. Sin respuesta del servidor."
+          }
+        }
+      }
+    },
+    "Open Settings" : {
+
+    },
+    "Options for: \n%@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opciones para:\n%@"
+          }
+        }
+      }
+    },
+    "Options:" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opciones:"
           }
         }
       }
@@ -335,6 +620,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Respuesta no pudo ser enviada."
+          }
+        }
+      }
+    },
+    "Save" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar"
+          }
+        }
+      }
+    },
+    "Search your city" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Busca tu ciudad"
+          }
+        }
+      }
+    },
+    "Select as default" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleccionar"
+          }
+        }
+      }
+    },
+    "Select your app icon:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona tu ícono:"
           }
         }
       }
@@ -451,6 +780,16 @@
         }
       }
     },
+    "Theme" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tema"
+          }
+        }
+      }
+    },
     "Today" : {
       "localizations" : {
         "es" : {
@@ -482,6 +821,45 @@
         }
       }
     },
+    "Undetermined error while locating your position.\nPlease go to settings, find the name of this app and set location permission again.\nIf the problem persists, concact to developer's email." : {
+
+    },
+    "UUID" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UUID"
+          }
+        }
+      }
+    },
+    "UUID (required)" : {
+
+    },
+    "UUID: %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UUID: %@"
+          }
+        }
+      }
+    },
+    "Verify if you provided an Api Key in Settings tab." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifique si proporcionó una clave Api en la pestaña Configuración."
+          }
+        }
+      }
+    },
     "Very Poor" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -489,6 +867,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Muy Pobre"
+          }
+        }
+      }
+    },
+    "View in Map" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver en el mapa"
+          }
+        }
+      }
+    },
+    "We got an error." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtuvimos un error."
           }
         }
       }

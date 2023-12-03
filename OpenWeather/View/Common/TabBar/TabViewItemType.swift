@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-enum TabViewItemType: String {
-    case login  = "login"
-    case home   = "home"
-    case search = "search"
-    case settings = "settings"
+enum TabViewItemType {
+    case login
+    case home
+    case search
+    case settings
     
     var image: Image {
         switch self {
@@ -22,7 +22,18 @@ enum TabViewItemType: String {
         }
     }
 
-    var text: Text {
-        Text(self.rawValue.localized())
+    var text: String {
+        let newVal: String
+        switch self {
+        case .login:
+            newVal = "login".localized()
+        case .home:
+            newVal = "home".localized()
+        case .search:
+            newVal = "search".localized()
+        case .settings:
+            newVal = "settings".localized()
+        }
+        return newVal
     }
 }

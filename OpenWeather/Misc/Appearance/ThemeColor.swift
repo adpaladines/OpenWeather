@@ -10,8 +10,8 @@ import SwiftUI
 enum AppTheme: String, CaseIterable {
     case light
     case dark
-    case monoLight
-    case monoDark
+//    case monoLight
+//    case monoDark
 }
 
 extension AppTheme {
@@ -23,10 +23,10 @@ extension AppTheme {
             value = "Light".localized()
         case .dark:
             value = "Dark".localized()
-        case .monoLight:
-            value = "Mono Light".localized()
-        case .monoDark:
-            value = "Mono Dark".localized()
+//        case .monoLight:
+//            value = "Mono Light".localized()
+//        case .monoDark:
+//            value = "Mono Dark".localized()
         }
         return value
     }
@@ -38,9 +38,9 @@ class ThemeColor: ObservableObject {
     
     public var isLight: Bool {
         switch appThemeEnum {
-        case .light, .monoLight:
+        case .light://, .monoLight:
             return true
-        case .dark, .monoDark:
+        case .dark://, .monoDark:
             return false
         }
     }
@@ -70,29 +70,29 @@ class ThemeColor: ObservableObject {
     
     var button: Color {
         switch appThemeEnum {
-        case .light, .monoLight:
+        case .light://, .monoLight:
             return Color(hex: "8A20D5")
         case .dark:
             return Color(hex: "BD92DD")
-        case .monoDark:
-            return Color(hex: "BD92DD")
+//        case .monoDark:
+//            return Color(hex: "BD92DD")
         }
     }
     
     var text: Color {
         switch appThemeEnum {
-        case .light, .monoLight:
+        case .light://, .monoLight:
             return .black
-        case .dark, .monoDark:
+        case .dark://, .monoDark:
             return .white
         }
     }
     
     var imageBackground: Color {
         switch appThemeEnum {
-        case .light, .monoLight:
+        case .light://, .monoLight:
             return .white
-        case .dark, .monoDark:
+        case .dark://, .monoDark:
             return .black.opacity(0.7)
         }
     }
@@ -100,12 +100,12 @@ class ThemeColor: ObservableObject {
     var containerBackground: Color {
         let value: Color
         switch appThemeEnum {
-        case .light, .monoLight:
+        case .light://, .monoLight:
             value = Color(hex: "EBDEFF")
         case .dark:
             value = Color(hex: "443A4B")
-        case .monoDark:
-            value = Color(hex: "241B2C")
+//        case .monoDark:
+//            value = Color(hex: "241B2C")
         }
         return value
     }
@@ -113,12 +113,12 @@ class ThemeColor: ObservableObject {
     var screenBackground: Color {
         let value: Color
         switch appThemeEnum {
-        case .light, .monoLight:
+        case .light://, .monoLight:
             value = Color(hex: "F7ECFF")
         case .dark:
             value = Color(hex: "140A1B")
-        case .monoDark:
-            value = Color(hex: "241B2C")
+//        case .monoDark:
+//            value = Color(hex: "241B2C")
         }
         return value
     }
@@ -135,6 +135,27 @@ class ThemeColor: ObservableObject {
             return Color(hex: "")
         }
         return Color(hex: "")
+    }
+    
+    var warning: Color {
+        guard isLight else {
+            return Color(hex: "FEE445")
+        }
+        return Color(hex: "CAA100")
+    }
+    
+    var gray: Color {
+        guard isLight else {
+            return Color(hex: "8F8F94")
+        }
+        return Color(hex: "828287")
+    }
+    
+    var error: Color {
+        guard isLight else {
+            return Color(hex: "FF4E43")
+        }
+        return Color(hex: "FB3B30")
     }
     
 }

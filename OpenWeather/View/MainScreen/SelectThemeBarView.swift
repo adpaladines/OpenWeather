@@ -30,20 +30,20 @@ struct SelectThemeBarView: View {
                         .fontWeight(.medium)
                         .foregroundColor(.red)
                 }
-                Button {
-                    appTheme = AppTheme.monoLight.rawValue
-                }label: {
-                    Text("Mono Light")
-                        .fontWeight(.medium)
-                        .foregroundColor(.red)
-                }
-                Button {
-                    appTheme = AppTheme.monoDark.rawValue
-                }label: {
-                    Text("Mono Dark")
-                        .fontWeight(.medium)
-                        .foregroundColor(.red)
-                }
+//                Button {
+//                    appTheme = AppTheme.monoLight.rawValue
+//                }label: {
+//                    Text("Mono Light")
+//                        .fontWeight(.medium)
+//                        .foregroundColor(.red)
+//                }
+//                Button {
+//                    appTheme = AppTheme.monoDark.rawValue
+//                }label: {
+//                    Text("Mono Dark")
+//                        .fontWeight(.medium)
+//                        .foregroundColor(.red)
+//                }
             } label: {
                 HStack {
                     Spacer()

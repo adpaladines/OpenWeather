@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import Combine
 
 protocol Serviceable {
-    func getDataFromApi(requestable: Requestable) async throws -> Data
+    func getDataFromApiCombine(requestable: Requestable) -> AnyPublisher<Data, Error>
 }

@@ -9,31 +9,45 @@ import SwiftUI
 
 struct MainTabBarScreen: View {
     
+    @AppStorage("app_lang") var appLang: String = "en"
+
     @EnvironmentObject var themeColor: ThemeColor
-    @EnvironmentObject var currentLanguage: CurrentLanguage
     
+    // We only need to change the value to refresh the item elements.
+    @State private var homeItemText = TabViewItemType.home.text
+    @State private var settingsItemText = TabViewItemType.settings.text
+
     var body: some View {
         TabView() {
+            NavigationStack {
 //            MainLocationScreen(
 //                viewModel: MainLocationViewModel(
 //                    repository: WeatherFakeRepository(
 //                        isStubbingData: true
 //                    )
-//                ), isForTesting: true
+//                ),
+//                selectedCityName: "Deerfield Beach",
+//                isForTesting: true
 //            )
-            MainLocationScreen(
-                viewModel: MainLocationViewModel(
-                    repository: WeatherRepository()
+                MainLocationScreen(
+                    viewModel: MainLocationViewModel(
+                        repository: WeatherRepository()
+                    ), 
+                    selectedCityName: "Deerfield Beach"
                 )
-            )
-            .tabItem {
-                TabViewItem(type: .home)
             }
+            .tabItem {
+                TabViewItem(type: .home, title: homeItemText)
+            }
+            .tag(1)
+            
             SettingsScreen()
                 .tabItem {
-                    TabViewItem(type: .settings)
+                    TabViewItem(type: .settings, title: settingsItemText)
                 }
+                .tag(2)
         }
+        .navigationViewStyle(.stack)
         .accentColor(themeColor.button)
         .preferredColorScheme(themeColor.colorScheme)
         .onAppear {
@@ -43,6 +57,10 @@ struct MainTabBarScreen: View {
             UITabBar.appearance().standardAppearance = appearance
             // Use this appearance when scrolled all the way up:
             UITabBar.appearance().scrollEdgeAppearance = appearance
+        }
+        .onChange(of: appLang) { newValue in
+            homeItemText = TabViewItemType.home.text
+            settingsItemText = TabViewItemType.settings.text
         }
     }
 }

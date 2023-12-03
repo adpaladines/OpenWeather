@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreLocation
+import Combine
 
 enum AirQualityValue: String {
     case good = "Good"
@@ -25,30 +26,40 @@ class MainLocationViewModel: ObservableObject {
     @Published var currentWeathrData: CurrentWeatherData?
     @Published var fiveForecastData: ForecastData?
     @Published var airPollutionData: AirPollutionData?
-    
+        
+    private var cancellables: Set<AnyCancellable> = []
     private var repository: Repositoryable
+    private var currentCoordinates: CLLocationCoordinate2D?
     
     init(repository: Repositoryable) {
         self.repository = repository
     }
+    
+    private func combineServiceCalls(coordinate: CLLocationCoordinate2D) -> AnyPublisher<CombinedResult, Error> {
+        let unit = MeasurementUnit(rawValue: currentMeasurementUnit) ?? .standard
+        repository.setServiceManager(Services(), and: coordinate)
+        
+        return Publishers.Zip3(
+            repository.getCurrentWeatherCombine(metrics: unit, testingPath: ""),
+            repository.getForecastDataCombine(metrics: unit, testingPath: ""),
+            repository.getAirPollutionDataCombine(testingPath: "")
+        )
+        .receive(on: RunLoop.main)
+        .map { currentWeatherData, forecastData, airPollutionData in
+            print(currentWeatherData?.main.temp as Any)
+            print(forecastData?.list.first?.main.humidity as Any)
+            print(airPollutionData?.list.first?.so2 as Any)
+            return CombinedResult(
+                weather: currentWeatherData,
+                forecast: forecastData,
+                air: airPollutionData
+            )
+        }
+        .eraseToAnyPublisher()
+    }
 }
 
 extension MainLocationViewModel: WeatherInfoProtocol {
-    
-    func getCurrentWeatherInfo(coordinate: CLLocationCoordinate2D) async {
-        repository.setServiceManager(Services(), and: coordinate)
-        do {
-            let unit = MeasurementUnit(rawValue: currentMeasurementUnit)  ?? .standard
-            let weatherData = try await repository.getCurrentWeather(metrics: unit, testingPath: "")
-            DispatchQueue.main.async {
-                self.currentWeathrData = weatherData
-                self.customError = NetworkError.none
-            }
-        }catch {
-            setCustomErrorStatus(with: error)
-            print(error.localizedDescription)
-        }
-    }
     
     func getImageUrlBy(id: String?) -> String? {
         guard let id_ = id else {
@@ -57,40 +68,17 @@ extension MainLocationViewModel: WeatherInfoProtocol {
         return repository.getUrlStringImageBy(id: id_)
     }
     
-    func getDailyForecastInfo(coordinate: CLLocationCoordinate2D) async {
-        repository.setServiceManager(Services(), and: coordinate)
-        do {
-            let unit = MeasurementUnit(rawValue: currentMeasurementUnit)  ?? .standard
-            let forecastData = try await repository.getForecastData(metrics: unit, testingPath: "")
-            DispatchQueue.main.async {
-                self.fiveForecastData = forecastData
-                self.customError = NetworkError.none
-            }
-        }catch {
-            setCustomErrorStatus(with: error)
-        }
-    }
-    
-    func getAirPollutionData(coordinate: CLLocationCoordinate2D) async {
-        repository.setServiceManager(Services(), and: coordinate)
-        do {
-            let airPollutionData = try await repository.getAirPollutionData(testingPath: "")
-            DispatchQueue.main.async {
-                self.airPollutionData = airPollutionData
-                self.customError = NetworkError.none
-            }
-        }catch {
-            setCustomErrorStatus(with: error)
-        }
-    }
-    
     var currentWeatherIconUrl: URL? {
         guard let imageUrlString = self.getImageUrlBy(id: self.currentWeathrData?.weather.first?.icon),
               let imageUrl = URL(string: imageUrlString) else {return nil}
         return imageUrl
     }
     
-    func setCustomErrorStatus(with error: Error) {
+    func setCustomErrorStatus(with error: Error?) {
+        guard let error = error else {
+            customError = NetworkError.none
+            return
+        }
         switch error {
         case is DecodingError:
             customError = NetworkError.parsingValue
@@ -105,6 +93,51 @@ extension MainLocationViewModel: WeatherInfoProtocol {
             print("CancellationError")
         default:
             customError = .dataNotFound
+        }
+    }
+}
+
+//MARK: Server Fetch Request
+extension MainLocationViewModel {
+    
+    func fetchServerData(coordinate: CLLocationCoordinate2D) {
+        if let coord = currentCoordinates,
+            coord.latitude == coordinate.latitude,
+           coord.longitude == coordinate.longitude {
+            return
+        }
+        currentCoordinates = coordinate
+        combineServiceCalls(coordinate: coordinate)
+            .sink { [weak self] completion in
+                self?.manageErrorStatus(completion: completion)
+            } receiveValue: { [weak self] combinedResult in
+                guard
+                    let weather = combinedResult.weather,
+                    let forecast = combinedResult.forecast,
+                    let air = combinedResult.air
+                else {
+                    self?.fiveForecastData = nil
+                    self?.airPollutionData = nil
+                    self?.currentWeathrData = nil
+                    return
+                }
+                self?.fiveForecastData = forecast
+                self?.airPollutionData = air
+                self?.currentWeathrData = weather
+            }
+            .store(in: &cancellables)
+    }
+    
+    func manageErrorStatus(completion: Subscribers.Completion<Error> ) {
+        switch completion {
+        case .finished:
+            setCustomErrorStatus(with: nil)
+        case .failure(let error):
+            fiveForecastData = nil
+            airPollutionData = nil
+            currentWeathrData = nil
+            setCustomErrorStatus(with: error)
+            print(error.localizedDescription)
         }
     }
 }

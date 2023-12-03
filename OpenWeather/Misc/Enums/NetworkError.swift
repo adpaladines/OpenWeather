@@ -16,6 +16,7 @@ enum NetworkError: Error {
     case parsingValue
     case none
     case network(String)
+    case missingApiKey
 }
 
 extension NetworkError: LocalizedError, Equatable {
@@ -24,6 +25,8 @@ extension NetworkError: LocalizedError, Equatable {
         let localizedString: String
         let reflectionString = String(reflecting: self)
         switch self {
+        case .missingApiKey:
+            localizedString = NSLocalizedString("No Api Key provided.".localized(), comment: reflectionString)
         case .invalidUrl:
             localizedString = NSLocalizedString("Malformed URL.".localized(), comment: reflectionString)
         case .dataNotFound:
@@ -42,6 +45,27 @@ extension NetworkError: LocalizedError, Equatable {
             localizedString = NSLocalizedString("Network error: \(netError)".localized(), comment: reflectionString)
         }
         return localizedString
+    }
+    
+    mutating func setCustomErrorStatus(with error: Error?) {
+        guard let error = error else {
+            self = NetworkError.none
+            return
+        }
+        switch error {
+        case is DecodingError:
+            self = NetworkError.parsingValue
+        case is URLError:
+            self = .invalidUrl
+        case NetworkError.dataNotFound:
+            self = NetworkError.dataNotFound
+        case NetworkError.response:
+            self = NetworkError.response(error._code)
+        case is CancellationError:
+            self = .dataNotFound
+        default:
+            self = .dataNotFound
+        }
     }
 }
 
