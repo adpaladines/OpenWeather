@@ -63,7 +63,7 @@ struct MissingApiKeyView: View {
     
     private func openAppSettings() {
         guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
-        UIApplication.shared.openURL(settingsURL)
+        UIApplication.shared.open(settingsURL)
     }
 }
 

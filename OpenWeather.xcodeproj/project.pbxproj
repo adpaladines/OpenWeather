@@ -58,6 +58,7 @@
 		DDC798772AEA96EE00BF9800 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC798762AEA96EE00BF9800 /* LocationManager.swift */; };
 		DDCE90EE2B07A8D800FA90AD /* ApiKeyCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE90ED2B07A8D800FA90AD /* ApiKeyCellView.swift */; };
 		DDCE90F02B07AF5800FA90AD /* ApiKeyFormSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE90EF2B07AF5800FA90AD /* ApiKeyFormSheetView.swift */; };
+		DDD61F7F2B1BA37D00CBFA7A /* ConditionalDialogModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD61F7E2B1BA37D00CBFA7A /* ConditionalDialogModifier.swift */; };
 		DDDDA4AF2AEAC0D5009FB7C0 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDDA4AE2AEAC0D5009FB7C0 /* ThemeColor.swift */; };
 		DDDDA4B22AEAC128009FB7C0 /* CurrentWeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDDA4B12AEAC128009FB7C0 /* CurrentWeatherData.swift */; };
 		DDDDA4B42AEAC143009FB7C0 /* ForecastData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDDA4B32AEAC143009FB7C0 /* ForecastData.swift */; };
@@ -164,6 +165,7 @@
 		DDC798762AEA96EE00BF9800 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		DDCE90ED2B07A8D800FA90AD /* ApiKeyCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyCellView.swift; sourceTree = "<group>"; };
 		DDCE90EF2B07AF5800FA90AD /* ApiKeyFormSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyFormSheetView.swift; sourceTree = "<group>"; };
+		DDD61F7E2B1BA37D00CBFA7A /* ConditionalDialogModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalDialogModifier.swift; sourceTree = "<group>"; };
 		DDDDA4AE2AEAC0D5009FB7C0 /* ThemeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
 		DDDDA4B12AEAC128009FB7C0 /* CurrentWeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherData.swift; sourceTree = "<group>"; };
 		DDDDA4B32AEAC143009FB7C0 /* ForecastData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastData.swift; sourceTree = "<group>"; };
@@ -535,6 +537,7 @@
 				DDDDA4DA2AEAD942009FB7C0 /* MiniWidgetsAirQualityGridView.swift */,
 				DDDDA4DC2AEAD958009FB7C0 /* MainMiniWidgetsGridView.swift */,
 				DD38BF0F2B13D40E006A1D6A /* MissingApiKeyView.swift */,
+				DDD61F7E2B1BA37D00CBFA7A /* ConditionalDialogModifier.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -791,6 +794,7 @@
 				DDC798642AEA95D400BF9800 /* Requestable.swift in Sources */,
 				DDC7985D2AEA952700BF9800 /* Bundle+Extensions.swift in Sources */,
 				DD6916E22B17820200F061BC /* MapCoordinatesViewModel.swift in Sources */,
+				DDD61F7F2B1BA37D00CBFA7A /* ConditionalDialogModifier.swift in Sources */,
 				DDCE90F02B07AF5800FA90AD /* ApiKeyFormSheetView.swift in Sources */,
 				DDDDA4DB2AEAD942009FB7C0 /* MiniWidgetsAirQualityGridView.swift in Sources */,
 				DD74E8F22B01919500EE00F9 /* CoreDataOperationsProtocol.swift in Sources */,
@@ -959,7 +963,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"OpenWeather/Preview Content\"";
 				DEVELOPMENT_TEAM = 3PLD5VHEP6;
 				ENABLE_PREVIEWS = YES;
@@ -994,7 +998,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"OpenWeather/Preview Content\"";
 				DEVELOPMENT_TEAM = 3PLD5VHEP6;
 				ENABLE_PREVIEWS = YES;

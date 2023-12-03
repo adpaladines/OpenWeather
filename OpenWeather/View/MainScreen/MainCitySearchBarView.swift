@@ -48,10 +48,7 @@ struct MainCitySearchBarView: View {
                 }label: {
                     HStack {
                         Text(cityName ?? "No city found".localized())
-                            .font(.title3)
-                            .fontWeight(.bold)
                             .foregroundColor(themeColor.text)
-                            .padding(.vertical)
                         Spacer()
                         Image(systemName: "magnifyingglass.circle")
                             .foregroundColor(themeColor.text)

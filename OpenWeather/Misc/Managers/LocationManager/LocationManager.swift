@@ -26,14 +26,22 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         setupBindings()
     }
-
+    
     private func setupBindings() {
         permissionManager.$permissionStatus
-            .prefix(1)
             .sink { [weak self] status in
                 self?.handlePermissionStatus(status)
             }
             .store(in: &cancellables)
+    }
+    
+    func startLocationUpdates() {
+        guard permissionManager.permissionStatus != .authorized else {
+//            locationManager.startUpdatingLocation()
+            locationManager.requestLocation()
+            return
+        }
+        requestLocationAccess(authorizationType: .whenInUse)
     }
 
     func requestLocationAccess(authorizationType: LocationAuthorizationType) {
@@ -41,15 +49,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             self.permissionManager.requestLocationAccess(authorizationType: authorizationType)
         }
     }
-
-    func startLocationUpdates() {
-        guard permissionManager.permissionStatus != .authorized else {
-            locationManager.startUpdatingLocation()
-            return
-        }
-        requestLocationAccess(authorizationType: .whenInUse)
-    }
-
+    
     func stopLocationUpdates() {
         locationManager.stopUpdatingLocation()
     }

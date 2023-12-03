@@ -68,8 +68,8 @@ struct ApiKeyFormSheetView: View {
                         }
                 }
                 .onAppear{
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        focus = .name
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                        focus = isEdition ? .name : .uuid
                     }
                 }
                 
