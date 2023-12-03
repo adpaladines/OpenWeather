@@ -34,8 +34,8 @@ struct SettingsApiKeysScreen: View {
                     .frame(height: 46)
                     .containerBackground(withColor: themeColor.containerBackground)
                     .onTapGesture {
-                        showActionSheet = true
                         selectedObject = item
+                        showActionSheet = true
                     }
                 }
             }
@@ -57,36 +57,44 @@ struct SettingsApiKeysScreen: View {
         .onAppear {
             viewModel.getItems()
         }
+        .conditionalDialog(
+            selectedObject: selectedObject,
+            apiKeySelected: $apiKeySelected,
+            isFormOpened: $isFormOpened,
+            showActionSheet: $showActionSheet,
+            viewModel: viewModel
+        )
+//        .confirmationDialog(
+//            selectedObject != nil ? "Options for: \n\(selectedObject!.name)" : "Options:",
+//            isPresented: $showActionSheet,
+//            titleVisibility: Visibility.visible
+//        ) {
+//            Button("Select as default") {
+//                guard let uuid = selectedObject?.uuid else { return }
+//                apiKeySelected = uuid
+//            }
+//            Button("Edit") {
+//                isFormOpened = true
+//            }
+//            Button("Delete", role: .destructive) {
+//                guard
+//                    let item = selectedObject,
+//                    let index = viewModel.items.firstIndex(where: { $0.uuid == item.uuid })
+//                else
+//                { return }
+//                viewModel.delete(item: item)
+//                viewModel.items.remove(at: index)
+//            }
+//            Button("Cancel", role: .cancel) { }
+//        }
         .sheet(
             isPresented: $isFormOpened,
             onDismiss: {
                 print("Sheet dismissed with status")
-            }) {
+            },
+            content: {
                 ApiKeyFormSheetView(apiKeyData: selectedObject, viewModel: viewModel, isPresented: $isFormOpened)
-            }
-            .confirmationDialog(
-                selectedObject != nil ? "Options for: \n\(selectedObject!.uuid)" : "Options:",
-                isPresented: $showActionSheet,
-                titleVisibility: Visibility.visible
-            ) {
-                Button("Select as default") {
-                    guard let uuid = selectedObject?.uuid else { return }
-                    apiKeySelected = uuid
-                }
-                Button("Edit") {
-                    isFormOpened = true
-                }
-                Button("Delete", role: .destructive) {
-                    guard
-                        let item = selectedObject,
-                        let index = viewModel.items.firstIndex(where: { $0.uuid == item.uuid })
-                    else
-                    { return }
-                    viewModel.delete(item: item)
-                    viewModel.items.remove(at: index)
-                }
-                Button("Cancel", role: .cancel) { }
-            }
+            })
     }
     
 }

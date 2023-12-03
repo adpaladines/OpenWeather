@@ -19,7 +19,7 @@ struct MainTabBarScreen: View {
 
     var body: some View {
         TabView() {
-            NavigationView {
+            NavigationStack {
 //            MainLocationScreen(
 //                viewModel: MainLocationViewModel(
 //                    repository: WeatherFakeRepository(

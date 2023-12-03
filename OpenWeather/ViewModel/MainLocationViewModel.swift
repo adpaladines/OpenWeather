@@ -29,6 +29,7 @@ class MainLocationViewModel: ObservableObject {
         
     private var cancellables: Set<AnyCancellable> = []
     private var repository: Repositoryable
+    private var currentCoordinates: CLLocationCoordinate2D?
     
     init(repository: Repositoryable) {
         self.repository = repository
@@ -100,6 +101,12 @@ extension MainLocationViewModel: WeatherInfoProtocol {
 extension MainLocationViewModel {
     
     func fetchServerData(coordinate: CLLocationCoordinate2D) {
+        if let coord = currentCoordinates,
+            coord.latitude == coordinate.latitude,
+           coord.longitude == coordinate.longitude {
+            return
+        }
+        currentCoordinates = coordinate
         combineServiceCalls(coordinate: coordinate)
             .sink { [weak self] completion in
                 self?.manageErrorStatus(completion: completion)

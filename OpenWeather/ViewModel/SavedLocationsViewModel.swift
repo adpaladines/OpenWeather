@@ -1,8 +1,8 @@
 //
-//  SettingsViewModel.swift
+//  SavedLocationsViewModel.swift
 //  OpenWeather
 //
-//  Created by andres paladines on 10/27/23.
+//  Created by andres paladines on 11/29/23.
 //
 
 import Foundation
@@ -10,7 +10,7 @@ import CoreData
 import Combine
 
 @MainActor
-class SettingsViewModel: ObservableObject {
+class SavedLocationsViewModel: ObservableObject {
     
     @Published var items: [ApiKeyData] = []
     @Published var customError: NetworkError
@@ -42,7 +42,7 @@ class SettingsViewModel: ObservableObject {
 }
 
 //MARK: - CoreData Management
-extension SettingsViewModel {
+extension SavedLocationsViewModel {
     
     func getItems() {
         CDManager.fetchDataFromDatabase()

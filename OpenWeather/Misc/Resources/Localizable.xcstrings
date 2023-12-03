@@ -15,6 +15,7 @@
       }
     },
     "Address" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -25,6 +26,7 @@
       }
     },
     "Address search" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -68,6 +70,7 @@
       }
     },
     "Awesome!" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -78,6 +81,7 @@
       }
     },
     "Cancel" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -98,6 +102,7 @@
       }
     },
     "Coming soon!" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -129,6 +134,7 @@
       }
     },
     "Delete" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -161,6 +167,7 @@
       }
     },
     "Edit" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -329,6 +336,34 @@
         }
       }
     },
+    "Location permission was denied previously.\nPlease go to settings, find the name of this app and set location permission again." : {
+
+    },
+    "Location permission was denied previously. Please go to settings, find the name of this app and set location permission again." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El permiso de ubicación fue denegado anteriormente. Vaya a la configuración, busque el nombre de esta aplicación y configure el permiso de ubicación nuevamente."
+          }
+        }
+      }
+    },
+    "Location permission was not authorized. \nPlease go to settings, find the name of this app and set location permission again." : {
+
+    },
+    "Location permission was not authorized. Please go to settings, find the name of this app and set location permission again." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El permiso de ubicación no fue autorizado. Vaya a la configuración, busque el nombre de esta aplicación y configure el permiso de ubicación nuevamente."
+          }
+        }
+      }
+    },
     "Malformed URL." : {
       "localizations" : {
         "es" : {
@@ -351,6 +386,7 @@
       }
     },
     "Mono Dark" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -361,6 +397,7 @@
       }
     },
     "Mono Light" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -403,6 +440,7 @@
       }
     },
     "Next releases will provide a city selector!" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -475,6 +513,9 @@
         }
       }
     },
+    "No problem set." : {
+
+    },
     "No service response (timeout)." : {
       "localizations" : {
         "es" : {
@@ -484,6 +525,9 @@
           }
         }
       }
+    },
+    "Open Settings" : {
+
     },
     "Options for: \n%@" : {
       "localizations" : {
@@ -591,7 +635,19 @@
         }
       }
     },
+    "Search your city" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Busca tu ciudad"
+          }
+        }
+      }
+    },
     "Select as default" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -765,7 +821,11 @@
         }
       }
     },
+    "Undetermined error while locating your position.\nPlease go to settings, find the name of this app and set location permission again.\nIf the problem persists, concact to developer's email." : {
+
+    },
     "UUID" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -774,6 +834,9 @@
           }
         }
       }
+    },
+    "UUID (required)" : {
+
     },
     "UUID: %@" : {
       "extractionState" : "stale",
@@ -804,6 +867,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Muy Pobre"
+          }
+        }
+      }
+    },
+    "View in Map" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver en el mapa"
           }
         }
       }
