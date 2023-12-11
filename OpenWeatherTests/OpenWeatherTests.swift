@@ -31,7 +31,7 @@ final class OpenWeatherTests: XCTestCase {
         
         repo.setServiceManager(networkmanager, and: CLLocationCoordinate2D(latitude: lat, longitude: lon))
         do {
-            _ = try await repo.getCurrentWeather(testingPath: "@")
+            _ = try await repo.getCurrentWeatherCombine(testingPath: "@")
         } catch {
             guard let myError = error as? NetworkError else { throw NSError() }
             XCTAssert(myError == NetworkError.invalidUrl)
@@ -52,9 +52,9 @@ final class OpenWeatherTests: XCTestCase {
         
         repo.setServiceManager(networkmanager, and: CLLocationCoordinate2D(latitude: lat, longitude: lon))
         do {
-            let data = try await repo.getCurrentWeather()
+            let data = try await repo.getCurrentWeatherCombine()
             XCTAssertNotNil(data)
-            let resp = data!
+            let resp = data
             XCTAssertGreaterThan(resp.main.temp, 32)
             expectation.fulfill()
             
@@ -81,9 +81,9 @@ final class OpenWeatherTests: XCTestCase {
         
         repo.setServiceManager(networkmanager, and: CLLocationCoordinate2D(latitude: lat, longitude: lon))
         do {
-            let data = try await repo.getForecastData()
+            let data = try await repo.getForecastDataCombine(metrics: nil, testingPath: "")
             XCTAssertNotNil(data)
-            let resp = data!
+            let resp = data
             XCTAssertGreaterThan(resp.list.count, 0)
             XCTAssertEqual(resp.list.count, 40)
             XCTAssertEqual(resp.list.first?.weather.first?.description, "scattered clouds")
