@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "$%.2f" : {
+
+    },
     "10 days" : {
       "localizations" : {
         "es" : {
@@ -133,6 +136,9 @@
         }
       }
     },
+    "Deductions" : {
+
+    },
     "Delete" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -199,6 +205,12 @@
         }
       }
     },
+    "Enter Deductions" : {
+
+    },
+    "Enter Gross Salary" : {
+
+    },
     "Fahrenheit" : {
       "localizations" : {
         "es" : {
@@ -248,6 +260,9 @@
         }
       }
     },
+    "Gross Salary" : {
+
+    },
     "home" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -277,6 +292,7 @@
       }
     },
     "Invalid request." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -287,6 +303,7 @@
       }
     },
     "Invalid status (code) code from response." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -336,9 +353,6 @@
         }
       }
     },
-    "Location permission was denied previously.\nPlease go to settings, find the name of this app and set location permission again." : {
-
-    },
     "Location permission was denied previously. Please go to settings, find the name of this app and set location permission again." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -349,9 +363,6 @@
           }
         }
       }
-    },
-    "Location permission was not authorized. \nPlease go to settings, find the name of this app and set location permission again." : {
-
     },
     "Location permission was not authorized. Please go to settings, find the name of this app and set location permission again." : {
       "extractionState" : "stale",
@@ -365,6 +376,7 @@
       }
     },
     "Malformed URL." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -418,7 +430,11 @@
         }
       }
     },
+    "Net Salary" : {
+
+    },
     "Network error: (netError)" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -451,6 +467,7 @@
       }
     },
     "No Api Key provided." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -493,6 +510,7 @@
       }
     },
     "No errors detected" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -513,10 +531,8 @@
         }
       }
     },
-    "No problem set." : {
-
-    },
     "No service response (timeout)." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -605,6 +621,7 @@
       }
     },
     "Resource not found." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -615,6 +632,7 @@
       }
     },
     "Response cannot be pased." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -623,6 +641,12 @@
           }
         }
       }
+    },
+    "Salary " : {
+
+    },
+    "Salary Calculator" : {
+
     },
     "Save" : {
       "extractionState" : "stale",
@@ -820,9 +844,6 @@
           }
         }
       }
-    },
-    "Undetermined error while locating your position.\nPlease go to settings, find the name of this app and set location permission again.\nIf the problem persists, concact to developer's email." : {
-
     },
     "UUID" : {
       "extractionState" : "stale",

@@ -21,10 +21,18 @@ struct MainTemperatureBarView: View {
     
     var body: some View {
         HStack {
-            Text((temperature?.description ?? "N/A") + "°")
-                .foregroundColor(themeColor.text)
-                .font(SwiftUI.Font.system(size: 42))
-                .fontWeight(.medium)
+            if temperature != nil {
+                Text((temperature?.description ?? "N/A") + "°")
+                    .foregroundColor(themeColor.text)
+                    .font(SwiftUI.Font.system(size: 42))
+                    .fontWeight(.medium)
+            }else {
+                RoundedRectangle(cornerRadius: 8.0)
+                    .frame(width: 120, height: 44)
+                    .foregroundColor(themeColor.screenBackground)
+//                    .redacted(reason: .placeholder)
+                    .padding(.horizontal, 2)
+            }
                 
             VStack {
                 Spacer()

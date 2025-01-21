@@ -9,6 +9,14 @@ import SwiftUI
 
 extension View {
     
+//    func skeleton(_ notNil: Bool) -> some View {
+//        if notNil {
+//            let newView = self.redacted(reason: .placeholder)
+//            return newView
+//        }
+//        return self
+//    }
+    
     func containerBackground(withColor: Color) -> some View {
         self
         .frame(maxWidth: .infinity)
@@ -21,6 +29,7 @@ extension View {
         .frame(maxWidth: .infinity)
         .background(Color(hex: "EBDEFF"))
         .cornerRadius(12)
+        .redacted(reason: .placeholder)
     }
 
     var viewController: UIViewController {

@@ -36,6 +36,7 @@ class MainLocationViewModel: ObservableObject {
     }
     
     private func combineServiceCalls(coordinate: CLLocationCoordinate2D) -> AnyPublisher<CombinedResult, Error> {
+        
         let unit = MeasurementUnit(rawValue: currentMeasurementUnit) ?? .standard
         repository.setServiceManager(Services(), and: coordinate)
         
@@ -308,5 +309,5 @@ extension MainLocationViewModel {
     fileprivate var sunSet: String? {
         currentWeathrData?.sys?.sunset?.timestampToHourMinuteString
     }
-    
+
 }

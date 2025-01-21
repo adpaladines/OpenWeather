@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		DD0838F52B0F195C009EE6C3 /* CombinedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0838F42B0F195C009EE6C3 /* CombinedResult.swift */; };
+		DD27CF6F2D3F5E1C000418BE /* WeatherRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD27CF6E2D3F5E17000418BE /* WeatherRepositoryTests.swift */; };
+		DD27CF722D3F5E4D000418BE /* MockServceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD27CF712D3F5E45000418BE /* MockServceManager.swift */; };
+		DD27CF742D3F6840000418BE /* weather_parsing-error.json in Resources */ = {isa = PBXBuildFile; fileRef = DD27CF732D3F6840000418BE /* weather_parsing-error.json */; };
 		DD38BF102B13D40E006A1D6A /* MissingApiKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38BF0F2B13D40E006A1D6A /* MissingApiKeyView.swift */; };
 		DD49E0632AEBEB4E00C8F2D5 /* AppIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD49E0622AEBEB4E00C8F2D5 /* AppIconManager.swift */; };
 		DD49E0662AEBEF6600C8F2D5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD49E0652AEBEF6600C8F2D5 /* SettingsViewModel.swift */; };
@@ -23,6 +26,7 @@
 		DD74E8F22B01919500EE00F9 /* CoreDataOperationsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD74E8F12B01919500EE00F9 /* CoreDataOperationsProtocol.swift */; };
 		DD74E8F52B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD74E8F32B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld */; };
 		DD95433C2B0EA73600AC0473 /* FormHiddenBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD95433B2B0EA73600AC0473 /* FormHiddenBackground.swift */; };
+		DD9DC8582B3C8E38007D06B6 /* OSLog+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9DC8572B3C8E38007D06B6 /* OSLog+Extension.swift */; };
 		DD9EDED92B14E3D1000402B0 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9EDED82B14E3D1000402B0 /* PermissionManager.swift */; };
 		DD9EDEDB2B14E8ED000402B0 /* PermiossionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9EDEDA2B14E8ED000402B0 /* PermiossionError.swift */; };
 		DDA27C622AEAE4A5005E0292 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DDA27C612AEAE4A5005E0292 /* Localizable.xcstrings */; };
@@ -109,7 +113,11 @@
 
 /* Begin PBXFileReference section */
 		DD0838F42B0F195C009EE6C3 /* CombinedResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedResult.swift; sourceTree = "<group>"; };
+		DD27CF6E2D3F5E17000418BE /* WeatherRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepositoryTests.swift; sourceTree = "<group>"; };
+		DD27CF712D3F5E45000418BE /* MockServceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServceManager.swift; sourceTree = "<group>"; };
+		DD27CF732D3F6840000418BE /* weather_parsing-error.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "weather_parsing-error.json"; sourceTree = "<group>"; };
 		DD38BF0F2B13D40E006A1D6A /* MissingApiKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingApiKeyView.swift; sourceTree = "<group>"; };
+		DD437D112B37501E00363FAB /* OpenWeather.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = OpenWeather.xctestplan; sourceTree = "<group>"; };
 		DD49E0622AEBEB4E00C8F2D5 /* AppIconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManager.swift; sourceTree = "<group>"; };
 		DD49E0652AEBEF6600C8F2D5 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		DD49E0682AEBFE4C00C8F2D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -125,6 +133,7 @@
 		DD74E8F12B01919500EE00F9 /* CoreDataOperationsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataOperationsProtocol.swift; sourceTree = "<group>"; };
 		DD74E8F42B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OpenWeatherDataModel.xcdatamodel; sourceTree = "<group>"; };
 		DD95433B2B0EA73600AC0473 /* FormHiddenBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormHiddenBackground.swift; sourceTree = "<group>"; };
+		DD9DC8572B3C8E38007D06B6 /* OSLog+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OSLog+Extension.swift"; sourceTree = "<group>"; };
 		DD9EDED82B14E3D1000402B0 /* PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		DD9EDEDA2B14E8ED000402B0 /* PermiossionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermiossionError.swift; sourceTree = "<group>"; };
 		DDA27C612AEAE4A5005E0292 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -220,6 +229,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD27CF702D3F5E3E000418BE /* TestHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				DD27CF712D3F5E45000418BE /* MockServceManager.swift */,
+			);
+			path = TestHelpers;
+			sourceTree = "<group>";
+		};
 		DD49E0672AEBF4EA00C8F2D5 /* IconManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,6 +287,14 @@
 			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
+		DD9DC8562B3C8E1E007D06B6 /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+				DD9DC8572B3C8E38007D06B6 /* OSLog+Extension.swift */,
+			);
+			path = Logs;
+			sourceTree = "<group>";
+		};
 		DD9EDED72B14E3C1000402B0 /* PermissionManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +306,7 @@
 		DDC798012AE9FC7000BF9800 = {
 			isa = PBXGroup;
 			children = (
+				DD437D112B37501E00363FAB /* OpenWeather.xctestplan */,
 				DDC7980C2AE9FC7000BF9800 /* OpenWeather */,
 				DDC7981D2AE9FC7200BF9800 /* OpenWeatherTests */,
 				DDC798272AE9FC7200BF9800 /* OpenWeatherUITests */,
@@ -324,6 +350,8 @@
 		DDC7981D2AE9FC7200BF9800 /* OpenWeatherTests */ = {
 			isa = PBXGroup;
 			children = (
+				DD27CF702D3F5E3E000418BE /* TestHelpers */,
+				DD27CF6E2D3F5E17000418BE /* WeatherRepositoryTests.swift */,
 				DDC7981E2AE9FC7200BF9800 /* OpenWeatherTests.swift */,
 			);
 			path = OpenWeatherTests;
@@ -341,6 +369,7 @@
 		DDC798372AEA907E00BF9800 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				DD9DC8562B3C8E1E007D06B6 /* Logs */,
 				DDDDA4B02AEAC111009FB7C0 /* Appearance */,
 				DDC7986A2AEA963A00BF9800 /* Managers */,
 				DDC7985E2AEA959500BF9800 /* Protocols */,
@@ -386,6 +415,7 @@
 		DDC798412AEA917A00BF9800 /* CurrentWeather */ = {
 			isa = PBXGroup;
 			children = (
+				DD27CF732D3F6840000418BE /* weather_parsing-error.json */,
 				DDC798442AEA91D100BF9800 /* weather.json */,
 			);
 			path = CurrentWeather;
@@ -699,6 +729,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD27CF742D3F6840000418BE /* weather_parsing-error.json in Resources */,
 				DDDDA4F02AEADE85009FB7C0 /* air_pollution.json in Resources */,
 				DDC7984A2AEA927300BF9800 /* forecast.json in Resources */,
 				DDDDA4F12AEADE8F009FB7C0 /* weather.json in Resources */,
@@ -751,6 +782,7 @@
 				DDDDA4C42AEAC27B009FB7C0 /* MainLocation.swift in Sources */,
 				DDC7986F2AEA967B00BF9800 /* Services.swift in Sources */,
 				DD9EDEDB2B14E8ED000402B0 /* PermiossionError.swift in Sources */,
+				DD9DC8582B3C8E38007D06B6 /* OSLog+Extension.swift in Sources */,
 				DD6916EE2B17ED6200F061BC /* CoordinateData.swift in Sources */,
 				DDDDA4B42AEAC143009FB7C0 /* ForecastData.swift in Sources */,
 				DDDDA4D92AEAD92D009FB7C0 /* CollapsibleHeaderView.swift in Sources */,
@@ -808,6 +840,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD27CF722D3F5E4D000418BE /* MockServceManager.swift in Sources */,
+				DD27CF6F2D3F5E1C000418BE /* WeatherRepositoryTests.swift in Sources */,
 				DDC7981F2AE9FC7200BF9800 /* OpenWeatherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -889,7 +923,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -946,7 +980,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
