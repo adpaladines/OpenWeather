@@ -40,7 +40,10 @@ jobs:
       # run: xcodebuild test -workspace OpenWeather.xcworkspace -scheme OpenWeather -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2'
       
     - name: Build iOS app
-      run: xcodebuild -scheme 'OpenWeather' -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' build
+      run: |
+        xcodebuild -scheme 'OpenWeather' \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' build \
+          -allowProvisioningUpdates
 
     # Run tests on iPhone 14 Simulator with iOS 16.2
     - name: Run Tests on iPhone 14 Simulator (iOS 16.2)
@@ -48,6 +51,7 @@ jobs:
         xcodebuild test \
           -scheme 'OpenWeather' \
           -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' \
-          -enableCodeCoverage YES
+          -enableCodeCoverage YES \
+          -allowProvisioningUpdates
           
     
