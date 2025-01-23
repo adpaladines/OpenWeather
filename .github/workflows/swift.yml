@@ -20,25 +20,34 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Set up Xcode
+      run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
     # Install any dependencies
-    #- name: Install dependencies
-    #  run: swift package resolve
+    # Cocoapods
+    # - name: Install CocoaPods dependencies
+      # run: pod install
+      # working-directory: OpenWeather
+
+    # Swift Packages
+    # - name: Install dependencies
+      # run: swift package resolve
+
+    # - name: Build iOS app
+      # run: xcodebuild -workspace OpenWeather.xcworkspace -scheme OpenWeather -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' build
+
+    # - name: Run Tests on iPhone 14 Simulator (iOS 16.2)
+      # run: xcodebuild test -workspace OpenWeather.xcworkspace -scheme OpenWeather -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2'
+      
+    - name: Build iOS app
+      run: xcodebuild -scheme 'OpenWeather' -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' build
 
     # Run tests on iPhone 14 Simulator with iOS 16.2
     - name: Run Tests on iPhone 14 Simulator (iOS 16.2)
       run: |
         xcodebuild test \
           -scheme 'OpenWeather' \
-          -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2'
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' \
+          -enableCodeCoverage YES
           
     
-  build:
-
-    runs-on: macos-latest
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
