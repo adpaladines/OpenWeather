@@ -22,14 +22,15 @@ jobs:
 
     - name: Set up Xcode
       run: sudo xcode-select -switch /Applications/Xcode.app
-
-    
       
     - name: Build and test
       run: |
-        xcodebuild clean build test -scheme 'OpenWeather' \
-          -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' build \
-          -allowProvisioningUpdates
+        xcodebuild clean build test \
+          -scheme 'OpenWeather' \
+          -sdk iphonesimulator \
+          -destination "platform=iOS Simulator,name=iPhone 14" \
+          ONLY_ACTIVE_ARCH=NO \
+          CODE_SIGNING_REQUIRED=NO
 
     # Run tests on iPhone 14 Simulator with iOS 16.2
     # - name: Run Tests on iPhone 14 Simulator (iOS 16.2)
