@@ -23,16 +23,16 @@ jobs:
     # # Install any dependencies
     # - name: Install dependencies
     #   run: swift package resolve
-    
+
     - name: Select Xcode Version
       run: sudo xcode-select -s /Applications/Xcode_15.4.app
       
-    # Run tests on iPhone 14 Simulator with iOS 17.5
-    - name: Run Tests on iPhone 14 Simulator (iOS 17.5)
+    # Run tests on iPhone 15 Simulator with iOS 17.5
+    - name: Run Tests on iPhone 15 Simulator (iOS 17.5)
       run: |
         xcodebuild clean build test \
           -scheme 'OpenWeather' \
-          -destination 'platform=iOS Simulator,name=iPhone 14,OS=17.5' \
+          -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
           -enableCodeCoverage YES \
           CODE_SIGNING_ALLOWED=NO \
           ONLY_ACTIVE_ARCH=NO \
