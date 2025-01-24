@@ -49,7 +49,6 @@ struct SalaryCalculatorScreen: View {
     var body: some View {
         NavigationView {
             Form {
-                
                 Section(header: Text("Salary ")) {
                     Picker(selection: $frequency, label: Text("Frequency".localized())) {
                         ForEach(PaymentFrequency.allCases, id: \.self) { freq in
