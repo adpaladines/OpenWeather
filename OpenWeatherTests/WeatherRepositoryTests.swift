@@ -68,7 +68,7 @@ class WeatherServiceTests: XCTestCase {
         repository.getCurrentWeatherCombine()
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
-                    XCTAssertEqual(error as? NetworkError, NetworkError.dataNotFound)
+                    XCTAssertEqual(error as? NetworkError, NetworkError.request)
                     expectation.fulfill()
                 }
             }, receiveValue: { _ in

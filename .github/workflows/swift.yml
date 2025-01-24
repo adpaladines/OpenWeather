@@ -31,7 +31,7 @@ jobs:
     - name: Run Tests on iPhone 15 Simulator (iOS 17.5)
       run: |
         xcodebuild clean build test \
-          -scheme 'OpenWeather' \
+          # -scheme 'OpenWeather' \
           -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
           -enableCodeCoverage YES \
           CODE_SIGNING_ALLOWED=NO \
