@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "- $%.2f" : {
+
+    },
     "$%.2f" : {
 
     },
@@ -260,7 +263,7 @@
         }
       }
     },
-    "Gross Salary" : {
+    "Gross Yearly Salary" : {
 
     },
     "home" : {
@@ -431,6 +434,9 @@
       }
     },
     "Net Salary" : {
+
+    },
+    "Net Taxes" : {
 
     },
     "Network error: (netError)" : {
