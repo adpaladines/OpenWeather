@@ -24,21 +24,24 @@ jobs:
     - name: Install dependencies
       run: swift package resolve
 
-    # Run tests on iPhone 14 Simulator with iOS 16.2
-    - name: Run Tests on iPhone 14 Simulator (iOS 16.2)
+    # Run tests on iPhone 14 Simulator with iOS 17.5
+    - name: Run Tests on iPhone 14 Simulator (iOS 17.5)
       run: |
-        xcodebuild test \
+        xcodebuild clean build test \
           -scheme 'OpenWeather' \
-          -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2'
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=17.5' \
+          -enableCodeCoverage YES \
+          CODE_SIGNING_ALLOWED=NO \
+          ONLY_ACTIVE_ARCH=NO \
+          EXCLUDED_ARCHS=arm64
           
-    
-  build:
+  # build:
 
-    runs-on: macos-latest
+  #   runs-on: macos-latest
 
-    steps:
-    - uses: actions/checkout@v4
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - name: Build
+  #     run: swift build -v
+  #   - name: Run tests
+  #     run: swift test -v
