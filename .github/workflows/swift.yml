@@ -30,12 +30,6 @@ jobs:
     - name: Install xcpretty
       run: gem install xcpretty
 
-      # Debug Derived Data Path
-    - name: Debug Derived Data Path
-      run: |
-        echo "Derived Data Path:"
-        echo "$(getconf DARWIN_USER_DIR)/../Xcode/DerivedData/"
-
     # # Build the project
     # - name: Build Project for scheme  ${{ env.SCHEME }}
     #   run: |
@@ -47,11 +41,16 @@ jobs:
     #       EXCLUDED_ARCHS=arm64 \
     #       > /dev/null 2>&1
 
+    # Set up Derived Data Directory
+    - name: Set up Derived Data Directory
+      run: |
+        export DERIVED_DATA=./build/DerivedData
+        mkdir -p $DERIVED_DATA
+        echo "Using Derived Data Path: $DERIVED_DATA"
+
     # Run tests on iPhone 15 Simulator with iOS 17.5
     - name: Run Tests on iPhone 15 Simulator (iOS 17.5) for scheme  ${{ env.SCHEME }}
       run: |
-        DERIVED_DATA=./DerivedData
-        echo "Derived Data Path: $DERIVED_DATA"
         xcodebuild clean test \
           -scheme  ${{ env.SCHEME }} \
           -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
@@ -69,7 +68,7 @@ jobs:
     - name: Debug Derived Data Contents
       run: |
         echo "Contents of Derived Data Logs/Test:"
-        ls -R ./DerivedData/Logs/Test
+        ls -R $DERIVED_DATA/Logs/Test
 
     # Uploading test report
     - name: Upload Test Report
