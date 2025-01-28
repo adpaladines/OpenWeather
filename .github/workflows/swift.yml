@@ -55,3 +55,9 @@ jobs:
           | xcpretty -r html --output report.html
       env:
         NSUnbufferedIO: "YES"
+
+    - name: Upload Test Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: Test Report
+        path: report.html
