@@ -61,3 +61,19 @@ jobs:
       with:
         name: Test Report
         path: report.html
+
+    - name: Generate Coverage Report
+      run: |
+        xcrun xccov view --report $(find . -name '*.xccovreport') > coverage-report.txt
+    
+    - name: Generate JSON Coverage Report
+      run: |
+        xcrun xccov view --json $(find . -name '*.xccovreport') > coverage-report.json
+
+    - name: Upload Coverage Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: Coverage Report
+        path: |
+          coverage-report.txt
+          coverage-report.json
