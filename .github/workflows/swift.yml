@@ -33,6 +33,7 @@ jobs:
         xcodebuild clean build test \
           -scheme 'OpenWeather' \
           -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
+          -only-testing:OpenWeatherTests \
           -enableCodeCoverage YES \
           CODE_SIGNING_ALLOWED=NO \
           ONLY_ACTIVE_ARCH=NO \

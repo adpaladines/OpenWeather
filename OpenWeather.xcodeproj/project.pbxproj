@@ -25,6 +25,7 @@
 		DD74E8F02B01917400EE00F9 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD74E8EF2B01917400EE00F9 /* CoreDataManager.swift */; };
 		DD74E8F22B01919500EE00F9 /* CoreDataOperationsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD74E8F12B01919500EE00F9 /* CoreDataOperationsProtocol.swift */; };
 		DD74E8F52B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD74E8F32B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld */; };
+		DD7B60462D489E3800256515 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = DD7B60452D489E3800256515 /* KeychainAccess */; };
 		DD7B82112B3BD460001BC9D2 /* SalaryCalculatorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7B82102B3BD460001BC9D2 /* SalaryCalculatorScreen.swift */; };
 		DD95433C2B0EA73600AC0473 /* FormHiddenBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD95433B2B0EA73600AC0473 /* FormHiddenBackground.swift */; };
 		DD9DC8582B3C8E38007D06B6 /* OSLog+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9DC8572B3C8E38007D06B6 /* OSLog+Extension.swift */; };
@@ -211,6 +212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD7B60462D489E3800256515 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +283,13 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		DD7B60442D489E3800256515 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DD7B820F2B3BD346001BC9D2 /* SalaryCalculator */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +329,7 @@
 				DDC7980C2AE9FC7000BF9800 /* OpenWeather */,
 				DDC7981D2AE9FC7200BF9800 /* OpenWeatherTests */,
 				DDC798272AE9FC7200BF9800 /* OpenWeatherUITests */,
+				DD7B60442D489E3800256515 /* Frameworks */,
 				DDC7980B2AE9FC7000BF9800 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -649,6 +659,7 @@
 			);
 			name = OpenWeather;
 			packageProductDependencies = (
+				DD7B60452D489E3800256515 /* KeychainAccess */,
 			);
 			productName = OpenWeather;
 			productReference = DDC7980A2AE9FC7000BF9800 /* OpenWeather.app */;
@@ -723,6 +734,7 @@
 			);
 			mainGroup = DDC798012AE9FC7000BF9800;
 			packageReferences = (
+				DD7B60432D489E2100256515 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = DDC7980B2AE9FC7000BF9800 /* Products */;
 			projectDirPath = "";
@@ -1220,6 +1232,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DD7B60432D489E2100256515 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DD7B60452D489E3800256515 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD7B60432D489E2100256515 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		DD74E8F32B0191E800EE00F9 /* OpenWeatherDataModel.xcdatamodeld */ = {
