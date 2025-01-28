@@ -14,6 +14,8 @@ on:
 jobs:
   test-ios:
     runs-on: macos-latest
+    env:
+      SCHEME: 'OpenWeather'
 
     steps:
     # Checkout the repository
@@ -24,14 +26,26 @@ jobs:
     # - name: Install dependencies
     #   run: swift package resolve
 
-    - name: Select Xcode Version
+    - name: Select Xcode Version 
       run: sudo xcode-select -s /Applications/Xcode_15.4.app
       
-    # Run tests on iPhone 15 Simulator with iOS 17.5
-    - name: Run Tests on iPhone 15 Simulator (iOS 17.5)
+    # Build the project
+    - name: Build Project for scheme  ${{ env.SCHEME }}
       run: |
-        xcodebuild clean build test \
-          -scheme 'OpenWeather' \
+        xcodebuild clean build \
+          -scheme ${{ env.SCHEME }} \
+          -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
+          CODE_SIGNING_ALLOWED=NO \
+          ONLY_ACTIVE_ARCH=NO \
+          EXCLUDED_ARCHS=arm64 \
+          > /dev/null 2>&1
+
+
+    # Run tests on iPhone 15 Simulator with iOS 17.5
+    - name: Run Tests on iPhone 15 Simulator (iOS 17.5) for scheme  ${{ env.SCHEME }}
+      run: |
+        xcodebuild test \
+          -scheme  ${{ env.SCHEME }} \
           -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
           -only-testing:OpenWeatherTests \
           -enableCodeCoverage YES \
