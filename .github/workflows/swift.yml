@@ -30,17 +30,6 @@ jobs:
     - name: Install xcpretty
       run: gem install xcpretty
 
-    # # Build the project
-    # - name: Build Project for scheme  ${{ env.SCHEME }}
-    #   run: |
-    #     xcodebuild clean build \
-    #       -scheme ${{ env.SCHEME }} \
-    #       -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
-    #       CODE_SIGNING_ALLOWED=NO \
-    #       ONLY_ACTIVE_ARCH=NO \
-    #       EXCLUDED_ARCHS=arm64 \
-    #       > /dev/null 2>&1
-
     # Set up Derived Data Directory
     - name: Set up Derived Data Directory
       run: |
@@ -65,14 +54,6 @@ jobs:
       env:
         NSUnbufferedIO: "YES"
         ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
-    
-    # Debug Derived Data Contents
-    - name: Debug Derived Data Contents
-      run: |
-        echo "Contents of Derived Data Logs/Test:"
-        ls -R $ABSOLUTE_DERIVED_DATA/Logs/Test || echo "No test logs found!"
-      env:
-        ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
 
     # Uploading test report
     - name: Upload Test Report
@@ -80,6 +61,39 @@ jobs:
       with:
         name: Test Report
         path: report.html
+
+    # Rename .xcresult file to XcodeReport.xcresult
+    - name: Extract .xcresult File
+      run: |
+        mv $ABSOLUTE_DERIVED_DATA/Logs/Test/Run-*.xcresult $ABSOLUTE_DERIVED_DATA/Logs/Test/XcodeReport.xcresult
+        echo "Renamed .xcresult file to XcodeReport.xcresult"
+      env:
+        ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
+
+    # Upload .xcresult file
+    - name: Upload Xcode .xcresult file
+      uses: actions/upload-artifact@v4
+      with:
+        name: XcodeReport.xcresult
+        path: $ABSOLUTE_DERIVED_DATA/Logs/Test/XcodeReport.xcresult
+      env:
+        ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
+        
+    # Generate and upload coverage data
+    - name: Extract Coverage Data
+      run: |
+        xcrun xcresulttool get --path $ABSOLUTE_DERIVED_DATA/Logs/Test/XcodeReport.xcresult --format json > coverage.json
+        echo "Generated JSON coverage report"
+      env:
+        ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
+  
+    # Debug Derived Data Contents
+    - name: Debug Derived Data Contents
+      run: |
+        echo "Contents of Derived Data Logs/Test:"
+        ls $ABSOLUTE_DERIVED_DATA/Logs/Test || echo "No test logs found!"
+      env:
+        ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
 
     # Generate and upload coverage reports (text and json)
     - name: Generate Coverage Report
@@ -102,3 +116,4 @@ jobs:
         path: |
           coverage-report.txt
           coverage-report.json
+
