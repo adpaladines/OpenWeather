@@ -49,6 +49,7 @@ jobs:
           -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
           -only-testing:OpenWeatherTests \
           -enableCodeCoverage YES \
+          -derivedDataPath ./DerivedData \
           CODE_SIGNING_ALLOWED=NO \
           ONLY_ACTIVE_ARCH=NO \
           EXCLUDED_ARCHS=arm64 \
@@ -64,11 +65,11 @@ jobs:
 
     - name: Generate Coverage Report
       run: |
-        xcrun xccov view --report $(find . -name '*.xccovreport') > coverage-report.txt
+        xcrun xccov view --report $(find ./DerivedData/Logs/Test -name '*.xccovreport') > coverage-report.txt
     
     - name: Generate JSON Coverage Report
       run: |
-        xcrun xccov view --json $(find . -name '*.xccovreport') > coverage-report.json
+        xcrun xccov view --json $(find ./DerivedData/Logs/Test -name '*.xccovreport') > coverage-report.json
 
     - name: Upload Coverage Report
       uses: actions/upload-artifact@v3
