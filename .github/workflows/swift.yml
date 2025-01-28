@@ -21,14 +21,15 @@ jobs:
     # Checkout the repository
     - name: Checkout repository
       uses: actions/checkout@v4
-
-    # # Install any dependencies
-    # - name: Install dependencies
-    #   run: swift package resolve
-
+    
+    # Set up Xcode
     - name: Select Xcode Version 
       run: sudo xcode-select -s /Applications/Xcode_15.4.app
-      
+
+    # Install xcpretty
+    - name: Install xcpretty
+      run: gem install xcpretty
+
     # Build the project
     - name: Build Project for scheme  ${{ env.SCHEME }}
       run: |
@@ -40,26 +41,17 @@ jobs:
           EXCLUDED_ARCHS=arm64 \
           > /dev/null 2>&1
 
-
     # Run tests on iPhone 15 Simulator with iOS 17.5
     - name: Run Tests on iPhone 15 Simulator (iOS 17.5) for scheme  ${{ env.SCHEME }}
       run: |
-        xcodebuild test \
+        xcodebuild clean test \
           -scheme  ${{ env.SCHEME }} \
           -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
           -only-testing:OpenWeatherTests \
           -enableCodeCoverage YES \
           CODE_SIGNING_ALLOWED=NO \
           ONLY_ACTIVE_ARCH=NO \
-          EXCLUDED_ARCHS=arm64
-          
-  # build:
-
-  #   runs-on: macos-latest
-
-  #   steps:
-  #   - uses: actions/checkout@v4
-  #   - name: Build
-  #     run: swift build -v
-  #   - name: Run tests
-  #     run: swift test -v
+          EXCLUDED_ARCHS=arm64 \
+          | xcpretty -r html --output report.html
+      env:
+        NSUnbufferedIO: "YES"
