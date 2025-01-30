@@ -16,7 +16,7 @@ jobs:
     runs-on: macos-latest
     env:
       SCHEME: 'OpenWeather'
-
+      # ABSOLUTE_DERIVED_DATA: /tmp/DerivedData
     steps:
     # Checkout the repository
     - name: Checkout repository
@@ -50,70 +50,86 @@ jobs:
           CODE_SIGNING_ALLOWED=NO \
           ONLY_ACTIVE_ARCH=NO \
           EXCLUDED_ARCHS=arm64 \
-          | xcpretty -r html --output report.html
+          | xcpretty --test 
+    # | xcpretty -r html --output report.html
       env:
         NSUnbufferedIO: "YES"
         ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
 
-    # Uploading test report
-    - name: Upload Test Report
-      uses: actions/upload-artifact@v4
+    # Upload Code Coverage Data
+    - name: Upload Code Coverage Data
+      uses: codecov/codecov-action@v4
       with:
-        name: Test Report
-        path: report.html
+        name: codecoverage-data
 
-    # Rename .xcresult file to XcodeReport.xcresult
-    - name: Extract .xcresult File
-      run: |
-        mv $ABSOLUTE_DERIVED_DATA/Logs/Test/Run-*.xcresult $ABSOLUTE_DERIVED_DATA/Logs/Test/XcodeReport.xcresult
-        echo "Renamed .xcresult file to XcodeReport.xcresult"
-      env:
-        ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
+    # # Uploading test report
+    # - name: Upload Test Report
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: Test Report
+    #     path: report.html
 
-    # Upload .xcresult file
-    - name: Upload Xcode .xcresult file
-      uses: actions/upload-artifact@v4
-      with:
-        name: XcodeReport.xcresult
-        path: $ABSOLUTE_DERIVED_DATA/Logs/Test/XcodeReport.xcresult
-      env:
-        ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
+    # # Rename .xcresult file to XcodeReport.xcresult
+    # - name: Extract .xcresult File
+    #   run: |
+    #     mv $ABSOLUTE_DERIVED_DATA/Logs/Test/Run-*.xcresult $ABSOLUTE_DERIVED_DATA/Logs/Test/XcodeReport.xcresult
+    #     echo "Renamed .xcresult file to XcodeReport.xcresult"
+    #     echo "File position: $ABSOLUTE_DERIVED_DATA/Logs/Test/XcodeReport.xcresult"
+    #   env:
+    #     ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
         
-    # Generate and upload coverage data
-    - name: Extract Coverage Data
-      run: |
-        xcrun xcresulttool get --path $ABSOLUTE_DERIVED_DATA/Logs/Test/XcodeReport.xcresult --format json > coverage.json
-        echo "Generated JSON coverage report"
-      env:
-        ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
+    # # Generate and upload coverage data
+    # - name: Extract Coverage Data
+    #   run: |
+    #     xcrun xcresulttool get --path $ABSOLUTE_DERIVED_DATA/Logs/Test/XcodeReport.xcresult --format json > coverage.json
+    #     echo "Generated JSON coverage report"
+    #   env:
+    #     ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
   
-    # Debug Derived Data Contents
-    - name: Debug Derived Data Contents
-      run: |
-        echo "Contents of Derived Data Logs/Test:"
-        ls $ABSOLUTE_DERIVED_DATA/Logs/Test || echo "No test logs found!"
-      env:
-        ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
+    # # Upload .xcresult file
+    # - name: Upload Xcode .xcresult file
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: XcodeReport.xcresult
+    #     path: $ABSOLUTE_DERIVED_DATA/Logs/Test/XcodeReport.xcresult
+    #   env:
+    #     ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
+    
+    # # Upload .json file
+    # - name: Upload JSON report file
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: coverage.json
+    #     path: $ABSOLUTE_DERIVED_DATA/Logs/Test/coverage.json
+    #   env:
+    #     ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
 
-    # Generate and upload coverage reports (text and json)
-    - name: Generate Coverage Report
-      run: |
-        xcrun xccov view --report $(find $ABSOLUTE_DERIVED_DATA/Logs/Test -name '*.xccovreport') > coverage-report.txt
-      env:
-        ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
+    # # Debug Derived Data Contents
+    # - name: Debug Derived Data Contents
+    #   run: |
+    #     echo "Contents of Derived Data $ABSOLUTE_DERIVED_DATA/Logs/Test:"
+    #     ls $ABSOLUTE_DERIVED_DATA/Logs/Test || echo "No test logs found!"
+    #   env:
+    #     ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
 
-    - name: Generate JSON Coverage Report
-      run: |
-        xcrun xccov view --json $(find $ABSOLUTE_DERIVED_DATA/Logs/Test -name '*.xccovreport') > coverage-report.json
-      env:
-        ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
+    # # Generate and upload coverage reports (text and json)
+    # - name: Generate Coverage Report
+    #   run: |
+    #     xcrun xccov view --report $(find $ABSOLUTE_DERIVED_DATA/Logs/Test -name '*.xccovreport') > coverage-report.txt
+    #   env:
+    #     ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
 
-    # Upload coverage reports
-    - name: Upload Coverage Report
-      uses: actions/upload-artifact@v4
-      with:
-        name: Coverage Report
-        path: |
-          coverage-report.txt
-          coverage-report.json
+    # - name: Generate JSON Coverage Report
+    #   run: |
+    #     xcrun xccov view --json $(find $ABSOLUTE_DERIVED_DATA/Logs/Test -name '*.xccovreport') > coverage-report.json
+    #   env:
+    #     ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
 
+    # # Upload coverage reports
+    # - name: Upload Coverage Report
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: Coverage Report
+    #     path: |
+    #       coverage-report.txt
+    #       coverage-report.json
