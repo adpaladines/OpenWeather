@@ -41,7 +41,7 @@ jobs:
     # Run tests on iPhone 15 Simulator with iOS 17.5
     - name: Run Tests on iPhone 15 Simulator (iOS 17.5) for scheme  ${{ env.SCHEME }}
       run: |
-        xcodebuild clean test \
+        set -o pipeline && xcodebuild clean test \
           -scheme  ${{ env.SCHEME }} \
           -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
           -only-testing:OpenWeatherTests \
@@ -50,24 +50,41 @@ jobs:
           CODE_SIGNING_ALLOWED=NO \
           ONLY_ACTIVE_ARCH=NO \
           EXCLUDED_ARCHS=arm64 \
-          | xcpretty --test 
-    # | xcpretty -r html --output report.html
+          | xcpretty -r html --output report.html
       env:
         NSUnbufferedIO: "YES"
         ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
+    # | xcpretty -r html --output report.html 
 
-    # Upload Code Coverage Data
-    - name: Upload Code Coverage Data
-      uses: codecov/codecov-action@v4
-      with:
-        name: codecoverage-data
-
-    # # Uploading test report
-    # - name: Upload Test Report
-    #   uses: actions/upload-artifact@v4
+    # # Upload Code Coverage Data
+    # - name: Upload Code Coverage Data
+    #   uses: codecov/codecov-action@v4
     #   with:
-    #     name: Test Report
-    #     path: report.html
+    #     name: codecoverage-data
+    #     token: ${{ secrets.CODECOV_TOKEN }}
+
+    # Uploading test report
+    - name: Upload Test Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: Test Report
+        path: report.html
+
+    # Getting Code Coverage Data
+    - name: Genetarate Code Coverage Data
+      run: |
+        echo "Generating code coverage data from $ABSOLUTE_DERIVED_DATA/Logs/Test/*.xccovreport"
+        xcrun xccov view --report $ABSOLUTE_DERIVED_DATA/Logs/Test/*.xccovreport > codecov.txt
+        xcrun xccov view --json $ABSOLUTE_DERIVED_DATA/Logs/Test/*.xccovreport > codecov.json
+
+    # Uploading Code Coverage Data
+    - name: Upload Code Coverage Data
+      uses: actions/upload-artifact@v4
+      with:
+        name: Code Coverage Data
+        path: |
+          codecov.txt
+          codecov.json
 
     # # Rename .xcresult file to XcodeReport.xcresult
     # - name: Extract .xcresult File
