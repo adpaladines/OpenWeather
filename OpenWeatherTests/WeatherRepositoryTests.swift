@@ -47,6 +47,8 @@ class WeatherServiceTests: XCTestCase {
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     XCTAssertEqual(error as? NetworkError, NetworkError.request)
+//                    In purpose not working assertion:
+//                    XCTAssertEqual(error as? NetworkError, NetworkError.invalidUrl)
                     expectation.fulfill()
                 }
             }, receiveValue: { _ in

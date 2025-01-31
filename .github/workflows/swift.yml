@@ -14,37 +14,63 @@ on:
 jobs:
   test-ios:
     runs-on: macos-latest
+    env:
+      SCHEME: 'OpenWeather'
 
     steps:
     # Checkout the repository
     - name: Checkout repository
       uses: actions/checkout@v4
-
-    # # Install any dependencies
-    # - name: Install dependencies
-    #   run: swift package resolve
-
-    - name: Select Xcode Version
+    
+    # Set up Xcode
+    - name: Select Xcode Version 
       run: sudo xcode-select -s /Applications/Xcode_15.4.app
-      
+
+    # Install xcpretty
+    - name: Install xcpretty
+      run: gem install xcpretty
+
     # Run tests on iPhone 15 Simulator with iOS 17.5
-    - name: Run Tests on iPhone 15 Simulator (iOS 17.5)
+    - name: Run Tests on iPhone 15 Simulator (iOS 17.5) for scheme  ${{ env.SCHEME }}
       run: |
-        xcodebuild clean build test \
-          -scheme 'OpenWeather' \
+        set -o pipefail && xcodebuild clean test \
+          -scheme  ${{ env.SCHEME }} \
           -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
+          -only-testing:OpenWeatherTests \
           -enableCodeCoverage YES \
+          -resultBundlePath Tests.xcresult \
           CODE_SIGNING_ALLOWED=NO \
           ONLY_ACTIVE_ARCH=NO \
-          EXCLUDED_ARCHS=arm64
-          
-  # build:
+          EXCLUDED_ARCHS=arm64 \
+          | xcpretty -r html --output report.html
+      env:
+        NSUnbufferedIO: "YES"
 
-  #   runs-on: macos-latest
+    # Uploading test report
+    - name: Upload Test Report
+      uses: actions/upload-artifact@v4
+      if: ${{ success() || failure() }}
+      with:
+        name: Test Report
+        path: report.html
 
-  #   steps:
-  #   - uses: actions/checkout@v4
-  #   - name: Build
-  #     run: swift build -v
-  #   - name: Run tests
-  #     run: swift test -v
+    # Upload xcresult file
+    - name: Upload xcresult file
+      uses: actions/upload-artifact@v4
+      if: ${{ success() || failure() }}
+      with:
+        name: Tests-${{ github.run_number }}.xcresult
+        path: Tests.xcresult
+
+    # Getting Code Coverage Data
+    - name: Genetarate Code Coverage Data
+      run: |
+        echo "Generating code coverage data from Tests.xcresult"
+        xcrun xccov view --report Tests.xcresult --json > code_coverage.json
+
+    # Uploading Code Coverage Data
+    - name: Upload Code Coverage Data
+      uses: actions/upload-artifact@v4
+      with:
+        name: Code Coverage Data
+        path: code_coverage.json
