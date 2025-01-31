@@ -68,29 +68,9 @@ jobs:
         echo "Generating code coverage data from Tests.xcresult"
         xcrun xccov view --report Tests.xcresult --json > code_coverage.json
 
-    
-
-    # # Getting Code Coverage Data
-    # - name: Genetarate Code Coverage Data
-    #   run: |
-    #     echo "Generating code coverage data from $ABSOLUTE_DERIVED_DATA/Logs/Test/*.xccovreport"
-    #     xcrun xccov view --report $(find $ABSOLUTE_DERIVED_DATA/Logs/Test -name '*.xcresult') --json > code_coverage.json
-
-    # # Uploading Code Coverage Data
-    # - name: Upload Code Coverage Data
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: Code Coverage Data
-    #     path: |
-    #       codecov.json
-    
-    # # Generating Code Coverage Report with xcparse
-    # - name: Generate Code Coverage Report
-    #   run: xcparse codecov $ABSOLUTE_DERIVED_DATA/Logs/Test/*.xcresult $ABSOLUTE_DERIVED_DATA/Logs/Test/exportCodeCoverageFiles
-    
-    # # Uploading Code Coverage Report
-    # - name: Upload Code Coverage Report
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: Code Coverage Report
-    #     path: exportCodeCoverageFiles
+    # Uploading Code Coverage Data
+    - name: Upload Code Coverage Data
+      uses: actions/upload-artifact@v4
+      with:
+        name: Code Coverage Data
+        path: code_coverage.json
