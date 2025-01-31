@@ -16,7 +16,7 @@ jobs:
     runs-on: macos-latest
     env:
       SCHEME: 'OpenWeather'
-      # ABSOLUTE_DERIVED_DATA: /tmp/DerivedData
+
     steps:
     # Checkout the repository
     - name: Checkout repository
@@ -30,13 +30,9 @@ jobs:
     - name: Install xcpretty
       run: gem install xcpretty
 
-    # Set up Derived Data Directory
-    - name: Set up Derived Data Directory
-      run: |
-        export ABSOLUTE_DERIVED_DATA=/tmp/DerivedData
-        mkdir -p $ABSOLUTE_DERIVED_DATA
-        echo "Using Derived Data Path: $ABSOLUTE_DERIVED_DATA"
-        echo "ABSOLUTE_DERIVED_DATA=$ABSOLUTE_DERIVED_DATA" >> $GITHUB_ENV
+    # Install xcparse
+    - name: Install xcparse
+      run: brew install chargepoint/xcparse/xcparse
 
     # Run tests on iPhone 15 Simulator with iOS 17.5
     - name: Run Tests on iPhone 15 Simulator (iOS 17.5) for scheme  ${{ env.SCHEME }}
@@ -46,107 +42,61 @@ jobs:
           -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
           -only-testing:OpenWeatherTests \
           -enableCodeCoverage YES \
-          -derivedDataPath $ABSOLUTE_DERIVED_DATA \
+          -resultBundlePath Tests.xcresult \
           CODE_SIGNING_ALLOWED=NO \
           ONLY_ACTIVE_ARCH=NO \
           EXCLUDED_ARCHS=arm64 \
           | xcpretty -r html --output report.html
       env:
         NSUnbufferedIO: "YES"
-        ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
-    # | xcpretty -r html --output report.html 
-
-    # # Upload Code Coverage Data
-    # - name: Upload Code Coverage Data
-    #   uses: codecov/codecov-action@v4
-    #   with:
-    #     name: codecoverage-data
-    #     token: ${{ secrets.CODECOV_TOKEN }}
 
     # Uploading test report
     - name: Upload Test Report
       uses: actions/upload-artifact@v4
+      if: ${{ failure() }}
       with:
         name: Test Report
         path: report.html
 
-    # Getting Code Coverage Data
-    - name: Genetarate Code Coverage Data
-      run: |
-        echo "Generating code coverage data from $ABSOLUTE_DERIVED_DATA/Logs/Test/*.xccovreport"
-        xcrun xccov view --report $ABSOLUTE_DERIVED_DATA/Logs/Test/*.xccovreport > codecov.txt
-        xcrun xccov view --json $ABSOLUTE_DERIVED_DATA/Logs/Test/*.xccovreport > codecov.json
-
-    # Uploading Code Coverage Data
-    - name: Upload Code Coverage Data
+    # Upload xcresult file
+    - name: Upload xcresult file
       uses: actions/upload-artifact@v4
+      if: ${{ failure() }}
       with:
-        name: Code Coverage Data
-        path: |
-          codecov.txt
-          codecov.json
+        name: Tests-${{ github.run_number }}.xcresult
+        path: Tests.xcresult
 
-    # # Rename .xcresult file to XcodeReport.xcresult
-    # - name: Extract .xcresult File
+    # Upload xcresult file with xcresulttool
+    - uses: kishikawakatsumi/xcresulttool@v1
+      with:
+        title: Test Report for ${{ github.run_number }}
+        show-passed-tests: true
+        show-code-coverage: true
+        path: Tests.xcresult
+      if: success() || failure()
+
+
+    # # Getting Code Coverage Data
+    # - name: Genetarate Code Coverage Data
     #   run: |
-    #     mv $ABSOLUTE_DERIVED_DATA/Logs/Test/Run-*.xcresult $ABSOLUTE_DERIVED_DATA/Logs/Test/XcodeReport.xcresult
-    #     echo "Renamed .xcresult file to XcodeReport.xcresult"
-    #     echo "File position: $ABSOLUTE_DERIVED_DATA/Logs/Test/XcodeReport.xcresult"
-    #   env:
-    #     ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
-        
-    # # Generate and upload coverage data
-    # - name: Extract Coverage Data
-    #   run: |
-    #     xcrun xcresulttool get --path $ABSOLUTE_DERIVED_DATA/Logs/Test/XcodeReport.xcresult --format json > coverage.json
-    #     echo "Generated JSON coverage report"
-    #   env:
-    #     ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
-  
-    # # Upload .xcresult file
-    # - name: Upload Xcode .xcresult file
+    #     echo "Generating code coverage data from $ABSOLUTE_DERIVED_DATA/Logs/Test/*.xccovreport"
+    #     xcrun xccov view --report $(find $ABSOLUTE_DERIVED_DATA/Logs/Test -name '*.xcresult') --json > code_coverage.json
+
+    # # Uploading Code Coverage Data
+    # - name: Upload Code Coverage Data
     #   uses: actions/upload-artifact@v4
     #   with:
-    #     name: XcodeReport.xcresult
-    #     path: $ABSOLUTE_DERIVED_DATA/Logs/Test/XcodeReport.xcresult
-    #   env:
-    #     ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
-    
-    # # Upload .json file
-    # - name: Upload JSON report file
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: coverage.json
-    #     path: $ABSOLUTE_DERIVED_DATA/Logs/Test/coverage.json
-    #   env:
-    #     ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
-
-    # # Debug Derived Data Contents
-    # - name: Debug Derived Data Contents
-    #   run: |
-    #     echo "Contents of Derived Data $ABSOLUTE_DERIVED_DATA/Logs/Test:"
-    #     ls $ABSOLUTE_DERIVED_DATA/Logs/Test || echo "No test logs found!"
-    #   env:
-    #     ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
-
-    # # Generate and upload coverage reports (text and json)
-    # - name: Generate Coverage Report
-    #   run: |
-    #     xcrun xccov view --report $(find $ABSOLUTE_DERIVED_DATA/Logs/Test -name '*.xccovreport') > coverage-report.txt
-    #   env:
-    #     ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
-
-    # - name: Generate JSON Coverage Report
-    #   run: |
-    #     xcrun xccov view --json $(find $ABSOLUTE_DERIVED_DATA/Logs/Test -name '*.xccovreport') > coverage-report.json
-    #   env:
-    #     ABSOLUTE_DERIVED_DATA: ${{ env.ABSOLUTE_DERIVED_DATA }}
-
-    # # Upload coverage reports
-    # - name: Upload Coverage Report
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: Coverage Report
+    #     name: Code Coverage Data
     #     path: |
-    #       coverage-report.txt
-    #       coverage-report.json
+    #       codecov.json
+    
+    # # Generating Code Coverage Report with xcparse
+    # - name: Generate Code Coverage Report
+    #   run: xcparse codecov $ABSOLUTE_DERIVED_DATA/Logs/Test/*.xcresult $ABSOLUTE_DERIVED_DATA/Logs/Test/exportCodeCoverageFiles
+    
+    # # Uploading Code Coverage Report
+    # - name: Upload Code Coverage Report
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: Code Coverage Report
+    #     path: exportCodeCoverageFiles
